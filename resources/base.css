@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+h1 {
+    @apply font-bold text-3xl text-warmGrey-600;
+    font-family: 'Inkwell Serif',Verdana,sans-serif;
+}
+
+h2 {
+    @apply font-bold text-warmGrey-600;
+    font-weight: 700;
+    font-size: 1.25rem;
+    font-family: 'Inkwell Serif',Verdana,sans-serif;
+}
+
+h3 {
+    @apply font-medium
+}
+
+fieldset {
+    @apply px-3 border border-gray-400 pb-1.5;
+}
+
+label {
+    font-weight: bold;
+}
+
+label input {
+    line-height: 1.1rem!important;
+    display: block;
+}
+
+dialog {
+    padding: 0;
+    position: fixed;
+}
+
+legend {
+    @apply px-1.5;
+}

@@ -1,0 +1,25 @@
+{
+  "name": "awesome-funtime.game",
+  "version": "1.0.0",
+  "description": "Awesome Funtime Game.",
+  "main": "webpack.mix.js",
+  "directories": {},
+  "scripts": {},
+  "author": "Bjørn Dons",
+  "license": "MIT",
+  "dependencies": {
+    "@tailwindcss/aspect-ratio": "^0.2.1",
+    "@tailwindcss/forms": "^0.3.3",
+    "autoprefixer": "^10.2.6",
+    "dialog-polyfill": "^0.5.6",
+    "htmx.org": "^1.4",
+    "laravel-mix": "^6.0",
+    "luxon": "^1.27.0",
+    "postcss": "^8.3",
+    "postcss-import": "^14.0.2",
+    "tabulator-tables": "^5.0.0-alpha.0",
+    "tailwindcss": "^2.1",
+    "tippy.js": "^6.3.1",
+    "vanilla-tilt": "^1.7.0"
+  }
+}

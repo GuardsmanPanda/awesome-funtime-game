@@ -1,0 +1,46 @@
+@import "base.css";
+@import "tabulator.css";
+
+.headline {
+    @apply border-b-2 border-dotted border-warmGrey-300 mb-2 flex justify-between leading-5;
+}
+
+.leaflet-tooltip {
+    @apply font-bold text-lg;
+    padding-bottom: 0!important;
+    padding-top: 0!important;
+}
+
+
+.content-header {
+    @apply border-b flex justify-between items-center leading-5;
+}
+.content-body {
+    @apply p-2;
+}
+
+.inline-header {
+    @apply font-bold;
+}
+
+.page-external {
+    @apply transform hover:scale-110 transition-transform;
+}
+
+
+.small-button-orange {
+    @apply bg-orange-200 hover:bg-orange-400 px-2 rounded shadow py-0.5 text-sm;
+}
+.small-button-blue {
+    @apply bg-blue-500 hover:bg-blue-700 px-2 rounded shadow text-gray-50 py-0.5  text-sm;
+}
+.small-button-gray {
+    @apply bg-gray-300 hover:bg-gray-500 px-2 rounded shadow py-0.5 text-sm;
+}
+.button-gray {
+    @apply font-medium py-1.5 px-4 rounded shadow bg-gray-200 hover:bg-gray-400 text-gray-800 hover:text-black;
+}
+.button-blue {
+    @apply font-medium py-1.5 px-4 rounded shadow bg-blue-600 hover:bg-blue-800 text-gray-100 hover:text-gray-200;
+}
+
