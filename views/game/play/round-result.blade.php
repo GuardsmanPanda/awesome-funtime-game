@@ -16,7 +16,7 @@
                 @endif
             </div>
         </div>
-        <div class="absolute bg-black bg-opacity-90 font-bold pl-2 pr-4 py-1 rounded-br-md text-gray-300 text-xl shadow-lg leading-5"
+        <div class="absolute bg-black bg-opacity-90 font-bold pl-2 pr-4 py-1 rounded-br-md text-green-500 text-xl shadow-lg leading-5"
              style="font-family: 'Inkwell Sans',Verdana,sans-serif;z-index: 50000;">
             <div><span class="text-gray-500">{{t('Country')}}: </span>{{$country->country_name}} <span class="text-gray-400">[{{$country->country_code}}/{{$country->iso_3}}]</span></div>
             @if($country->independent_status !== 'Yes')
@@ -24,10 +24,10 @@
             @endif
             <div><span class="text-gray-500">{{t('Currency')}}: </span>{{$country->currency_name}} <span class="text-gray-400">[{{$country->currency_code}}]</span></div>
             <div><span class="text-gray-500">{{t('Capital')}}: </span>{{$country->capital}}</div>
-            <div class="mt-1.5"><span class="text-gray-500">{{t('Calling code')}}: </span>+{{$country->dialing_code}}</div>
+            <div class="mt-1.5"><span class="text-gray-500">{{t('Dialing code')}}: </span>+{{$country->dialing_code}}</div>
             <div><span class="text-gray-500">{{t('Domain')}}: </span>{{$country->tld}}</div>
             <div class="mt-1.5"><span class="text-gray-500">{{t('Population')}}: </span><span _="on load put ({{$country->population}}).toLocaleString() into me"></span> <span class="text-gray-400">#{{$country->population_rank}}</span></div>
-            <div><span class="text-gray-500">{{t('Area')}}: </span><span _="on load put ({{$country->land_area}}).toLocaleString() into me"></span> <span class="text-gray-500">km<sup>2</sup></span> <span class="text-gray-400">#{{$country->land_area_rank}}</span></div>
+            <div><span class="text-gray-500">{{t('Size')}}: </span><span _="on load put ({{$country->area}}).toLocaleString() into me"></span> <span class="text-gray-500">km<sup>2</sup></span> <span class="text-gray-400">#{{$country->area_rank}}</span></div>
         </div>
     </div>
     <div style="width: 27rem; z-index: 500" class="shadow-2xl">

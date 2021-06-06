@@ -12,13 +12,15 @@ Route::get('active', function () { return Resp::SQLJson("
         SELECT g.id, g.round_count, g.round_time, g.current_round, u.display_name
         FROM game g
         LEFT JOIN users u ON u.id = g.created_by_user_id
-        WHERE g.round_count != g.current_round");
+        WHERE g.round_count != g.current_round
+        ORDER BY u.display_name");
 });
 Route::get('recent', function () { return Resp::SQLJson("
         SELECT g.id, g.round_count, u.display_name, g.ended_at
         FROM game g
         LEFT JOIN users u ON u.id = g.created_by_user_id
-        WHERE g.ended_at IS NOT NULL");
+        WHERE g.ended_at IS NOT NULL
+        ORDER BY g.ended_at DESC LIMIT 6");
 });
 
 Route::post('create', [DashboardController::class, 'create']);

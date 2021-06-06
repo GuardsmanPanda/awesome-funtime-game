@@ -1,6 +1,6 @@
-<div class="filter">
+<div class="filter drop-shadow-xl z-30 absolute h-64 hover:h-2/3 hover:opacity-100 hover:w-2/3 opacity-75 right-0 rounded-bl overflow-hidden w-96">
     <div id="map-container" style="clip-path: polygon(0 0, 100% 0, 100% 100%, 55% 100%);"
-         class="absolute group h-64 hover:h-2/3 hover:opacity-100 hover:w-2/3 opacity-75 right-0 rounded-bl-md w-96 z-10">
+         class="w-full h-full z-10">
         <div id="map" class="h-full w-full"></div>
     </div>
 </div>
