@@ -1,26 +1,34 @@
-<div class="flex border-b-2">
-    <div class="flex-grow font-bold text-3xl text-center">{{$game->display_name}}'s Game, {{$game->round_count}} rounds
-        total, {{$game->round_time}} seconds each
-    </div>
-    @if(\App\Tools\Auth::$user_id === $game->created_by_user_id && !$game->is_queued)
-        <form hx-post="/game/{{$game->id}}/start" hx-target="this" class="flex">
-            <label>
-                Minutes
-                <input name="countdown" type="number" value="2" class="inline w-16" min="1" max="9">
-            </label>
-            <button class="button-blue ml-2">Start Countdown</button>
-        </form>
-    @endif
-</div>
-<div class="flex gap-4 mt-4">
+<div class="flex gap-4 mt-4 flex-row flex-wrap">
     <x-content-raw title="{{t('Players')}}" icon="users">
-        <div id="player-table" class="w-80"></div>
+        <x-slot name="header">
+            @if(\App\Tools\Auth::$user_id === $game->created_by_user_id && !$game->is_queued)
+                <form hx-post="/game/{{$game->id}}/start" hx-target="this" class="flex">
+                    <label>
+                        Min
+                        <input name="countdown" type="number" value="2" class="inline w-16" min="1" max="9">
+                    </label>
+                    <button class="outline-button-lightTeal ml-2">Start Countdown</button>
+                </form>
+            @endif
+        </x-slot>
+        <div id="player-table" class="w-96"></div>
     </x-content-raw>
-    <div id="map-marker" class="w-80" hx-target="this">
+    <div id="map-marker" style="width: 22rem;" class="rounded flex-col bg-teal-300 p-0.5 from-teal-200 bg-gradient-to-bl shadow" hx-target="this">
         @include('game.lobby.map-marker')
     </div>
-    <x-content-raw title="{{t('Information')}}" icon="information-circle" style="flex-grow: 1;">
-        <div class="px-4 py-1 grid gap-4">
+    <div class="flex flex-col gap-4 w-96 flex-grow">
+        <div class="grid grid-cols-2 gap-4">
+            <x-text-card top-text="{{$game->round_count}}" bot-text="{{t('Rounds')}}"></x-text-card>
+            <x-text-card top-text="{{$game->round_time}}" bot-text="{{t('Seconds')}}"></x-text-card>
+        </div>
+        <div>
+            <x-content-raw title="{{t('Find panorama')}}" icon="globe">
+                <div class="px-4 py-1 grid gap-4">Not implemented yet...</div>
+            </x-content-raw>
+        </div>
+    </div>
+    <x-content-raw title="{{t('Information')}}" icon="information-circle">
+        <div class="px-4 py-1 grid gap-4 prose">
             <div>
                 <div class="font-bold">Unique Countries</div>
                 <div>There will not be a panorama from the same country twice in the same game.</div>
@@ -43,6 +51,7 @@
     const table = new Tabulator('#player-table', {
         ajaxURL: "/game/{{$game->id}}/player",
         minHeight: "100%",
+        layout:"fitDataStretch",
         columns: [
             {
                 title: "Flag", field: "country_code", headerSort: false, formatter: "image", formatterParams: {
