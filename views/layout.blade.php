@@ -59,17 +59,23 @@
 <body hx-indicator="#loading-status" hx-target="#primary" class="">
 <nav class="absolute bg-gray-800 flex  h-10 items-center justify-between shadow-md w-full"
      style="font-family: 'Inkwell Sans',Verdana,sans-serif; line-height: 1.3; font-size: 1.3rem;">
-    <div class="flex items-center">
+    <div class="flex items-center gap-6">
         <a href="/" class="flex items-center ">
             <img src="/static/img/icons/top.png" class="ml-4" alt="Logo">
         </a>
+        <a href="/admin" class="rounded text-orange-600 font-bold border-2 border-orange-600 px-2 text-2xl leading-6 hover:bg-orange-600 hover:text-gray-50">Admin</a>
+        <a href="/stats" class="rounded text-cyan-600 font-bold border-2 border-cyan-600 px-2 text-2xl leading-6 hover:bg-cyan-600 hover:text-gray-50">Stats</a>
     </div>
     <div class="flex gap-2">
         <div id="game-status" class="font-bold text-3xl text-gray-500"></div>
         <div id="countdown" class="font-bold text-3xl text-emerald-400 tabular-nums" style="opacity: 0; transition: all ease-in-out 2s"></div>
     </div>
 
-    <div class="flex items-center">
+    <div class="flex items-center gap-4">
+        <div class="items-center text-lightBlue-400 flex">
+            <x-icon name="translate" class="text-lightBlue-600"></x-icon>
+            <div class="font-bold">English</div>
+        </div>
         @if (\App\Tools\Auth::$user_id === -1)
             <a href="https://id.twitch.tv/oauth2/authorize?client_id=q8q6jjiuc7f2ef04wmb7m653jd5ra8&redirect_uri={{urlencode(config('app.url') . '/auth/twitch-login')}}&response_type=code&scope=user:read:email">
                 <div class="hover:bg-emerald-600 bg-emerald-400 mr-1 px-2 rounded text-black">Login With Twitch</div>
