@@ -57,13 +57,15 @@
     </script>
 </head>
 <body hx-indicator="#loading-status" hx-target="#primary" class="">
-<nav class="absolute bg-gray-800 flex  h-10 items-center justify-between shadow-md w-full"
+<nav class="absolute bg-gray-800 flex  h-10 items-center justify-between shadow-md w-full top-0"
      style="font-family: 'Inkwell Sans',Verdana,sans-serif; line-height: 1.3; font-size: 1.3rem;">
-    <div class="flex items-center gap-6">
+    <div class="flex items-center gap-4">
         <a href="/" class="flex items-center ">
             <img src="/static/img/icons/top.png" class="ml-4" alt="Logo">
         </a>
-        <a href="/admin" class="rounded text-orange-600 font-bold border-2 border-orange-600 px-2 text-2xl leading-6 hover:bg-orange-600 hover:text-gray-50">Admin</a>
+        @if(\App\Tools\Auth::user()->is_admin)
+            <a href="/admin/country" class="rounded text-orange-600 font-bold border-2 border-orange-600 px-2 text-2xl leading-6 hover:bg-orange-600 hover:text-gray-50">Admin</a>
+        @endif
         <a href="/stats" class="rounded text-cyan-600 font-bold border-2 border-cyan-600 px-2 text-2xl leading-6 hover:bg-cyan-600 hover:text-gray-50">Stats</a>
     </div>
     <div class="flex gap-2">
@@ -86,8 +88,18 @@
         @endif
     </div>
 </nav>
-
-<div id="primary" {!!$primary_hx!!} hx-trigger="load" class="pt-12 px-4 w-full flex-grow min-w-0 flex-shrink min-h-screen dark:bg-gray-800 text-gray-800 bg-gray-100 dark:text-gray-200"></div>
-
+@if($area === 'admin')
+    <div class="w-full min-w-0  min-h-screen text-gray-800 bg-gray-100 ">
+        <div class="pt-10 bg-gray-100 flex justify-center pb-4">
+            <div class="bg-orange-600 text-gray-100 flex gap-4" hx-boost="true" hx-target="#primary">
+                <a href="/admin/country">Countries</a>
+                <a href="/admin/language">Languages</a>
+            </div>
+        </div>
+        <div id="primary" {!!$primary_hx!!} hx-trigger="load" class="px-4"></div>
+    </div>
+@else
+    <div id="primary" {!!$primary_hx!!} hx-trigger="load" class="pt-12 px-4 w-full min-w-0 min-h-screen text-gray-800 bg-gray-100"></div>
+@endif
 </body>
 </html>

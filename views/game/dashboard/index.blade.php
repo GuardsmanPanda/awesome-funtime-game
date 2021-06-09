@@ -33,7 +33,7 @@
 
 <script>
     const active = new Tabulator('#active-games', {
-        data: '/game/active',
+        ajaxURL: '/game/active',
         columns: [
             {title:"ID", field: "id", headerSort:false},
             {title:"{{t('Created by')}}", field: "display_name", headerSort:false},
@@ -55,7 +55,7 @@
     });
 
     const recent = new Tabulator('#recent-games', {
-        data: '/game/recent',
+        ajaxURL: '/game/recent',
         columns: [
             {title:"ID", field: "id", headerSort:false},
             {title:"{{t('Created by')}}", field: "display_name", headerSort:false},

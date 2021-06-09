@@ -18,7 +18,7 @@
     "luxon": "^1.27.0",
     "postcss": "^8.3",
     "postcss-import": "^14.0.2",
-    "tabulator-tables": "^5.0.0-alpha.0",
+    "tabulator-tables": "^4.9.3",
     "tailwindcss": "^2.1",
     "tippy.js": "^6.3.1",
     "vanilla-tilt": "^1.7.0"

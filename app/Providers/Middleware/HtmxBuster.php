@@ -15,6 +15,7 @@ class HtmxBuster {
             $layout = str_ends_with($request->path() , '/play') ? 'layout-play' : 'layout';
             return response()->view($layout, [
                 'primary_hx' => 'hx-get="/' .trim($request->path(), '/') . '"',
+                'area' => str_starts_with($request->path(), 'admin') ? 'admin' : '',
             ]);
         }
         return $next($request);
