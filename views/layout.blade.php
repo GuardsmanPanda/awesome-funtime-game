@@ -9,12 +9,12 @@
     <link href="/static/fonts.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="/static/leaflet/leaflet.css" />
     <link rel="stylesheet" href="/static/pannellum.css">
-    <link rel="stylesheet" href="/static/dist/app.css">
+    <link rel="stylesheet" href="{{mix('/static/dist/app.css')}}">
 
     <script src="https://unpkg.com/hyperscript.org@0.0.9"></script>
     <script src="/static/leaflet/leaflet.js"></script>
     <script src="/static/pannellum.js"></script>
-    <script src="/static/dist/app.js"></script>
+    <script src="{{mix('/static/dist/app.js')}}"></script>
 
     <script>
         let targetTime = null;
@@ -63,7 +63,7 @@
         <a href="/" class="flex items-center ">
             <img src="/static/img/icons/top.png" class="ml-4" alt="Logo">
         </a>
-        @if(\App\Tools\Auth::user()->is_admin)
+        @if(\App\Tools\Auth::is_admin())
             <a href="/admin/country" class="rounded text-orange-600 font-bold border-2 border-orange-600 px-2 text-2xl leading-6 hover:bg-orange-600 hover:text-gray-50">Admin</a>
         @endif
         <a href="/stats" class="rounded text-cyan-600 font-bold border-2 border-cyan-600 px-2 text-2xl leading-6 hover:bg-cyan-600 hover:text-gray-50">Stats</a>

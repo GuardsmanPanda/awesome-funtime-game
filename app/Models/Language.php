@@ -19,10 +19,11 @@ use Carbon\Carbon;
  * @method static Builder with(array|string  $relations)
  *
  * @property int id
- * @property int three_letter_code
+ * @property int created_by_user_id
  * @property bool has_translation
  * @property string language_name
  * @property string two_letter_code
+ * @property string three_letter_code
  * @property Carbon created_at
  *
  * AUTO GENERATED FILE DO NOT MODIFY

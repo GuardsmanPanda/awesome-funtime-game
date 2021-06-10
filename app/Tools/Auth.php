@@ -18,7 +18,7 @@ class Auth {
         return self::$current_user;
     }
 
-    public static function is_curator(): bool {
-        return self::user() === null ? false : self::$current_user->is_curator;
+    public static function is_admin(): bool {
+        return self::user() === null ? false : self::$current_user->is_admin;
     }
 }

@@ -9,12 +9,13 @@
     <link href="/static/fonts.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="/static/leaflet/leaflet.css" />
     <link rel="stylesheet" href="/static/pannellum.css">
-    <link rel="stylesheet" href="/static/dist/app.css">
 
     <script src="https://unpkg.com/hyperscript.org@0.0.9"></script>
     <script src="/static/leaflet/leaflet.js"></script>
     <script src="/static/pannellum.js"></script>
-    <script src="/static/dist/app.js"></script>
+
+    <link rel="stylesheet" href="{{mix('/static/dist/app.css')}}">
+    <script src="{{mix('/static/dist/app.js')}}"></script>
 
     <script>
         let targetTime = null;
