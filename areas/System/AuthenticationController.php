@@ -7,6 +7,8 @@ use App\Tools\Req;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\RedirectResponse;
@@ -48,14 +50,44 @@ class AuthenticationController extends Controller {
         }
         $user->twitch_id = $twitch_user['id'];
         $user->display_name = $twitch_user['display_name'];
-
+        $this->updateUserAndAddGroup($user, 1);
         return $this->logUserIn($user);
     }
 
-    private function logUserIn(User $user): RedirectResponse {
+
+    public function loginWithSignedPayload(Request $r): RedirectResponse {
+        $p = str_replace(' ', '+', $r->get('payload'));
+        $s = base64_decode(str_replace(' ', '+', $r->get('signature')));
+        $rr = openssl_verify($p, $s, File::get(storage_path('app/gnx_public_key.pem')), "sha256WithRSAEncryption");
+        if ($rr !== 1) {
+            abort(403, 'Invalid signature');
+        }
+        $content = json_decode(base64_decode($p), false, 512, JSON_THROW_ON_ERROR);
+        if (Carbon::parse($content->timestamp) < Carbon::now()->subMinutes(2)) {
+            abort(403, 'Signature too old');
+        }
+        $user = User::firstWhere('work_email', '=', $content->email);
+        if ($user === null) {
+            $user = new User();
+            $user->work_email = $content->email;
+        }
+        $user->display_name = $content->display_name;
+        $this->updateUserAndAddGroup($user, 2);
+        return $this->logUserIn($user);
+    }
+
+    private function updateUserAndAddGroup(User $user, int $group_id):void {
         $user->country_code = Req::header('CF-IPCountry') ?? 'XX';
         $user->last_login_at = Carbon::now();
         $user->save();
+        DB::insert("
+            INSERT INTO group_user (group_id, user_id) VALUES (?, ?)
+            ON CONFLICT (group_id, user_id) DO NOTHING
+        ", [$group_id, $user->id]);
+    }
+
+
+    private function logUserIn(User $user): RedirectResponse {
         session()->migrate(true);
         session()->put('login_id', $user->id);
         return Redirect::to('/game', 303);

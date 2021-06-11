@@ -24,6 +24,7 @@ use Carbon\Carbon;
  * @property bool is_admin
  * @property bool can_create_games
  * @property string email
+ * @property string work_email
  * @property string display_name
  * @property string country_code
  * @property string language_code
