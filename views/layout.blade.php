@@ -88,12 +88,27 @@
         @endif
     </div>
 </nav>
+<dialog class="dialog" id="general-dialog">
+    <div class="flex bg-blueGray-600 text-gray-100 justify-between h-8 items-center font-medium pl-4 gap-4">
+        <div id="pop-title">{{t('Dialog')}}</div>
+        <form method="dialog">
+            <button class="w-8 h-8 hover:text-red-600 align-middle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </form>
+    </div>
+    <div class="px-4 pb-4 pt-2 grid gap-2" id="pop">
+        test
+    </div>
+</dialog>
 @if($area === 'admin')
     <div class="w-full min-w-0  min-h-screen text-gray-800 bg-gray-100 ">
         <div class="pt-10 bg-gray-100 flex justify-center pb-4">
-            <div class="bg-orange-600 text-gray-100 flex gap-4" hx-boost="true" hx-target="#primary">
-                <a href="/admin/country">Countries</a>
-                <a href="/admin/language">Languages</a>
+            <div class="bg-gray-800 flex gap-4 px-4 py-2 rounded-b-md shadow-lg" hx-boost="true" hx-target="#primary">
+                <a href="/admin/country" class="small-button-blue">Countries</a>
+                <a href="/admin/language" class="small-button-blue">Languages</a>
             </div>
         </div>
         <div id="primary" {!!$primary_hx!!} hx-trigger="load" class="px-4"></div>
@@ -101,5 +116,11 @@
 @else
     <div id="primary" {!!$primary_hx!!} hx-trigger="load" class="pt-12 px-4 w-full min-w-0 min-h-screen text-gray-800 bg-gray-100"></div>
 @endif
+
+<script>
+    window.pop = document.getElementById('general-dialog');
+    Dialog.registerDialog(pop);
+</script>
+
 </body>
 </html>

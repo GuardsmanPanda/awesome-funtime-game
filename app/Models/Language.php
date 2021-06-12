@@ -16,9 +16,12 @@ use Carbon\Carbon;
  * @method static Language firstWhere(string $column, string $operator = null, string $value = null, string $boolean = 'and')
  * @method static Builder where(string $column, string $operator = null, string $value = null, string $boolean = 'and')
  * @method static Builder whereIn(string $column, $values, $boolean = 'and', $not = false)
+ * @method static Builder orderBy(string $column, string $direction = 'asc')
  * @method static Builder with(array|string  $relations)
  *
  * @property int id
+ * @property int total_speakers
+ * @property int native_speakers
  * @property int created_by_user_id
  * @property bool has_translation
  * @property string language_name

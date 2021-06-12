@@ -2,27 +2,7 @@
     <div id="country-table"></div>
 </x-content-raw>
 
-<dialog class="dialog" id="country-language">
-    <div class="flex bg-blueGray-600 text-gray-100 justify-between h-8 items-center font-medium">
-        <div class="px-4">{{t('Edit the languages')}}</div>
-        <form method="dialog">
-            <button class="w-8 h-8 hover:text-red-600 align-middle">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"/>
-                </svg>
-            </button>
-        </form>
-    </div>
-    <div class="px-4 pb-4 pt-2 grid gap-2" id="language-editor">
-        test
-    </div>
-</dialog>
-
-
 <script>
-    const dia = document.getElementById('country-language');
-    Dialog.registerDialog(dia);
-
      const table = new Tabulator('#country-table', {
         ajaxURL: "/admin/country/list",
         height: "600px",
@@ -56,18 +36,28 @@
             {title: "Capital", field: "capital"},
             {title: "Population", field: "population", sorter:"number", editor:"number"},
             {title: "Area", field: "area", sorter:"number", editor:"number"},
-            {title: "Languages", field: "language_count", sorter:"number"},
-            {title: "Languages", field: "country_code", formatter: function (cell, formatterParams, onRendered ) {
+            {title: "{{t('Languages')}}", field: "language_count", sorter:"number"},
+            {title: "{{t('Languages')}}", field: "country_code", formatter: function (cell, formatterParams, onRendered ) {
                     const elem = document.createElement('button');
                     elem.setAttribute('class', 'small-button-blue');
                     elem.innerText = "{{t('Languages')}}";
                     elem.onclick = function () {
-                        htmx.ajax('GET','/admin/country/'+cell.getValue()+'/language-editor', htmx.find('#language-editor'))
-                            .then(res => dia.showModal());
+                        htmx.ajax('GET','/admin/country/'+cell.getValue()+'/language-editor', htmx.find('#pop'))
+                            .then(res => pop.showModal());
                     };
                     return elem;
                 }},
-            {title: "Facts", field: "fact_count", sorter:"number"},
+            {title: "{{t('Facts')}}", field: "fact_count", sorter:"number"},
+            {title: "{{t('Facts')}}", field: "country_code", formatter: function (cell, formatterParams, onRendered ) {
+                    const elem = document.createElement('button');
+                    elem.setAttribute('class', 'small-button-blue');
+                    elem.innerText = "{{t('Facts')}}";
+                    elem.onclick = function () {
+                        htmx.ajax('GET','/admin/country/'+cell.getValue()+'/fact-editor', htmx.find('#pop'))
+                            .then(res => pop.showModal());
+                    };
+                    return elem;
+                }},
             {title: "Independence Date (ISO)", field: "independence_date", sorter:"string", editor:"input", editorParams:{mask:"9999-99-99"}},
         ]
     })

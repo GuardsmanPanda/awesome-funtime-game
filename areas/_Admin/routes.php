@@ -10,6 +10,7 @@ Route::patch('country', [AdminController::class, 'patchCountry']);
 Route::get('country/list', [AdminController::class, 'listCountry']);
 
 Route::get('country/{country}/language-editor', [AdminController::class, 'getCountryLanguageEditor']);
+Route::post('country/{country}/language',   [AdminController::class, 'addLanguageToCountry']);
 
 
 Route::view('language',  '_admin.language');

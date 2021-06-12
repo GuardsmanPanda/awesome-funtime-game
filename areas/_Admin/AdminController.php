@@ -10,6 +10,7 @@ use App\Models\Country;
 use App\Models\Language;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Collection;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -38,9 +39,26 @@ class AdminController {
     }
 
     public function getCountryLanguageEditor(Country $country): view {
-        return view('_admin.country-language-editor');
+        return view('_admin.country-language-editor', [
+            'country' => $country,
+            'country_lang' =>DB::select("
+                SELECT
+                    lang.id, lang.language_name, lang.two_letter_code, lang.three_letter_code, cl.percentage
+                FROM country_language cl
+                LEFT JOIN language lang ON lang.id = cl.language_id
+                WHERE cl.country_code = ?
+                ORDER BY cl.percentage DESC
+            ", [$country->country_code]),
+        ]);
     }
 
+    public function addLanguageToCountry(Country $country): View {
+        DB::insert("
+            INSERT INTO country_language (country_code, language_id, percentage, created_by_user_id) VALUES (?, ?, ?, ?)
+            ON CONFLICT (country_code, language_id) DO UPDATE SET percentage = excluded.percentage
+        ", [$country->country_code, Req::input('language_id'), Req::input('percentage'), Auth::$user_id]);
+        return $this->getCountryLanguageEditor($country);
+    }
 
 
     public function listLanguage(): JsonResponse  {
@@ -58,6 +76,8 @@ class AdminController {
         $lang->language_name = Req::input('language_name');
         $lang->two_letter_code = Req::input('two_letter_code');
         $lang->three_letter_code = Req::input('three_letter_code');
+        $lang->total_speakers = Req::input('total_speakers') === '-1' ?  null : Req::input('total_speakers');
+        $lang->native_speakers = Req::input('native_speakers') === '-1' ?  null : Req::input('native_speakers');
         $lang->created_by_user_id = Auth::$user_id;
         $lang->save();
         return view('_admin.language');

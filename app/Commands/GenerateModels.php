@@ -106,6 +106,7 @@ class GenerateModels extends Command {
             $content .= " * @method static $class_name firstWhere(string \$column, string \$operator = null, string \$value = null, string \$boolean = 'and')" . PHP_EOL;
             $content .= " * @method static Builder where(string \$column, string \$operator = null, string \$value = null, string \$boolean = 'and')" . PHP_EOL;
             $content .= " * @method static Builder whereIn(string \$column, \$values, \$boolean = 'and', \$not = false)" . PHP_EOL;
+            $content .= " * @method static Builder orderBy(string \$column, string \$direction = 'asc')" . PHP_EOL;
             $content .= " * @method static Builder with(array|string  \$relations)" . PHP_EOL;
             $content .= " *" . PHP_EOL;
 
