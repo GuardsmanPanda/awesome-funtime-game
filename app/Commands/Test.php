@@ -10,6 +10,10 @@ class Test extends Command {
     protected $description = 'test';
 
     public function handle(): void {
+        DB::select("
+             select * FROM spatial_ref_sys
+        ");
+
         DB::update("
             UPDATE country c1 SET
             population_rank = x.pop, area_rank = x.arr
