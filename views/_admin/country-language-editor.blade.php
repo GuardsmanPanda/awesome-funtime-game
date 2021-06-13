@@ -1,6 +1,6 @@
 <div class="grid gap-4">
     <form class="flex gap-4" hx-post="/admin/country/{{$country->country_code}}/language" hx-target="closest div">
-        <label>Language
+        <label>{{t('Language')}}
             <select name="language_id">
                 @foreach(\App\Models\Language::orderBy('language_name')->get() as $lang)
                     <option value="{{$lang->id}}">{{$lang->language_name}} [{{$lang->two_letter_code}}]</option>
@@ -8,14 +8,14 @@
             </select>
         </label>
         <label>
-            Speaking %
+            {{t('Speaking')}} %
             <input type="number" min="0" max="100" autofocus name="percentage">
         </label>
         <button class="button-blue">Add</button>
     </form>
     <div>
         <fieldset>
-            <legend>Languages</legend>
+            <legend>{{t('Languages')}}</legend>
             <table class="table-auto">
                 <thead>
                     <tr>

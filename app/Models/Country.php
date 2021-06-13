@@ -24,6 +24,7 @@ use Carbon\Carbon;
  * @property int population
  * @property int population_rank
  * @property int independence_date_rank
+ * @property bool is_right_handed_driving
  * @property string tld
  * @property string iso_3
  * @property string capital

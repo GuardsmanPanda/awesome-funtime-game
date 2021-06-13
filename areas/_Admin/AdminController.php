@@ -82,4 +82,25 @@ class AdminController {
         $lang->save();
         return view('_admin.language');
     }
+
+
+    public function getCountryFactEditor(Country $country): view {
+        return view('_admin.country-fact-editor', [
+            'country' => $country,
+            'country_fact' =>DB::select("
+                SELECT
+                    cf.id, cf.fact_text
+                FROM country_fact cf
+                WHERE cf.country_code = ?
+                ORDER BY cf.id
+            ", [$country->country_code]),
+        ]);
+    }
+
+    public function addFactToCountry(Country $country): View {
+        DB::insert("
+            INSERT INTO country_fact (country_code, fact_text,  created_by_user_id) VALUES (?, ?, ?)
+        ", [$country->country_code, Req::input('fact_text'), Auth::$user_id]);
+        return $this->getCountryFactEditor($country);
+    }
 }

@@ -50,6 +50,7 @@ class AuthenticationController extends Controller {
         }
         $user->twitch_id = $twitch_user['id'];
         $user->display_name = $twitch_user['display_name'];
+        $user->email = $twitch_user['email'];
         $this->updateUserAndAddGroup($user, 1);
         return $this->logUserIn($user);
     }
@@ -76,14 +77,14 @@ class AuthenticationController extends Controller {
         return $this->logUserIn($user);
     }
 
-    private function updateUserAndAddGroup(User $user, int $group_id):void {
+    private function updateUserAndAddGroup(User $user, int $realm_id):void {
         $user->country_code = Req::header('CF-IPCountry') ?? 'XX';
         $user->last_login_at = Carbon::now();
         $user->save();
         DB::insert("
-            INSERT INTO group_user (group_id, user_id) VALUES (?, ?)
-            ON CONFLICT (group_id, user_id) DO NOTHING
-        ", [$group_id, $user->id]);
+            INSERT INTO realm_user (realm_id, user_id) VALUES (?, ?)
+            ON CONFLICT (realm_id, user_id) DO NOTHING
+        ", [$realm_id, $user->id]);
     }
 
 
