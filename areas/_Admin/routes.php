@@ -19,5 +19,6 @@ Route::get('country/{country_code}/fact/list',   [AdminController::class, 'listF
 
 Route::view('language',  '_admin.language');
 Route::post('language',   [AdminController::class, 'createLanguage']);
+Route::patch('language', [AdminController::class, 'patchLanguage']);
 Route::get('language/list',  [AdminController::class, 'listLanguage']);
 

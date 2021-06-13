@@ -83,6 +83,15 @@ class AdminController {
         return view('_admin.language');
     }
 
+    public function patchLanguage(Request $r): JsonResponse {
+        $json = json_decode($r->getContent(), true, 512, JSON_THROW_ON_ERROR);
+        $language = Language::find($json['id']);
+        $language->native_speakers = $json['native_speakers'];
+        $language->total_speakers = $json['total_speakers'];
+        $language->save();
+        return $this->listLanguage();
+    }
+
 
     public function getCountryFactEditor(Country $country): view {
         return view('_admin.country-fact-editor', [

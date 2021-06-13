@@ -6,7 +6,6 @@ use FilesystemIterator;
 use RecursiveIteratorIterator;
 use Illuminate\Console\Command;
 use RecursiveDirectoryIterator;
-use Illuminate\Support\Facades\Http;
 use Integrations\Translate\GoogleCloudTranslation;
 
 class Translate extends Command {
@@ -27,9 +26,7 @@ class Translate extends Command {
 
         foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->view_dir, FilesystemIterator::SKIP_DOTS | FilesystemIterator::CURRENT_AS_PATHNAME)) as $x) {
             preg_match_all ("/[^a-zA-Z0-9]t\('(.+?)'\)/", file_get_contents($x), $matches, PREG_SET_ORDER);
-            $this->info($x);
             foreach ($matches as $match) {
-                $this->info($match[1]);
                 $need_translate[] = $match[1];
             }
         }
@@ -40,7 +37,33 @@ class Translate extends Command {
             if ($file === '.' || $file === '..') {
                 continue;
             }
-            $this->info($file);
+            preg_match_all ('/"(.+)?" => "(.+?)",/', file_get_contents($this->output_dir . $file), $matches, PREG_SET_ORDER);
+
+            $current_translations = [];
+            foreach ($matches as $match) {
+                $current_translations[$match[1]] = $match[2];
+            }
+
+            foreach ($need_translate as $word) {
+                if (array_key_exists($word, $current_translations)) {
+                    continue;
+                }
+                $target = str_replace('.php', '', $file);
+                $translated = GoogleCloudTranslation::translate($word, $target);
+                $current_translations[$word] = $translated;
+                $this->info("Translated [$word] to $target => $translated");
+                usleep(200000);
+            }
+
+            $content = '<?php // AUTO GENERATE ONLY MODIFY EXISTING LINES ** Between " and " ON THE RIGHT **' . PHP_EOL;
+            $content .= 'return [' . PHP_EOL;
+            ksort($current_translations);
+            foreach ($current_translations as $word => $translated) {
+                $content .= '    "' . $word . '" => "' . $translated . '",' . PHP_EOL;
+            }
+            $content .= '];' . PHP_EOL;
+
+            file_put_contents($this->output_dir . $file, $content);
         }
     }
 }

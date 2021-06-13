@@ -1,22 +1,20 @@
-<div class="flex">
-    <div class="flex-grow">
-        <div class="border-b flex justify-between">
-            <div class="font-bold">{{t('Active games')}}</div>
-            <div>
+<div class="flex gap-4">
+    <div class="flex-grow grid gap-4">
+        <x-content-raw title="{{t('Active games')}}" icon="users">
+            <x-slot name="header">
                 @if(\App\Tools\Auth::user()?->can_create_games)
                     <x-dialog id="create-game" button-text="{{t('Create')}}" title="{{t('Create a new game')}}"
-                              class="small-button-blue">
+                              class="outline-button-lightTeal">
                         @include('game.dashboard.create-game-form')
                     </x-dialog>
                 @endif
-            </div>
-        </div>
-        <div id="active-games"></div>
+            </x-slot>
+            <div id="active-games"></div>
+        </x-content-raw>
 
-        <div class="border-b mt-6">
-            <div class="font-bold">{{t('Recent games')}}</div>
+        <x-content-raw title="{{t('Recent games')}}" icon="users">
             <div id="recent-games"></div>
-        </div>
+        </x-content-raw>
     </div>
 
     <div class="h-80 overflow-hidden w-80">
@@ -38,7 +36,7 @@
             {title:"ID", field: "id", headerSort:false},
             {title:"{{t('Created by')}}", field: "display_name", headerSort:false},
             {title:"{{t('Rounds')}}", field: "round_count", headerSort:false},
-            {title:"{{t('Round Time')}}", field: "round_time", headerSort:false},
+            {title:"{{t('Round time')}}", field: "round_time", headerSort:false},
             {title:"{{t('Started')}}", field: "current_round", headerSort:false, formatter: function (cell, formatterParams, onRendered ) {
                     return cell.getValue() === 0 ? '-' : 'Yes';
                 }
@@ -60,7 +58,7 @@
             {title:"ID", field: "id", headerSort:false},
             {title:"{{t('Created by')}}", field: "display_name", headerSort:false},
             {title:"{{t('Rounds')}}", field: "round_count", headerSort:false},
-            {title:"{{t('Round Time')}}", field: "round_time", headerSort:false},
+            {title:"{{t('Round time')}}", field: "round_time", headerSort:false},
             {title:"{{t('Ending time')}}", field: "ended_at", headerSort:false},
             {title:"{{t('Result')}}", field: "id", headerSort:false, formatter: function (cell, formatterParams, onRendered ) {
                     const elem = document.createElement('a');

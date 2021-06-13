@@ -47,14 +47,30 @@
         height: "600px",
         layout:"fitDataStretch",
         cellVertAlign: "middle",
+        cellEdited:function(cell){
+            fetch('/admin/language', {
+                method:'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(cell.getData()),
+            }).then(response => response.json())
+                .then(data => {
+                    table.replaceData(data);
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    table.replaceData(data);
+                });
+        },
         columns: [
             {title: "ID", field: "id"},
             {title: "Name", field: "language_name"},
             {title: "Translation", field: "has_translation", formatter:"tickCross", hozAlign:"center"},
             {title: "Iso-639-1", field: "two_letter_code"},
             {title: "Iso-639-2", field: "three_letter_code"},
-            {title: "Native Speakers", field: "native_speakers", formatter: "number", sorter:"number"},
-            {title: "Total Speakers", field: "total_speakers", formatter: "number", sorter:"number"},
+            {title: "Native Speakers", field: "native_speakers", formatter: "number", sorter:"number", editor:"number"},
+            {title: "Total Speakers", field: "total_speakers", formatter: "number", sorter:"number", editor:"number"},
             {title: "Added by", field: "display_name"},
         ]
     })
