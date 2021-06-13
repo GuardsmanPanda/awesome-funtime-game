@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Commands\Test;
+use App\Commands\Translate;
 use App\Commands\GenerateModels;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel;
@@ -17,6 +18,7 @@ class ConsoleKernel extends Kernel {
     protected $commands = [
         GenerateModels::class,
         Test::class,
+        Translate::class,
         UpdateLocationInformation::class,
     ];
 

@@ -103,4 +103,15 @@ class AdminController {
         ", [$country->country_code, Req::input('fact_text'), Auth::$user_id]);
         return $this->getCountryFactEditor($country);
     }
+
+    public function listFact(string $country_code): JsonResponse  {
+        return Resp::SQLJson("
+            SELECT
+                cf.*, u.display_name
+            FROM country_fact cf
+            LEFT JOIN users u ON cf.created_by_user_id = u.id
+            WHERE cf.country_code = ?
+            ORDER BY cf.id
+        ", [$country_code]);
+    }
 }

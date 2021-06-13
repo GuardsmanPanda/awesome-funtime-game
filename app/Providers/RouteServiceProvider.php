@@ -18,8 +18,8 @@ class RouteServiceProvider extends ServiceProvider {
                 Route::prefix('admin')->group(base_path('areas/_Admin/routes.php'));
             });
 
-            Route::middleware(['cookie', 'session'])
-                ->get('auth/twitch-login', [AuthenticationController::class, 'twitchLogin']);
+            Route::middleware(['cookie', 'session'])->get('auth/twitch-login', [AuthenticationController::class, 'twitchLogin']);
+            Route::middleware(['cookie', 'session'])->get('auth/payload-login', [AuthenticationController::class, 'loginWithSignedPayload']);
 
             Route::get('/test', function () {
                 $pick = new PanoramaPicker(Game::find(3));

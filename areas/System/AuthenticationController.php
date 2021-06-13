@@ -51,7 +51,7 @@ class AuthenticationController extends Controller {
         $user->twitch_id = $twitch_user['id'];
         $user->display_name = $twitch_user['display_name'];
         $user->email = $twitch_user['email'];
-        $this->updateUserAndAddGroup($user, 1);
+        $this->updateUserAndAddRealm($user, 1);
         return $this->logUserIn($user);
     }
 
@@ -73,11 +73,11 @@ class AuthenticationController extends Controller {
             $user->work_email = $content->email;
         }
         $user->display_name = $content->display_name;
-        $this->updateUserAndAddGroup($user, 2);
+        $this->updateUserAndAddRealm($user, 2);
         return $this->logUserIn($user);
     }
 
-    private function updateUserAndAddGroup(User $user, int $realm_id):void {
+    private function updateUserAndAddRealm(User $user, int $realm_id):void {
         $user->country_code = Req::header('CF-IPCountry') ?? 'XX';
         $user->last_login_at = Carbon::now();
         $user->save();

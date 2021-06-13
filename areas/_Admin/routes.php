@@ -14,6 +14,7 @@ Route::post('country/{country}/language',   [AdminController::class, 'addLanguag
 
 Route::get('country/{country}/fact-editor', [AdminController::class, 'getCountryFactEditor']);
 Route::post('country/{country}/fact',   [AdminController::class, 'addFactToCountry']);
+Route::get('country/{country_code}/fact/list',   [AdminController::class, 'listFact']);
 
 
 Route::view('language',  '_admin.language');
