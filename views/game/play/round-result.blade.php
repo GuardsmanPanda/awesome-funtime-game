@@ -1,6 +1,6 @@
 <div class="flex bg-blueGray-900 h-screen">
     <div id="map" class="flex-grow relative">
-        @include('game.common.pengu-countdown', ['title_counter' => t('Next round')])
+        @include('game.common.pengu-countdown', ['title_counter' => ($game->current_round === $game->round_count ? t('Game ends in') : t('Next round'))])
         <div class="w-full flex justify-center">
             <div class="absolute bg-black bg-opacity-80 font-bold px-4 py-1 rounded-b-md text-gray-500 text-2xl shadow-lg text-center flex items-center"
                  style="font-family: 'Inkwell Sans',Verdana,sans-serif;z-index: 500;">
