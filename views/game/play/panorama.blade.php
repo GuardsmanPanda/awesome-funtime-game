@@ -11,7 +11,7 @@
 <script>
     pannellum.viewer('primary', {
         "type": "equirectangular",
-        "panorama": "https://cdn.gman.bot/{{$game->file_name}}.webp",
+        "panorama": "https://funtime.gman.bot/files/{{$game->file_name}}.webp",
         "autoLoad": true
     });
 </script>

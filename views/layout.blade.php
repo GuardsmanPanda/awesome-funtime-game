@@ -75,6 +75,7 @@
 
     <div class="flex items-center gap-4">
         <div class="items-center text-lightBlue-400 flex">
+            <form hx-patch="/"></form>
             <x-icon name="translate" class="text-lightBlue-600"></x-icon>
             <div class="font-bold">English</div>
         </div>
@@ -83,7 +84,14 @@
                 <div class="hover:bg-emerald-600 bg-emerald-400 mr-1 px-2 rounded text-black">Login With Twitch</div>
             </a>
         @else
-            <div class="font-bold mr-2 text-gray-400">{{\App\Tools\Auth::user()->display_name}}</div>
+            <div class="font-bold mr-2 text-gray-400 relative group">{{\App\Tools\Auth::user()->display_name}}
+                <div class="absolute bg-gray-800 z-40 p-4 group-hover:block hidden">
+                    <a href="/auth/logout" class="hover:text-gray-200">
+                        <div class="flex gap-2"><x-icon name="logout" class="text-gray-600"></x-icon>
+                            <div >{{t('Logout')}}</div></div>
+                    </a>
+            </div>
+            </div>
             <img src="/static/img/flags/iso-small/{{\App\Tools\Auth::user()->country_code}}.png" alt="country flag">
         @endif
     </div>

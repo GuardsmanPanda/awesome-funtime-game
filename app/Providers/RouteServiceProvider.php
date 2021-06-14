@@ -20,6 +20,7 @@ class RouteServiceProvider extends ServiceProvider {
 
             Route::middleware(['cookie', 'session'])->get('auth/twitch-login', [AuthenticationController::class, 'twitchLogin']);
             Route::middleware(['cookie', 'session'])->get('auth/payload-login', [AuthenticationController::class, 'loginWithSignedPayload']);
+            Route::middleware(['cookie', 'session'])->get('auth/logout', [AuthenticationController::class, 'logout']);
 
             Route::get('/test', function () {
                 $pick = new PanoramaPicker(Game::find(3));

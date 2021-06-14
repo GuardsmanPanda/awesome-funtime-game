@@ -52,6 +52,10 @@
         ]
     });
 
+    setInterval(function () {
+        active.replaceData();
+    }, 20000);
+
     const recent = new Tabulator('#recent-games', {
         ajaxURL: '/game/recent',
         columns: [

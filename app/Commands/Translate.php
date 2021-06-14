@@ -6,6 +6,7 @@ use FilesystemIterator;
 use RecursiveIteratorIterator;
 use Illuminate\Console\Command;
 use RecursiveDirectoryIterator;
+use Illuminate\Support\Facades\DB;
 use Integrations\Translate\GoogleCloudTranslation;
 
 class Translate extends Command {
@@ -22,6 +23,7 @@ class Translate extends Command {
     }
 
     public function handle(): void {
+        $this->createMissingConfig();
         $need_translate = [];
 
         foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->view_dir, FilesystemIterator::SKIP_DOTS | FilesystemIterator::CURRENT_AS_PATHNAME)) as $x) {
@@ -64,6 +66,19 @@ class Translate extends Command {
             $content .= '];' . PHP_EOL;
 
             file_put_contents($this->output_dir . $file, $content);
+        }
+    }
+
+    private function createMissingConfig(): void {
+        $files = DB::select("SELECT translation_code FROM language WHERE translation_code IS NOT NULL");
+        foreach ($files as $file) {
+            if ($file->translation_code === 'en') {
+                continue;
+            }
+            if (!file_exists($this->output_dir . $file->translation_code . '.php')) {
+                $this->info($file->translation_code);
+                file_put_contents($this->output_dir . $file->translation_code . '.php', '');
+            }
         }
     }
 }

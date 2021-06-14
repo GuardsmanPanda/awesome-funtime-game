@@ -23,7 +23,7 @@
             <div><span class="text-gray-500">{{t('Status')}}: </span>{{$country->independent_status}} </div>
             @endif
             <div><span class="text-gray-500">{{t('Currency')}}: </span>{{$country->currency_name}} <span class="text-gray-400">[{{$country->currency_code}}]</span></div>
-            <div><span class="text-gray-500">{{t('Capital')}}: </span>{{$country->capital}}</div>
+            <div><span class="text-gray-500">{{t('Capital city')}}: </span>{{$country->capital}}</div>
             <div class="mt-1.5"><span class="text-gray-500">{{t('Dialing code')}}: </span>+{{$country->dialing_code}}</div>
             <div><span class="text-gray-500">{{t('Domain')}}: </span>{{$country->tld}}</div>
             <div class="mt-1.5"><span class="text-gray-500">{{t('Population')}}: </span><span _="on load put ({{$country->population}}).toLocaleString() into me"></span> <span class="text-gray-400">#{{$country->population_rank}}</span></div>

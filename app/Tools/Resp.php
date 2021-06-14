@@ -13,6 +13,11 @@ class Resp {
         ", $data)[0]->json_agg ?? '[]', json: true);
     }
 
+    public static function hxRedirectAbort(string $location, string $message = 'Redirect'):void {
+        self::header('hx-redirect', $location);
+        abort(302, $message);
+    }
+
     public static function header(string $name, string $value): void {
         Initiate::$headers[$name] = $value;
     }

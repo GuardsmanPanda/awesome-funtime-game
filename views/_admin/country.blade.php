@@ -33,7 +33,7 @@
                     urlSuffix: ".png",
                 }
             },
-            {title: "Capital", field: "capital"},
+            {title: "Capital city", field: "capital"},
             {title: "Population", field: "population", sorter:"number", editor:"number"},
             {title: "Area", field: "area", sorter:"number", editor:"number"},
             {title: "{{t('Languages')}}", field: "language_count", sorter:"number"},

@@ -12,10 +12,16 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 
 class AuthenticationController extends Controller {
     private string $client_id = 'q8q6jjiuc7f2ef04wmb7m653jd5ra8';
+
+    public function logout(): RedirectResponse  {
+        Session::flush();
+        return Redirect::to('/game', 303);
+    }
 
     public function twitchLogin(Request $r): RedirectResponse {
         $url = "https://id.twitch.tv/oauth2/token?client_id=" . $this->client_id;

@@ -30,8 +30,7 @@ class PlayController {
         //TODO redirect if game not starter yet
         //TODO redirect if round is over
         if (!$game->is_queued) {
-            Resp::header('hx-redirect', '/game/'.$game->id.'/result');
-            abort(302, 'game is done');
+            Resp::hxRedirectAbort('/game/'.$game->id.'/result', 'Game is done');
         }
 
         $round_diff = Carbon::now()->diffInSeconds(Carbon::parse($game->round_end_at), false);

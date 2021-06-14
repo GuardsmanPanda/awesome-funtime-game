@@ -17,12 +17,10 @@ use Illuminate\Http\RedirectResponse;
 class LobbyController extends Controller {
     public function index(Game $game): view|RedirectResponse|string {
         if ($game->current_round > 0 && !$game->is_queued) {
-            Resp::header('hx-redirect','/game/' . $game->id . '/result');
-            return 'ok';
+            Resp::hxRedirectAbort('/game/' . $game->id . '/result');
         }
         if ($game->current_round !== 0) {
-            Resp::header('hx-redirect','/game/' . $game->id . '/play');
-            return 'ok';
+            Resp::hxRedirectAbort('/game/' . $game->id . '/play');
         }
 
         if (Auth::user()) {
@@ -49,7 +47,7 @@ class LobbyController extends Controller {
 
     public function lobbyStatus(Game $game): view  {
         if ($game->current_round > 0) {
-            Resp::header('hx-redirect', '/game/' .$game->id . '/play');
+            Resp::hxRedirectAbort('/game/' .$game->id . '/play');
         }
         return view('game.lobby.lobby-status', [
             'game' => $game,
