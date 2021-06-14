@@ -28,7 +28,7 @@ use Carbon\Carbon;
  * @property string work_email
  * @property string display_name
  * @property string country_code
- * @property string language_code
+ * @property string translation_code
  * @property Carbon update_at
  * @property Carbon created_at
  * @property Carbon last_login_at

@@ -3,12 +3,14 @@
 namespace Areas\System;
 
 use App\Tools\Auth;
+use App\Tools\Resp;
 use Illuminate\Routing\Controller;
-use Infrastructure\Language\LFanguageUtility;
+use Infrastructure\Language\LanguageUtility;
 
 class UserController extends Controller {
-    public function resetLanguage() {
-        Auth::user()->language_code = LanguageUtility::getAcceptedLanguage();
+    public function resetLanguage(): void {
+        Auth::user()->translation_code = LanguageUtility::getAcceptedLanguage();
         Auth::user()->save();
+        Resp::hxRedirectAbort('/game');
     }
 }

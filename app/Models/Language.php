@@ -23,9 +23,9 @@ use Carbon\Carbon;
  * @property int total_speakers
  * @property int native_speakers
  * @property int created_by_user_id
- * @property bool has_translation
  * @property string language_name
  * @property string two_letter_code
+ * @property string translation_code
  * @property string three_letter_code
  * @property Carbon created_at
  *

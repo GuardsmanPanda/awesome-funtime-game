@@ -75,8 +75,12 @@
 
     <div class="flex items-center gap-4">
         <div class="items-center text-lightBlue-400 flex">
-            <form hx-patch="/"></form>
-            <x-icon name="translate" class="text-lightBlue-600"></x-icon>
+            <form hx-patch="/user/reset-language">
+                 <button class="align-bottom">
+                     <x-icon name="translate" class="text-lightBlue-600 transform hover:scale-125" data-tippy-content="{{t('Reset Language')}}"></x-icon>
+                 </button>
+
+            </form>
             <div class="font-bold">English</div>
         </div>
         @if (\App\Tools\Auth::$user_id === -1)
@@ -128,6 +132,7 @@
 <script>
     window.pop = document.getElementById('general-dialog');
     Dialog.registerDialog(pop);
+    tippy('[data-tippy-content]');
 </script>
 
 </body>
