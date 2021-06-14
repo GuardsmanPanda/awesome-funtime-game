@@ -39,7 +39,6 @@
                 </tbody>
             </table>
         </fieldset>
-
     </div>
     <div class="flex flex-row-reverse gap-2">
         <form method="dialog">

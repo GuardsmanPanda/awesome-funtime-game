@@ -34,6 +34,7 @@ class RunGameJob implements ShouldQueue {
             $round->round_end_at = Carbon::now()->addSeconds($game->round_time);
             $round->save();
 
+            //TODO perf fix
             foreach (DB::select("SELECT user_id FROM game_user WHERE game_id = ?", [$game->id]) as $user) {
                 DB::insert("INSERT INTO round_user (round_id, user_id) VALUES (?, ?)", [$round->id, $user->user_id]);
             }
@@ -49,9 +50,9 @@ class RunGameJob implements ShouldQueue {
             $game->save();
 
             ScoreCalculator::scoreRound($round);
-            $game->next_round_at = Carbon::now()->addSeconds(300);
+            $game->next_round_at = Carbon::now()->addSeconds(30);
             $game->save();
-            sleep(270);
+            sleep(27);
         }
         $game->ended_at = Carbon::now();
         $game->is_queued = false;

@@ -3,6 +3,7 @@
 namespace App\Commands;
 
 use FilesystemIterator;
+use App\Models\Language;
 use RecursiveIteratorIterator;
 use Illuminate\Console\Command;
 use RecursiveDirectoryIterator;
@@ -24,7 +25,8 @@ class Translate extends Command {
 
     public function handle(): void {
         $this->createMissingConfig();
-        $need_translate = [];
+
+        $need_translate = $this->getDBTranslations();
 
         foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->view_dir, FilesystemIterator::SKIP_DOTS | FilesystemIterator::CURRENT_AS_PATHNAME)) as $x) {
             preg_match_all ("/[^a-zA-Z0-9]t\('(.+?)'\)/", file_get_contents($x), $matches, PREG_SET_ORDER);
@@ -80,5 +82,13 @@ class Translate extends Command {
                 file_put_contents($this->output_dir . $file->translation_code . '.php', '');
             }
         }
+    }
+
+    private function getDBTranslations(): array {
+        $res = [];
+        foreach (Language::all('language_name') as $lang) {
+            $res[] = $lang->language_name;
+        }
+        return $res;
     }
 }

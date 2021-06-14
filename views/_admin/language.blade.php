@@ -66,7 +66,7 @@
         columns: [
             {title: "ID", field: "id"},
             {title: "Name", field: "language_name"},
-            {title: "Translation", field: "has_translation", formatter:"tickCross", hozAlign:"center"},
+            {title: "Translation", field: "translation_code", formatter:"tickCross", hozAlign:"center", formatterParams:{allowTruthy:true}},
             {title: "Iso-639-1", field: "two_letter_code"},
             {title: "Iso-639-2", field: "three_letter_code"},
             {title: "Native Speakers", field: "native_speakers", formatter: "number", sorter:"number", editor:"number"},
