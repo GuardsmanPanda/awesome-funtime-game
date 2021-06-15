@@ -20,7 +20,7 @@ class GenerateModels extends Command {
     }
 
     public function handle(): void {
-        $models = config('database.generator_models');
+        $models = config('zz.database.generator_models');
 
         $tables = DB::select("SELECT table_name FROM information_schema.tables WHERE table_schema = 'afg' AND table_type = 'BASE TABLE'");
         foreach ($tables as $table) {

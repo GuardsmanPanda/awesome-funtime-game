@@ -5,12 +5,6 @@ use Illuminate\Support\Str;
 return [
     'default' => 'pgsql',
 
-    'generator_models' => [
-        'users' => [
-            'class' => 'User',
-        ]
-    ],
-
     /*
     |--------------------------------------------------------------------------
     | Database Connections
