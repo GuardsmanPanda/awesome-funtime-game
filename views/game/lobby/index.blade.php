@@ -72,5 +72,9 @@
         ]
     })
 
+    setInterval(function () {
+        table.replaceData();
+    }, 20000);
+
     htmx.ajax('GET', '/game/{{$game->id}}/lobby-status', '#game-status');
 </script>

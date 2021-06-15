@@ -18,6 +18,11 @@ class Resp {
         abort(302, $message);
     }
 
+    public static function hxRefresh(string $message = 'Redirect'):void {
+        self::header('hx-refresh', 'true');
+        abort(302, $message);
+    }
+
     public static function header(string $name, string $value): void {
         Initiate::$headers[$name] = $value;
     }

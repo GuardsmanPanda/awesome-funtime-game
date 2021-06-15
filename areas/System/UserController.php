@@ -13,6 +13,6 @@ class UserController extends Controller {
         Auth::user()->language_id = $id === 'reset' ? LanguageUtility::getAcceptedLanguage() : (int)$id;
         Auth::user()->save();
         Translator::setSessionLanguage(Auth::user());
-        Resp::hxRedirectAbort('/game');
+        Resp::hxRefresh('Language Chosen');
     }
 }

@@ -35,9 +35,13 @@ class RunGameJob implements ShouldQueue {
             $round->save();
 
             //TODO perf fix
-            foreach (DB::select("SELECT user_id FROM game_user WHERE game_id = ?", [$game->id]) as $user) {
-                DB::insert("INSERT INTO round_user (round_id, user_id) VALUES (?, ?)", [$round->id, $user->user_id]);
-            }
+            DB::insert("
+                INSERT INTO round_user (round_id, user_id)
+                SELECT ?, user_id FROM game_user WHERE game_id = ? 
+            ", [$round->id, $game->id]);
+           // foreach (DB::select("SELECT user_id FROM game_user WHERE game_id = ?", [$game->id]) as $user) {
+           //     DB::insert("INSERT INTO round_user (round_id, user_id) VALUES (?, ?)", [$round->id, $user->user_id]);
+           // }
 
             $game->current_round_id = $round->id;
             $game->is_round_active = true;

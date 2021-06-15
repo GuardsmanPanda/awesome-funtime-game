@@ -32,7 +32,7 @@ Route::get('{game}/lobby-status', [LobbyController::class, 'lobbyStatus']);
 Route::get('{id}/play', [PlayController::class, 'index']);
 Route::post('{game}/guess', [PlayController::class, 'guess']);
 
-Route::get('{id}/result', [ResultController::class, 'index']);
+Route::get('{game}/result', [ResultController::class, 'index']);
 
 
 Route::post('marker/{marker}', [LobbyController::class, 'changeMapMarker']);
@@ -43,5 +43,6 @@ Route::get("{game}/player", function ($game) {
             LEFT JOIN users u ON u.id = gu.user_id
             LEFT JOIN marker m ON m.id = u.map_marker_id
             WHERE gu.game_id = ?
+            ORDER BY u.display_name
     ", [$game]);
 });

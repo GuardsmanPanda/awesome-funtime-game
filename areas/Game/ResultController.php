@@ -2,12 +2,14 @@
 
 namespace Areas\Game;
 
+use App\Models\Game;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
 
 class ResultController {
-    public function index(int $id): view {
+    public function index(Game $game): view {
         return view('game.result.index', [
+            'game' => $game,
             'players' => DB::select("
                     SELECT
                         u.display_name, u.country_code, 
@@ -19,7 +21,7 @@ class ResultController {
                     LEFT JOIN marker m ON m.id = u.map_marker_id
                     WHERE gu.game_id = ?
                     ORDER BY rank
-                ", [$id]),
+                ", [$game->id]),
             ]);
     }
 }

@@ -34,7 +34,7 @@
                                 {{$player->display_name}}
                             </div>
                             <div class="font-medium text-blueGray-400 flex items-center">
-                                <div class="text-teal-600 font-bold">{{round($player->points_total,2)}} <span class="text-teal-500">{{t('points')}}</span></div>
+                                <div class="text-teal-600 font-bold">{{round($player->points_total/$game->round_count,2)}} <span class="text-teal-500">{{t('points')}}</span></div>
                             </div>
                         </div>
                     </div>

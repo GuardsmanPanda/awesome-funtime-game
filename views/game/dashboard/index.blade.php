@@ -41,11 +41,11 @@
                     return cell.getValue() === 0 ? '-' : 'Yes';
                 }
             },
-            {title:"{{t('Join')}}", field: "id", headerSort:false, formatter: function (cell, formatterParams, onRendered ) {
+            {title:"{{t('Play')}}", field: "id", headerSort:false, formatter: function (cell, formatterParams, onRendered ) {
                     const elem = document.createElement('a');
                     elem.setAttribute('href', '/game/' + cell.getValue() + '/lobby');
                     elem.setAttribute('class', 'small-button-blue');
-                    elem.text = "{{t('Join')}}";
+                    elem.text = "{{t('Play')}}";
                     return elem;
                 }
             },
@@ -67,7 +67,7 @@
             {title:"{{t('Result')}}", field: "id", headerSort:false, formatter: function (cell, formatterParams, onRendered ) {
                     const elem = document.createElement('a');
                     elem.setAttribute('href', '/game/' + cell.getValue() + '/result');
-                    elem.setAttribute('class', 'small-button-blue');
+                    elem.setAttribute('class', 'small-button-gray');
                     elem.text = "{{t('Result')}}";
                     return elem;
                 }
