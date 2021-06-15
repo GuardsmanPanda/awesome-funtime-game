@@ -9,11 +9,11 @@ use Carbon\Carbon;
 /**
  * AUTO GENERATED FILE DO NOT MODIFY
  *
- * @method static Realm find(int $id, array $columns = ['*'])
- * @method static Realm findOrFail(int $id, array $columns = ['*'])
- * @method static Realm firstOrCreate(array $filter, array $values)
- * @method static Realm create(array $values)
- * @method static Realm firstWhere(string $column, string $operator = null, string $value = null, string $boolean = 'and')
+ * @method static AuditError find(int $id, array $columns = ['*'])
+ * @method static AuditError findOrFail(int $id, array $columns = ['*'])
+ * @method static AuditError firstOrCreate(array $filter, array $values)
+ * @method static AuditError create(array $values)
+ * @method static AuditError firstWhere(string $column, string $operator = null, string $value = null, string $boolean = 'and')
  * @method static Builder where(string $column, string $operator = null, string $value = null, string $boolean = 'and')
  * @method static Builder whereIn(string $column, $values, $boolean = 'and', $not = false)
  * @method static Builder whereNotNull(string|array $columns, bool $boolean = 'and')
@@ -21,13 +21,23 @@ use Carbon\Carbon;
  * @method static Builder with(array|string  $relations)
  *
  * @property int id
- * @property string realm_name
+ * @property int user_id
+ * @property string ip
+ * @property string path
+ * @property string body
+ * @property string type
+ * @property string method
+ * @property string message
+ * @property string parameters
+ * @property string country_code
+ * @property string exception_trace
+ * @property string exception_message
  * @property Carbon created_at
  *
  * AUTO GENERATED FILE DO NOT MODIFY
  */
-class Realm extends Model {
-    protected $table = 'realm';
+class AuditError extends Model {
+    protected $table = 'audit_error';
     protected $dateFormat = 'Y-m-d H:i:s P';
     public $timestamps = false;
 

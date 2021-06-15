@@ -8,7 +8,7 @@ use Ramsey\Collection\Set;
 use Throwable;
 
 class GenerateModels extends Command {
-    protected $signature = 'db:generate';
+    protected $signature = 'zz:models';
     protected $description = 'Generate Database Models';
 
     private string $namespace = "namespace App\\Models;\n\n";
@@ -106,6 +106,7 @@ class GenerateModels extends Command {
             $content .= " * @method static $class_name firstWhere(string \$column, string \$operator = null, string \$value = null, string \$boolean = 'and')" . PHP_EOL;
             $content .= " * @method static Builder where(string \$column, string \$operator = null, string \$value = null, string \$boolean = 'and')" . PHP_EOL;
             $content .= " * @method static Builder whereIn(string \$column, \$values, \$boolean = 'and', \$not = false)" . PHP_EOL;
+            $content .= " * @method static Builder whereNotNull(string|array \$columns, bool \$boolean = 'and')" . PHP_EOL;
             $content .= " * @method static Builder orderBy(string \$column, string \$direction = 'asc')" . PHP_EOL;
             $content .= " * @method static Builder with(array|string  \$relations)" . PHP_EOL;
             $content .= " *" . PHP_EOL;
@@ -179,7 +180,7 @@ class GenerateModels extends Command {
         try {
             $file = file_get_contents($location);
         } catch (Throwable) {
-            $result->add('use Illuminate\Database\Eloquent\Builder;');
+            $result->add('use  Illuminate\Database\Query\Builder;');
             $result->add('use Illuminate\Database\Eloquent\Model;');
             return $result;
         }

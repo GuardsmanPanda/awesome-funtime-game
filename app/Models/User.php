@@ -16,11 +16,13 @@ use Carbon\Carbon;
  * @method static User firstWhere(string $column, string $operator = null, string $value = null, string $boolean = 'and')
  * @method static Builder where(string $column, string $operator = null, string $value = null, string $boolean = 'and')
  * @method static Builder whereIn(string $column, $values, $boolean = 'and', $not = false)
+ * @method static Builder whereNotNull(string|array $columns, bool $boolean = 'and')
  * @method static Builder orderBy(string $column, string $direction = 'asc')
  * @method static Builder with(array|string  $relations)
  *
  * @property int id
  * @property int twitch_id
+ * @property int language_id
  * @property int map_marker_id
  * @property bool is_admin
  * @property bool can_create_games
@@ -28,7 +30,6 @@ use Carbon\Carbon;
  * @property string work_email
  * @property string display_name
  * @property string country_code
- * @property string translation_code
  * @property Carbon update_at
  * @property Carbon created_at
  * @property Carbon last_login_at

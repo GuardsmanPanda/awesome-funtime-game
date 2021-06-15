@@ -5,6 +5,7 @@ namespace Areas\System;
 use Carbon\Carbon;
 use App\Tools\Req;
 use App\Models\User;
+use App\Tools\Translator;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
@@ -14,6 +15,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
+use Infrastructure\Language\LanguageUtility;
 
 class AuthenticationController extends Controller {
     private string $client_id = 'q8q6jjiuc7f2ef04wmb7m653jd5ra8';
@@ -53,6 +55,7 @@ class AuthenticationController extends Controller {
         }
         if ($user === null) {
             $user = new User();
+            $user->language_id = LanguageUtility::getAcceptedLanguage();
         }
         $user->twitch_id = $twitch_user['id'];
         $user->display_name = $twitch_user['display_name'];
@@ -77,6 +80,7 @@ class AuthenticationController extends Controller {
         if ($user === null) {
             $user = new User();
             $user->work_email = $content->email;
+            $user->language_id = LanguageUtility::getAcceptedLanguage();
         }
         $user->display_name = $content->display_name;
         $this->updateUserAndAddRealm($user, 2);
@@ -97,6 +101,7 @@ class AuthenticationController extends Controller {
     private function logUserIn(User $user): RedirectResponse {
         session()->migrate(true);
         session()->put('login_id', $user->id);
+        Translator::setSessionLanguage($user);
         return Redirect::to('/game', 303);
     }
 }

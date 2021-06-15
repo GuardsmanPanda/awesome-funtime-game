@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static Marker firstWhere(string $column, string $operator = null, string $value = null, string $boolean = 'and')
  * @method static Builder where(string $column, string $operator = null, string $value = null, string $boolean = 'and')
  * @method static Builder whereIn(string $column, $values, $boolean = 'and', $not = false)
+ * @method static Builder whereNotNull(string|array $columns, bool $boolean = 'and')
  * @method static Builder orderBy(string $column, string $direction = 'asc')
  * @method static Builder with(array|string  $relations)
  *

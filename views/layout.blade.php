@@ -73,28 +73,37 @@
         <div id="countdown" class="font-bold text-3xl text-emerald-400 tabular-nums" style="opacity: 0; transition: all ease-in-out 2s"></div>
     </div>
 
-    <div class="flex items-center gap-4">
+    <div class="flex items-center gap-2">
         <div class="items-center text-lightBlue-400 flex">
-            <form hx-patch="/user/reset-language">
-                 <button class="align-bottom">
-                     <x-icon name="translate" class="text-lightBlue-600 transform hover:scale-125" data-tippy-content="{{t('Reset Language')}}"></x-icon>
-                 </button>
-
-            </form>
-            <div class="font-bold">English</div>
+            @if(\App\Tools\Auth::$user_id === -1)
+                <x-icon name="translate" class="text-lightBlue-600"></x-icon>
+                <div class="font-bold px-1">English</div>
+            @else
+                <button class="align-bottom" hx-patch="/user/language/reset">
+                    <x-icon name="translate" class="text-lightBlue-600 transform hover:scale-125" data-tippy-content="{{t('Reset Language')}}"></x-icon>
+                </button>
+                <div class="font-bold px-1 group relative">
+                    <div>{{t(\App\Models\Language::find(\App\Tools\Auth::user()->language_id, ['language_name'])->language_name)}}</div>
+                    <div class="absolute grid gap-2 bg-gray-800 group-hover:block hidden z-40 px-4 py-2 -left-1/2">
+                        @foreach(\App\Models\Language::whereNotNull('translation_code')->orderBy('language_name')->get(['id', 'language_name']) as $lang)
+                            <button class="hover:text-lightBlue-200 block" hx-patch="/user/language/{{$lang->id}}">{{t($lang->language_name)}}</button>
+                        @endforeach
+                    </div>
+                </div>
         </div>
+        @endif
         @if (\App\Tools\Auth::$user_id === -1)
-            <a href="https://id.twitch.tv/oauth2/authorize?client_id=q8q6jjiuc7f2ef04wmb7m653jd5ra8&redirect_uri={{urlencode(config('app.url') . '/auth/twitch-login')}}&response_type=code&scope=user:read:email">
-                <div class="hover:bg-emerald-600 bg-emerald-400 mr-1 px-2 rounded text-black">Login With Twitch</div>
+            <a href="https://id.twitch.tv/oauth2/authorize?client_id=q8q6jjiuc7f2ef04wmb7m653jd5ra8&redirect_uri={{urlencode(config('app.url') . '/auth/twitch-login')}}&response_type=code&scope=user:read:email" class="mr-1 px-2">
+                <div class="hover:bg-emerald-600 bg-emerald-400 rounded text-black px-2">Login With Twitch</div>
             </a>
         @else
             <div class="font-bold mr-2 text-gray-400 relative group">{{\App\Tools\Auth::user()->display_name}}
-                <div class="absolute bg-gray-800 z-40 p-4 group-hover:block hidden">
+                <div class="absolute bg-gray-800 group-hover:block hidden px-4 py-2 rounded-b-md z-40">
                     <a href="/auth/logout" class="hover:text-gray-200">
                         <div class="flex gap-2"><x-icon name="logout" class="text-gray-600"></x-icon>
                             <div >{{t('Logout')}}</div></div>
                     </a>
-            </div>
+                </div>
             </div>
             <img src="/static/img/flags/iso-small/{{\App\Tools\Auth::user()->country_code}}.png" alt="country flag">
         @endif
