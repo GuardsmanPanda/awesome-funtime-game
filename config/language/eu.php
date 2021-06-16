@@ -42,6 +42,7 @@ return [
     "Find panorama" => "Aurkitu panorama",
     "Finnish" => "Finlandiera",
     "French" => "Frantsesa",
+    "Future roadmap" => "Etorkizuneko bide orria",
     "Galician" => "Galiziera",
     "Game Result" => "Jokoaren emaitza",
     "Game ends in" => "Jokoa amaitzen da",

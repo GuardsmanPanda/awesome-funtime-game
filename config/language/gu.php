@@ -42,6 +42,7 @@ return [
     "Find panorama" => "પેનોરમા શોધો",
     "Finnish" => "ફિનિશ",
     "French" => "ફ્રેન્ચ",
+    "Future roadmap" => "ભાવિ માર્ગમેપ",
     "Galician" => "ગેલિશિયન",
     "Game Result" => "રમત પરિણામ",
     "Game ends in" => "રમત સમાપ્ત થાય છે",

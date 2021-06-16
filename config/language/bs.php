@@ -42,6 +42,7 @@ return [
     "Find panorama" => "Pronađi panoramu",
     "Finnish" => "Finski",
     "French" => "Francuski",
+    "Future roadmap" => "Buduća mapa",
     "Galician" => "Galicijski",
     "Game Result" => "Rezultat igre",
     "Game ends in" => "Igra završava za",

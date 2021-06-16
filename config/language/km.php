@@ -42,6 +42,7 @@ return [
     "Find panorama" => "ស្វែងរកទេសភាព",
     "Finnish" => "ហ្វាំងឡង់",
     "French" => "បារាំង",
+    "Future roadmap" => "ផែនទីបង្ហាញផ្លូវនាពេលអនាគត",
     "Galician" => "ហ្គាលីស្យាន",
     "Game Result" => "លទ្ធផលហ្គេម",
     "Game ends in" => "ល្បែងបញ្ចប់នៅ",

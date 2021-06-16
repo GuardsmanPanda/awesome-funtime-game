@@ -43,6 +43,7 @@ return [
     "Find panorama" => "Find panorama",
     "Finnish" => "Finsk",
     "French" => "fransk",
+    "Future roadmap" => "Fremtidig køreplan",
     "Galician" => "Galicisk",
     "Game Result" => "Spilresultat",
     "Game ends in" => "Spillet slutter om",

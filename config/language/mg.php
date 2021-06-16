@@ -42,6 +42,7 @@ return [
     "Find panorama" => "Mitadiava panorama",
     "Finnish" => "Anarana",
     "French" => "FRANTSAY",
+    "Future roadmap" => "Sori-dalana ho avy",
     "Galician" => "galisiana",
     "Game Result" => "Vokatry ny lalao",
     "Game ends in" => "Tapitra ny lalao",

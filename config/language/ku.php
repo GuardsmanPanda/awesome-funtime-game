@@ -42,6 +42,7 @@ return [
     "Find panorama" => "Panorama bibînin",
     "Finnish" => "Fînlandî",
     "French" => "Fransî",
+    "Future roadmap" => "Nexşeya rê ya pêşerojê",
     "Galician" => "Galîsyayî",
     "Game Result" => "Encama Lîstikê",
     "Game ends in" => "Lîstik di dawî dibe",

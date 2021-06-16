@@ -42,6 +42,7 @@ return [
     "Find panorama" => "ຊອກຫາພາໂນຣາມາ",
     "Finnish" => "ແຟງລັງ",
     "French" => "ຝຣັ່ງ",
+    "Future roadmap" => "ແຜນທີ່ເສັ້ນທາງໃນອະນາຄົດ",
     "Galician" => "ກາລິຊຽນ",
     "Game Result" => "ຜົນໄດ້ຮັບ",
     "Game ends in" => "ເກມສິ້ນສຸດລົງໃນ",

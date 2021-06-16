@@ -42,6 +42,7 @@ return [
     "Find panorama" => "Pagpangita panorama",
     "Finnish" => "Finnish",
     "French" => "Pransiya",
+    "Future roadmap" => "Umaabot nga roadmap",
     "Galician" => "Galician",
     "Game Result" => "Resulta sa Dula",
     "Game ends in" => "Ang dula matapos sa",

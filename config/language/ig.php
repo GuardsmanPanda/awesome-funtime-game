@@ -42,6 +42,7 @@ return [
     "Find panorama" => "Chọta panorama",
     "Finnish" => "Asụsụ Finish",
     "French" => "French",
+    "Future roadmap" => "Uzo nke uzo ozo",
     "Galician" => "Onye Galician",
     "Game Result" => "Nsonaazụ Egwuregwu",
     "Game ends in" => "Egwuregwu na-agwụ na",

@@ -42,6 +42,7 @@ return [
     "Find panorama" => "Faigh panorama",
     "Finnish" => "Fionlainnis",
     "French" => "Fraincis",
+    "Future roadmap" => "Treochlár sa todhchaí",
     "Galician" => "Gailísis",
     "Game Result" => "Toradh Cluiche",
     "Game ends in" => "Críochnaíonn an cluiche isteach",

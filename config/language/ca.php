@@ -42,6 +42,7 @@ return [
     "Find panorama" => "Cerca panoràmica",
     "Finnish" => "Finès",
     "French" => "Francès",
+    "Future roadmap" => "Full de ruta futur",
     "Galician" => "Gallec",
     "Game Result" => "Resultat del joc",
     "Game ends in" => "El joc acaba en",

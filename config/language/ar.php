@@ -42,6 +42,7 @@ return [
     "Find panorama" => "البحث عن بانوراما",
     "Finnish" => "الفنلندية",
     "French" => "الفرنسية",
+    "Future roadmap" => "خارطة طريق المستقبل",
     "Galician" => "الجاليكية",
     "Game Result" => "نتيجة اللعبة",
     "Game ends in" => "تنتهي اللعبة",

@@ -42,6 +42,7 @@ return [
     "Find panorama" => "Nemo hoton hoto",
     "Finnish" => "Yaren mutanen Finland",
     "French" => "Faransanci",
+    "Future roadmap" => "Taswirar gaba",
     "Galician" => "Galiziya",
     "Game Result" => "Sakamakon Wasan",
     "Game ends in" => "Wasan ya ƙare a",

@@ -42,6 +42,7 @@ return [
     "Find panorama" => "Find panorama",
     "Finnish" => "Fennica",
     "French" => "Gallica",
+    "Future roadmap" => "future roadmap",
     "Galician" => "Gallaeca",
     "Game Result" => "ludus results",
     "Game ends in" => "In terminos ludum",

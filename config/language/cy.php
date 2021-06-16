@@ -42,6 +42,7 @@ return [
     "Find panorama" => "Dewch o hyd i banorama",
     "Finnish" => "Ffinneg",
     "French" => "Ffrangeg",
+    "Future roadmap" => "Map ffordd yn y dyfodol",
     "Galician" => "Galisia",
     "Game Result" => "Canlyniad Gêm",
     "Game ends in" => "Gêm yn gorffen yn",

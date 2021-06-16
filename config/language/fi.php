@@ -42,6 +42,7 @@ return [
     "Find panorama" => "Etsi panoraama",
     "Finnish" => "Suomalainen",
     "French" => "Ranskan kieli",
+    "Future roadmap" => "Tuleva tiekartta",
     "Galician" => "Galicialainen",
     "Game Result" => "Pelin tulos",
     "Game ends in" => "Peli päättyy",

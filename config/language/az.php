@@ -42,6 +42,7 @@ return [
     "Find panorama" => "Panoramanı tapın",
     "Finnish" => "Fin",
     "French" => "Fransız dili",
+    "Future roadmap" => "Gələcək yol xəritəsi",
     "Galician" => "Qalisian",
     "Game Result" => "Oyun nəticəsi",
     "Game ends in" => "Oyun bitir",

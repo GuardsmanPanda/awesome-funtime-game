@@ -42,6 +42,7 @@ return [
     "Find panorama" => "Jwenn panorama",
     "Finnish" => "Finnish",
     "French" => "Franse",
+    "Future roadmap" => "Roadmap Future",
     "Galician" => "Galisyen",
     "Game Result" => "Jwèt Rezilta",
     "Game ends in" => "Jwèt fini nan",

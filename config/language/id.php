@@ -42,6 +42,7 @@ return [
     "Find panorama" => "Temukan panorama",
     "Finnish" => "Finlandia",
     "French" => "Perancis",
+    "Future roadmap" => "Peta jalan masa depan",
     "Galician" => "orang Galicia",
     "Game Result" => "Hasil Permainan",
     "Game ends in" => "Permainan berakhir di",

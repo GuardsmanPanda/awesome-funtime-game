@@ -42,6 +42,7 @@ return [
     "Find panorama" => "Rapua te panorama",
     "Finnish" => "Finnish",
     "French" => "Wiwi",
+    "Future roadmap" => "Maheremahi a meake nei",
     "Galician" => "Karikiana",
     "Game Result" => "Hua Taakaro",
     "Game ends in" => "Ka mutu te kemu",

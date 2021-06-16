@@ -42,6 +42,7 @@ return [
     "Find panorama" => "ፓኖራማ ያግኙ",
     "Finnish" => "ፊኒሽ",
     "French" => "ፈረንሳይኛ",
+    "Future roadmap" => "የወደፊቱ የመንገድ ካርታ",
     "Galician" => "ጋላሺያን",
     "Game Result" => "የጨዋታ ውጤት",
     "Game ends in" => "ጨዋታው ያበቃል",

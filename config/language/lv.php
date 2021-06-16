@@ -42,6 +42,7 @@ return [
     "Find panorama" => "Atrodiet panorāmu",
     "Finnish" => "Somu",
     "French" => "Franču",
+    "Future roadmap" => "Nākotnes plāns",
     "Galician" => "Galisiešu valoda",
     "Game Result" => "Spēles rezultāts",
     "Game ends in" => "Spēle beidzas pēc",

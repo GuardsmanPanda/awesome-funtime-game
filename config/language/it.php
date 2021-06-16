@@ -42,6 +42,7 @@ return [
     "Find panorama" => "Trova panorama",
     "Finnish" => "finlandese",
     "French" => "francese",
+    "Future roadmap" => "Tabella di marcia futura",
     "Galician" => "galiziano",
     "Game Result" => "Risultato del gioco",
     "Game ends in" => "Il gioco finisce tra",

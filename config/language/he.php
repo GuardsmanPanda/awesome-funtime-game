@@ -42,6 +42,7 @@ return [
     "Find panorama" => "מצא פנורמה",
     "Finnish" => "פִינִית",
     "French" => "צָרְפָתִית",
+    "Future roadmap" => "מפת דרכים עתידית",
     "Galician" => "גליציאנית",
     "Game Result" => "תוצאת המשחק",
     "Game ends in" => "המשחק מסתיים ב",

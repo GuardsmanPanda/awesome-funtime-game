@@ -15,17 +15,32 @@
         <x-content-raw title="{{t('Recent games')}}" icon="users">
             <div id="recent-games"></div>
         </x-content-raw>
+        <div></div>
     </div>
 
-    <div class="h-80 overflow-hidden w-80">
-        <div class="relative">
-            <img class="absolute" style="animation: spin 160s linear infinite; animation-direction: reverse"
-                 src="/static/img/logo_part2.png" alt="Text Logo"/>
-            <div id="tilt-logo" class="absolute" data-tilt data-tilt-reverse="true" data-tilt-max="8"
-                 data-tilt-glare="true" data-tilt-max-glare="0.2">
-                <img src="/static/img/logo_part1.png" alt="Globe Logo"/>
+    <div class="w-80 grid gap-4">
+        <div class="h-80 overflow-hidden ">
+            <div class="relative">
+                <img class="absolute" style="animation: spin 160s linear infinite; animation-direction: reverse"
+                     src="/static/img/logo_part2.png" alt="Text Logo"/>
+                <div id="tilt-logo" class="absolute" data-tilt data-tilt-reverse="true" data-tilt-max="8"
+                     data-tilt-glare="true" data-tilt-max-glare="0.2">
+                    <img src="/static/img/logo_part1.png" alt="Globe Logo"/>
+                </div>
             </div>
         </div>
+        <a href="https://trello.com/b/jmMCf2df/awesome-funtime-game" target="_blank" rel="noreferrer" class="bg-gray-900 flex font-bold gap-4 h-12 hover:scale-105 items-center px-4 py-2 rounded-2xl shadow-md transform">
+            <img src="/static/img/icons/trello.png" alt="Trello icon" class="h-full">
+            <div class="capitalize text-2xl text-center text-gray-200 w-full">{{t('Future roadmap')}}</div>
+        </a>
+        <a href="https://github.com/GuardsmanPanda/awesome-funtime-game" target="_blank" rel="noreferrer" class="bg-gray-900 flex font-bold gap-4 h-12 hover:scale-105 items-center px-4 py-2 rounded-2xl shadow-md transform">
+            <img src="/static/img/icons/github.png" alt="Github icon" class="h-full">
+            <div class="capitalize text-2xl text-center text-gray-200 w-full">Open source</div>
+        </a>
+        <a href="https://www.twitch.tv/guardsmanbob" target="_blank" rel="noreferrer" class="bg-gray-900 flex font-bold gap-4 h-12 hover:scale-105 items-center px-4 py-2 rounded-2xl shadow-md transform">
+            <img src="/static/img/icons/twitch.png" alt="Twitch icon" class="h-full">
+            <div class="capitalize text-2xl text-center text-gray-200 w-full">Dev stream</div>
+        </a>
     </div>
 </div>
 

@@ -42,6 +42,7 @@ return [
     "Find panorama" => "Keresse meg a panorámát",
     "Finnish" => "finn",
     "French" => "Francia",
+    "Future roadmap" => "Jövőbeni ütemterv",
     "Galician" => "Galíciai",
     "Game Result" => "Játék eredménye",
     "Game ends in" => "A játék vége",

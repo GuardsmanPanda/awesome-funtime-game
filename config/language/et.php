@@ -42,6 +42,7 @@ return [
     "Find panorama" => "Leidke panoraam",
     "Finnish" => "Soome keel",
     "French" => "Prantsuse keel",
+    "Future roadmap" => "Tulevane tegevuskava",
     "Galician" => "Galicia keel",
     "Game Result" => "Mängu tulemus",
     "Game ends in" => "Mäng lõpeb",

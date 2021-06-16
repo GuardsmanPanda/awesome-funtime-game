@@ -84,10 +84,13 @@
                 </button>
                 <div class="font-bold px-1 group relative">
                     <div>{{t(\App\Models\Language::find(\App\Tools\Auth::user()->language_id, ['language_name'])->language_name)}}</div>
-                    <div class="absolute grid gap-2 bg-gray-800 group-hover:block hidden z-40 px-4 py-2 -left-1/2">
-                        @foreach(\App\Models\Language::whereNotNull('translation_code')->orderBy('language_name')->get(['id', 'language_name']) as $lang)
-                            <button class="hover:text-lightBlue-200 block" hx-patch="/user/language/{{$lang->id}}">{{t($lang->language_name)}}</button>
-                        @endforeach
+                    <div class="absolute z-40 bg-gray-800 group-hover:block hidden -left-1/2">
+                        <div></div>
+                        <div class=" grid gap-2 px-4 py-2 h-96 overflow-y-scroll">
+                            @foreach(\App\Models\Language::whereNotNull('translation_code')->orderBy('language_name')->get(['id', 'language_name']) as $lang)
+                                <button class="hover:text-lightBlue-200 block" hx-patch="/user/language/{{$lang->id}}">{{t($lang->language_name)}}</button>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
         </div>

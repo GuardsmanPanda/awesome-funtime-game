@@ -42,6 +42,7 @@ return [
     "Find panorama" => "Lorg panorama",
     "Finnish" => "Fionnlaineach",
     "French" => "Frangach",
+    "Future roadmap" => "Mapa rathaid san àm ri teachd",
     "Galician" => "Galicianach",
     "Game Result" => "Toradh geama",
     "Game ends in" => "Gèam a ’crìochnachadh",

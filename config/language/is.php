@@ -42,6 +42,7 @@ return [
     "Find panorama" => "Finndu víðsýni",
     "Finnish" => "Finnska",
     "French" => "Franska",
+    "Future roadmap" => "Framtíðaráætlun",
     "Galician" => "Galisískur",
     "Game Result" => "Niðurstaða leiks",
     "Game ends in" => "Leikur endar á",
