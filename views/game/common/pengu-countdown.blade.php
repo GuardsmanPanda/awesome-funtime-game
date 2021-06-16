@@ -4,8 +4,6 @@
         <div class="absolute capitalize opacity-70 rotate-1 text-xl text-center top-1 transform w-full">{{$title_counter}}</div>
         <div id="countdown" class="text-blueGray-800 text-3xl leading-7 tabular-nums absolute top-6 w-full text-center">{{$countdown_seconds}}</div>
     </div>
-
-
 </div>
 <div hx-get="/game/{{$game->id}}/play" hx-target="body" hx-trigger="load delay:{{$countdown_seconds}}s"></div>
 <script>

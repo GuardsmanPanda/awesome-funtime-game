@@ -31,7 +31,7 @@
         </div>
         <a href="https://trello.com/b/jmMCf2df/awesome-funtime-game" target="_blank" rel="noreferrer" class="bg-gray-900 flex font-bold gap-4 h-12 hover:scale-105 items-center px-4 py-2 rounded-2xl shadow-md transform">
             <img src="/static/img/icons/trello.png" alt="Trello icon" class="h-full">
-            <div class="capitalize text-2xl text-center text-gray-200 w-full">{{t('Future roadmap')}}</div>
+            <div class="capitalize text-2xl text-center text-gray-200 w-full">{{t('Roadmap')}}</div>
         </a>
         <a href="https://github.com/GuardsmanPanda/awesome-funtime-game" target="_blank" rel="noreferrer" class="bg-gray-900 flex font-bold gap-4 h-12 hover:scale-105 items-center px-4 py-2 rounded-2xl shadow-md transform">
             <img src="/static/img/icons/github.png" alt="Github icon" class="h-full">

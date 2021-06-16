@@ -31,14 +31,14 @@
         </div>
     </div>
     <div style="width: 27rem; z-index: 500" class="shadow-2xl">
-        <div class="grid gap-4 py-2 px-4">
+        <div class="grid gap-3 py-2 px-4">
             @foreach($players as $player)
                 <div class="flex items-center px-4 py-2 rounded-md shadow-xl bg-blueGray-800">
                     <div class="text-center font-medium text-blueGray-500 text-2xl">{{$player->rank}}</div>
                     <img class="h-12 ml-1" src="/static/img/markers/{{$player->file_name}}" alt="Map Marker">
                             <img class="w-12 shadow-md mx-1" src="/static/img/flags/iso-small/{{$player->country_code}}.png" alt="Country Flag">
                     <div class="text-blueGray-300 ml-2 flex-grow">
-                        <div class="font-bold">
+                        <div class="font-bold text-lg">
                             {{$player->display_name}}
                         </div>
                         <div class="font-medium text-blueGray-400 flex items-center">
@@ -46,7 +46,7 @@
                             @if($player->is_correct_country)
                                 <img src="/static/img/flags/iso-small/{{$game->country_code}}.png" class="mx-1 h-5 shadow-md" alt="Country flag">
                             @endif
-                            <div class="text-yellow-400">{{round($player->points/$game->round_count,2)}} <span class="text-blueGray-500">{{t('points')}}</span></div>
+                            <div class="text-yellow-400 font-bold">{{round($player->points/$game->round_count,2)}} <span class="text-blueGray-500">{{t('points')}}</span></div>
                         </div>
                     </div>
                 </div>

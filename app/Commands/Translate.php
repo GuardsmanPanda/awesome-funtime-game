@@ -56,7 +56,7 @@ class Translate extends Command {
                 $translated = GoogleCloudTranslation::translate($word, $target);
                 $current_translations[$word] = $translated;
                 $this->info("Translated [$word] to $target => $translated");
-                usleep(200000);
+                usleep(100000);
             }
 
             $content = '<?php // AUTO GENERATE ONLY MODIFY EXISTING LINES ** Between " and " ON THE RIGHT **' . PHP_EOL;
