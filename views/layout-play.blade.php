@@ -34,17 +34,21 @@
 
         function countdownUpdate() {
             countdownSeconds--;
-            writeCounter();
-            if (Math.round((targetTime - new Date())/1000) <= 0) {
+            let value = Math.round((targetTime - new Date())/1000);
+            writeCounter(value);
+            if (value <= 0) {
                 let ele = document.getElementById("countdown");
                 ele.style.opacity = "0";
+            }
+            if (value < -3) {
+                location.reload();
                 clearInterval(countdownInterval);
             }
         }
 
-        function writeCounter() {
+        function writeCounter(value) {
             let countText = '';
-            const s = Math.max(Math.round((targetTime - new Date())/1000), 0);
+            const s = Math.max(value, 0);
             countText += s;
             document.getElementById("countdown").innerText = countText;
         }
