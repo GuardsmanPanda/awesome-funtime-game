@@ -2,6 +2,7 @@
 
 namespace Integrations\Streetview;
 
+use App\Tools\Auth;
 use RuntimeException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
@@ -27,6 +28,27 @@ class Streetview {
             usleep(100_000);
         }
         return $res;
+    }
+
+    public static function findNearbyPanorama(float $lat, float $lng, bool $user_request): bool {
+        if (self::findPanorama($lat, $lng, $user_request)) {
+            return true;
+        }
+        return false;
+    }
+
+
+    private static function findPanorama(float $lat, float $lng, bool $user_request): bool {
+        $resp = self::query('/metadata', ['location' => $lat . ' ' . $lng]);
+        dd($resp);
+        return $resp['status'] !== 'ZERO_RESULTS' && self::insertPanorama($resp, $user_request);
+    }
+
+    private static function insertPanorama(array $data, bool $user_request):bool {
+        DB::insert("
+                INSERT INTO panorama (panorama_id, captured_date, panorama_location, added_by_user_id) 
+                WHERE panorama_id = ?
+            ", [$data['id'], $data['date'].'-01', 'POINT('.$data['location']['lng'].' '.$data['location']['lat'].')', $user_request ? Auth::$user_id : null);
     }
 
     private static function query(string $path, array $query): array {
