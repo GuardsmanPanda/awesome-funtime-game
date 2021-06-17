@@ -6,49 +6,41 @@ use App\Tools\Auth;
 use RuntimeException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Database\QueryException;
 
 class Streetview {
     private static string $base_url = 'https://maps.googleapis.com/maps/api/streetview';
 
-    public static function panoramaUpdate() {
-        $to_update = DB::select("SELECT * FROM panorama WHERE captured_date IS NULL LIMIT 500");
-        $res = [];
-        foreach ($to_update as $pano) {
-            $resp = self::query('/metadata', ['pano' => $pano->panorama_id]);
-            $res[] = $resp;
-            if ($resp['status'] === 'ZERO_RESULTS') {
-                DB::delete("DELETE FROM panorama WHERE panorama_id = ?", [$pano->panorama_id]);
-                continue;
-            }
-            DB::update("
-                UPDATE panorama
-                SET captured_date = ?, panorama_location = ?
-                WHERE panorama_id = ?
-            ", [$resp['date'].'-01', 'POINT('.$resp['location']['lng'].' '.$resp['location']['lat'].')',$pano->panorama_id]);
-            usleep(100_000);
-        }
-        return $res;
-    }
 
-    public static function findNearbyPanorama(float $lat, float $lng, bool $user_request): bool {
-        if (self::findPanorama($lat, $lng, $user_request)) {
-            return true;
+    public static function findNearbyPanorama(float $lat, float $lng, bool $user_request): string {
+        $id = self::findPanorama($lat, $lng, $user_request);
+        for ($i = 0; $i < 30 && $id === ''; $i++) {
+            $lat2 = $lat + (mt_rand() / mt_getrandmax() - 0.5) * $i /60;
+            $lng2 = $lng + (mt_rand() / mt_getrandmax() - 0.5) * $i /60;
+            $id = self::findPanorama($lat2, $lng2, $user_request);
         }
-        return false;
+        return $id;
     }
 
 
-    private static function findPanorama(float $lat, float $lng, bool $user_request): bool {
+    private static function findPanorama(float $lat, float $lng, bool $user_request): string {
         $resp = self::query('/metadata', ['location' => $lat . ' ' . $lng]);
-        dd($resp);
-        return $resp['status'] !== 'ZERO_RESULTS' && self::insertPanorama($resp, $user_request);
+        if ($resp['status'] === 'ZERO_RESULTS' || !self::insertPanorama($resp, $user_request)) {
+            return '';
+        }
+        return $resp['pano_id'];
     }
 
-    private static function insertPanorama(array $data, bool $user_request):bool {
-        DB::insert("
-                INSERT INTO panorama (panorama_id, captured_date, panorama_location, added_by_user_id) 
-                WHERE panorama_id = ?
-            ", [$data['id'], $data['date'].'-01', 'POINT('.$data['location']['lng'].' '.$data['location']['lat'].')', $user_request ? Auth::$user_id : null);
+    private static function insertPanorama(array $data, bool $user_request): bool {
+        try {
+            DB::selectOne("
+                INSERT INTO panorama (panorama_id, captured_date, panorama_location, added_by_user_id) VALUES (?, ?, ?, ?)
+            ", [$data['pano_id'], $data['date'].'-01', 'POINT('.$data['location']['lng'].' '.$data['location']['lat'].')', $user_request ? Auth::$user_id : null]);
+        } catch (QueryException) {
+            //suppress
+            return false;
+        }
+        return true;
     }
 
     private static function query(string $path, array $query): array {

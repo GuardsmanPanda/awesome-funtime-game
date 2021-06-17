@@ -3,6 +3,7 @@
 use App\Models\Country;
 use Areas\_Admin\AdminController;
 use Illuminate\Support\Facades\Route;
+use Areas\_Admin\StreetviewAdminController;
 
 Route::get('', [AdminController::class, 'index']);
 Route::view('country','_admin.country');
@@ -22,3 +23,7 @@ Route::post('language',   [AdminController::class, 'createLanguage']);
 Route::patch('language', [AdminController::class, 'patchLanguage']);
 Route::get('language/list',  [AdminController::class, 'listLanguage']);
 
+Route::prefix('streetview')->group(function () {
+    Route::view('', '_admin.streetview');
+    Route::post('add', [StreetviewAdminController::class, 'add']);
+});
