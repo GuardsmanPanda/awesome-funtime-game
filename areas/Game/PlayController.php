@@ -27,8 +27,6 @@ class PlayController {
                 WHERE g.id = ?
             ", [$id]);
 
-        //TODO redirect if game not starter yet
-        //TODO redirect if round is over
         if (!$game->is_queued) {
             Resp::hxRedirectAbort('/game/'.$game->id.'/result', 'Game is done');
         }
@@ -37,7 +35,10 @@ class PlayController {
 
         if ($round_diff < 2) {
             if ($game->next_round_at === null) {
-                return view('game.play.round-result-pending');
+                return view('game.play.round-result-pending', [
+                    'countdown_seconds' => 3,
+                    'game' => $game,
+                ]);
             }
             return view('game.play.round-result', [
                 'game' => $game,

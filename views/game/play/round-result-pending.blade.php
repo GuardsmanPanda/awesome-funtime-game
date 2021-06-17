@@ -1,2 +1,1 @@
-pending...
-
+@include('game.common.pengu-countdown', ['title_counter' => t('Results in'))])
