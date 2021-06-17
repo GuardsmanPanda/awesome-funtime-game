@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/static/leaflet/leaflet.css" />
     <link rel="stylesheet" href="/static/pannellum.css">
 
+    <script src="https://unpkg.com/hyperscript.org@0.0.9"></script>
     <script src="/static/leaflet/leaflet.js"></script>
     <script src="/static/pannellum.js"></script>
 
