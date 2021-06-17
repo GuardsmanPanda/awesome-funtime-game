@@ -10,7 +10,7 @@
 <div class="absolute bg-black bg-opacity-70 font-bold left-9 px-4 py-0.5 rounded-b-md text-gray-400 text-2xl z-20 shadow-lg"
      style="font-family: 'Inkwell Sans',Verdana,sans-serif;"><span class="text-gray-300"  _="on load put df({{$game->captured_date}}, 'LLLL y') into me"></span></div>
 
-<div class="absolute font-bold bottom-7 drop-shadow-lg filter pointer-events-none" style="font-family: 'Inkwell Sans',Verdana,sans-serif; z-index: 500;">
+<div class="absolute bottom-7 drop-shadow-lg filter font-bold origin-bottom-left pointer-events-none scale-75 transform" style="font-family: 'Inkwell Sans',Verdana,sans-serif; z-index: 500;">
     <div class="relative">
         <img src="/static/img/pengu-sign.png" class="h-52" alt="Cutest pengu around">
         <div class="absolute capitalize opacity-70 rotate-1 text-xl text-center top-1 transform w-full">{{t('Round')}}</div>
