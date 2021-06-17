@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="/static/pannellum.css">
     <link rel="stylesheet" href="{{mix('/static/dist/app.css')}}">
 
-    <script src="https://unpkg.com/hyperscript.org@0.0.9"></script>
     <script src="/static/leaflet/leaflet.js"></script>
     <script src="/static/pannellum.js"></script>
     <script src="{{mix('/static/dist/app.js')}}"></script>

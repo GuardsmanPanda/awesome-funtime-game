@@ -14,12 +14,13 @@
     "autoprefixer": "^10.2.6",
     "dialog-polyfill": "^0.5.6",
     "htmx.org": "^1.4",
+    "hyperscript.org": "^0.8.0",
     "laravel-mix": "^6.0",
     "luxon": "^1.27.0",
     "postcss": "^8.3",
     "postcss-import": "^14.0.2",
     "tabulator-tables": "^4.9.3",
-    "tailwindcss": "^2.1",
+    "tailwindcss": "^2.2",
     "tippy.js": "^6.3.1",
     "vanilla-tilt": "^1.7.0"
   }

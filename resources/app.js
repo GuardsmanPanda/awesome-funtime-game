@@ -3,6 +3,7 @@ import dialogPolyfill from 'dialog-polyfill';
 import 'tippy.js/dist/tippy.css';
 import tippy from 'tippy.js';
 
+window.hyperscript = require('hyperscript.org');
 window.htmx = require('htmx.org');
 htmx.config.historyCacheSize = 0;
 
