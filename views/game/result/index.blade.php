@@ -30,7 +30,7 @@
                         <img class="h-12 ml-2" src="/static/img/markers/{{$player->file_name}}" alt="Map Marker">
                         <img class="w-12 shadow-md mx-1" src="/static/img/flags/iso-small/{{$player->country_code}}.png" alt="Country Flag">
                         <div class="ml-2 flex-grow">
-                            <div class="font-bold">
+                            <div class="font-bold text-lg">
                                 {{$player->display_name}}
                             </div>
                             <div class="font-medium text-blueGray-400 flex items-center">

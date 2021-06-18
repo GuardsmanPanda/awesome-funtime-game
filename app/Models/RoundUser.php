@@ -25,7 +25,12 @@ use Carbon\Carbon;
  * @property bool is_correct_country
  * @property float points
  * @property float distance
- * @property string closest_panorama_id
+ * @property float closest_country_code_distance
+ * @property string city_name
+ * @property string state_name
+ * @property string country_name
+ * @property string country_code
+ * @property string closest_country_code
  * @property Carbon created_at
  *
  * AUTO GENERATED FILE DO NOT MODIFY

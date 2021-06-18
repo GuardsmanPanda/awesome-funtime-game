@@ -14,6 +14,7 @@ class UpdateLocationInformation extends Command {
 
     public function handle(): void {
         $this->reverseLookup();
+        $this->reverseRoundUserLookup();
         $this->reverseCites();
         $this->fixAntarctica();
         $this->assignMapBox();
@@ -29,6 +30,7 @@ class UpdateLocationInformation extends Command {
         if (count($panoramas) === 0) {
             return;
         }
+        $this->info("Reverse Panorama Lookup:");
         $this->withProgressBar($panoramas, function ($panorama) {
             //$this->info(json_encode($panorama, JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT));
             $res = Nominatim::getLocationInformation($panorama->st_y, $panorama->st_x);
@@ -39,6 +41,27 @@ class UpdateLocationInformation extends Command {
             $data->state_name = $res['state_name'];
             $data->city_name = $res['city_name'];
             $data->save();
+            sleep(1);
+        });
+        $this->newLine();
+    }
+
+    private function reverseRoundUserLookup(): void {
+        $rus = DB::select("
+            SELECT ru.round_id, ru.user_id, ST_X(ru.location::geometry), ST_Y(ru.location::geometry)
+            FROM round_user ru           
+            LIMIT ?
+        ", [$this->argument('limit')]);
+        if (count($rus) === 0) {
+            return;
+        }
+        $this->info("Reverse Round User Lookup:");
+        $this->withProgressBar($rus, function ($ru) {
+            $res = Nominatim::getLocationInformation($ru->st_y, $ru->st_x);
+            DB::update("
+                UPDATE round_user SET country_code = ?, country_name = ?, state_name = ?, city_name = ?
+                WHERE round_id = ? AND user_id = ?
+            ", [$res['country_code'], $res['country_name'], $res['state_name'],  $res['city_name'], $ru->round_id, $ru->user_id]);
             sleep(1);
         });
         $this->newLine();
@@ -56,9 +79,7 @@ class UpdateLocationInformation extends Command {
             return;
         }
         $this->withProgressBar($loc, function ($lo) {
-            //$this->info(json_encode($panorama, JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT));
             $res = Nominatim::getLocationInformation($lo->lat, $lo->lng);
-            //$this->info(json_encode($res, JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT));
             $data = LocationCities500::find($lo->id);
             $data->country_code = $res['country_code'];
             $data->country_name = $res['country_name'];

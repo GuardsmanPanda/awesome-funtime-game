@@ -15,29 +15,54 @@ class ScoreCalculator {
                 distance = ST_distance(ru.location, (
                     SELECT p.panorama_location FROM panorama p WHERE p.panorama_id = ?
                 )),
-                closest_panorama_id = (
-                    SELECT p2.panorama_id FROM panorama p2
-                    WHERE p2.country_code IS NOT NULL
-                    ORDER BY ru.location <-> p2.panorama_location
-                    LIMIT 1
-                )
+                closest_country_code = (
+                    SELECT close.country_code  FROM ((
+                        SELECT p2.country_code, ST_distance(ru.location, p2.panorama_location) as distance FROM panorama p2
+                        WHERE p2.country_code IS NOT NULL
+                        ORDER BY ru.location <-> p2.panorama_location
+                        LIMIT 1
+                        ) 
+                        UNION (
+                        SELECT r3.country_code, ST_distance(ru.location, r3.location) as distance FROM round_user r3
+                        WHERE r3.country_code IS NOT NULL
+                        ORDER BY ru.location <-> r3.location
+                        LIMIT 1
+                        ) 
+                    ORDER BY distance LIMIT 1) as close
+                ),
+                closest_country_code_distance = (
+                    SELECT close.distance  FROM ((
+                        SELECT p2.country_code, ST_distance(ru.location, p2.panorama_location) as distance FROM panorama p2
+                        WHERE p2.country_code IS NOT NULL
+                        ORDER BY ru.location <-> p2.panorama_location
+                        LIMIT 1
+                        ) 
+                        UNION (
+                        SELECT r3.country_code, ST_distance(ru.location, r3.location) as distance FROM round_user r3
+                        WHERE r3.country_code IS NOT NULL
+                        ORDER BY ru.location <-> r3.location
+                        LIMIT 1
+                        ) 
+                    ORDER BY distance LIMIT 1) as close
+                )            
             WHERE ru.round_id = ?
         ", [$round->panorama_id, $round->id]);
 
             DB::update("
             UPDATE round_user ru SET
                 points = 100 * pow(0.90, rr_rank.round_rank - 1)
-                    + CASE WHEN p2.country_code = p.country_code THEN 20 ELSE 0 END,
-                is_correct_country = p2.country_code = p.country_code
-            FROM panorama p, panorama p2, (SELECT
+                    + CASE WHEN ru.country_code = p.country_code THEN 20 ELSE 0 END,
+                is_correct_country = ru.country_code = p.country_code
+            FROM panorama p, (SELECT
                         ru2.round_id, ru2.user_id,
                         rank() OVER (PARTITION BY ru2.round_id ORDER BY ru2.distance) as round_rank
                     FROM round_user ru2
                     WHERE round_id = ?
                     ) rr_rank
             WHERE
-                p.panorama_id = ? AND ru.round_id = ? AND p2.panorama_id = ru.closest_panorama_id
-                AND rr_rank.round_id = ru.round_id AND rr_rank.user_id = ru.user_id
+                p.panorama_id = ? AND ru.round_id = ?
+                AND rr_rank.round_id = ru.round_id
+                AND rr_rank.user_id = ru.user_id
         ", [$round->id, $round->panorama_id, $round->id]);
 
             DB::insert("
