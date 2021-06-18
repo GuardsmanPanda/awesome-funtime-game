@@ -20,6 +20,7 @@ class DashboardController extends Controller {
         $game = new Game();
         $game->round_count = $r->get('round_count');
         $game->round_time = $r->get('round_time');
+        $game->realm_id = $r->get('realm_id');
         $game->created_by_user_id = Auth::$user_id;
         $game->save();
         return $this->index();

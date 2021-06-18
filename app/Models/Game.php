@@ -21,6 +21,7 @@ use Carbon\Carbon;
  * @method static Builder with(array|string  $relations)
  *
  * @property int id
+ * @property int realm_id
  * @property int round_time
  * @property int round_count
  * @property int current_round

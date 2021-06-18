@@ -2,17 +2,19 @@
 
 namespace App\Commands;
 
+use App\Models\LocationCities500;
 use App\Models\Panorama;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Integrations\Nominatim\Nominatim;
 
 class UpdateLocationInformation extends Command {
-    protected $signature = 'panorama:update-location {limit=999}';
+    protected $signature = 'zz:update-location {limit=999}';
     protected $description = 'Update panorama location from Nominatim';
 
     public function handle(): void {
         $this->reverseLookup();
+        $this->reverseCites();
         $this->fixAntarctica();
         $this->assignMapBox();
     }
@@ -21,7 +23,7 @@ class UpdateLocationInformation extends Command {
         $panoramas = DB::select("
             SELECT p.panorama_id, ST_X(p.panorama_location::geometry), ST_Y(p.panorama_location::geometry)
             FROM panorama p
-            WHERE country_code IS NULL AND panorama_location IS NOT NULL
+            WHERE country_code IS NULL
             LIMIT ?
         ", [$this->argument('limit')]);
         if (count($panoramas) === 0) {
@@ -41,6 +43,33 @@ class UpdateLocationInformation extends Command {
         });
         $this->newLine();
     }
+
+
+    private function reverseCites(): void {
+        $loc = DB::select("
+            SELECT lc.id, lc.lat, lc.lng
+            FROM location_cities_500 lc
+            WHERE country_code IS NULL
+            LIMIT ?
+        ", [$this->argument('limit')]);
+        if (count($loc) === 0) {
+            return;
+        }
+        $this->withProgressBar($loc, function ($lo) {
+            //$this->info(json_encode($panorama, JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT));
+            $res = Nominatim::getLocationInformation($lo->lat, $lo->lng);
+            //$this->info(json_encode($res, JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT));
+            $data = LocationCities500::find($lo->id);
+            $data->country_code = $res['country_code'];
+            $data->country_name = $res['country_name'];
+            $data->state_name = $res['state_name'];
+            $data->city_name = $res['city_name'];
+            $data->save();
+            sleep(1);
+        });
+        $this->newLine();
+    }
+
 
     private function fixAntarctica(): void {
         $panoramas = DB::select("

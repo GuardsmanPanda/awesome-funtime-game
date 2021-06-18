@@ -1,5 +1,6 @@
 <?php
 
+use App\Tools\Auth;
 use App\Tools\Resp;
 use Areas\Game\PlayController;
 use Areas\Game\LobbyController;
@@ -12,14 +13,18 @@ Route::get('active', function () { return Resp::SQLJson("
         SELECT g.id, g.round_count, g.round_time, g.current_round, u.display_name
         FROM game g
         LEFT JOIN users u ON u.id = g.created_by_user_id
-        WHERE g.round_count != g.current_round
-        ORDER BY u.display_name");
+        LEFT JOIN realm r ON r.id = g.realm_id
+        LEFT JOIN realm_user ru ON ru.realm_id = r.id
+        WHERE g.round_count != g.current_round AND ru.user_id = ?
+        ORDER BY u.display_name", [Auth::$user_id]);
 });
 Route::get('recent', function () { return Resp::SQLJson("
         SELECT g.id, g.round_count, u.display_name, g.ended_at
         FROM game g
         LEFT JOIN users u ON u.id = g.created_by_user_id
-        WHERE g.ended_at IS NOT NULL
+        LEFT JOIN realm r ON r.id = g.realm_id
+        LEFT JOIN realm_user ru ON ru.realm_id = r.id
+        WHERE g.ended_at IS NOT NULL AND ru.user_id = ?
         ORDER BY g.ended_at DESC LIMIT 6");
 });
 
@@ -36,7 +41,7 @@ Route::get('{game}/result', [ResultController::class, 'index']);
 
 
 Route::post('marker/{marker}', [LobbyController::class, 'changeMapMarker']);
-Route::get("{game}/player", function ($game) {
+Route::get("{game_id}/player", function ($game_id) {
     return Resp::SQLJson("
             SELECT u.country_code, u.display_name, m.file_name
             FROM game_user gu
@@ -44,5 +49,5 @@ Route::get("{game}/player", function ($game) {
             LEFT JOIN marker m ON m.id = u.map_marker_id
             WHERE gu.game_id = ?
             ORDER BY u.display_name
-    ", [$game]);
+    ", [$game_id]);
 });

@@ -1,4 +1,14 @@
 <form method="dialog" id="round-create-form" class="grid gap-2" autocomplete="off" hx-post="/game/create">
+    <select name="realm_id">
+        Realm
+        @foreach(\Illuminate\Support\Facades\DB::select("
+            SELECT r.id, r.realm_name
+            FROM realm_user ru
+            LEFT JOIN realm r ON r.id = ru.realm_id
+            WHERE ru.user_id = ?", [\App\Tools\Auth::$user_id]) as $realm)
+            <option value="{{$realm->id}}">{{$realm->realm_name}}</option>
+        @endforeach
+    </select>
     <label>
         {{t('Rounds')}}
         <input name="round_count" required type="number" class="w-full" value="7" autofocus>
