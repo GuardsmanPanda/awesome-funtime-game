@@ -14,8 +14,8 @@ Route::get('active', function () { return Resp::SQLJson("
         FROM game g
         LEFT JOIN users u ON u.id = g.created_by_user_id
         LEFT JOIN realm r ON r.id = g.realm_id
-        LEFT JOIN realm_user ru ON ru.realm_id = r.id
-        WHERE g.round_count != g.current_round AND (ru.user_id = ? OR r.id = 1)
+        LEFT JOIN realm_user ru ON ru.realm_id = r.id AND ru.user_id = ?
+        WHERE g.round_count != g.current_round AND (ru.user_id IS NOT NULL OR r.id = 1)
         ORDER BY u.display_name", [Auth::$user_id]);
 });
 Route::get('recent', function () { return Resp::SQLJson("
@@ -23,8 +23,8 @@ Route::get('recent', function () { return Resp::SQLJson("
         FROM game g
         LEFT JOIN users u ON u.id = g.created_by_user_id
         LEFT JOIN realm r ON r.id = g.realm_id
-        LEFT JOIN realm_user ru ON ru.realm_id = r.id
-        WHERE g.ended_at IS NOT NULL AND (ru.user_id = ? OR r.id = 1)
+        LEFT JOIN realm_user ru ON ru.realm_id = r.id AND ru.user_id = ?
+        WHERE g.ended_at IS NOT NULL AND (ru.user_id IS NOT NULL OR r.id = 1)
         ORDER BY g.ended_at DESC LIMIT 6", [Auth::$user_id]);
 });
 
