@@ -71,7 +71,7 @@ class PlayController {
             WHERE g.id = ?
             ORDER BY r.id
         ", [$id]),
-            'countdown_seconds' => $round_diff,
+            'countdown_seconds' => $round_diff, //TODO: use proper local time
             'marker' => Marker::find(Auth::user()->map_marker_id)->file_name,
         ]);
     }

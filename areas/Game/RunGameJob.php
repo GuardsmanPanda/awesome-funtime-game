@@ -45,7 +45,7 @@ class RunGameJob implements ShouldQueue {
             $game->current_round = $i;
             $game->save();
 
-            sleep($game->round_time - 2);
+            sleep($game->round_time + 1);
             $game->is_round_active = false;
             $game->save();
 

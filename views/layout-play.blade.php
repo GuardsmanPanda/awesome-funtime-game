@@ -40,7 +40,7 @@
                 let ele = document.getElementById("countdown");
                 ele.style.opacity = "0";
             }
-            if (value < -3) {
+            if (value < -5) {
                 location.reload();
                 clearInterval(countdownInterval);
             }
