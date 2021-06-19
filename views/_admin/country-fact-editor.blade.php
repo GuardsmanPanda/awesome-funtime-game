@@ -11,7 +11,7 @@
     </x-content-raw>
     <div class="flex flex-row-reverse gap-2">
         <form method="dialog">
-            <button class="button-gray">{{t('Close')}}</button>
+            <button class="button-gray">{{t('Done')}}</button>
         </form>
     </div>
 </div>
@@ -42,7 +42,7 @@
             {title: "ID", field: "id"},
             {title: "Creator", field: "display_name"},
             {title: "Created", field: "created_at"},
-            {title: "Text", field: "fact_text", editor:"input", width:600},
+            {title: "Text", field: "fact_text",  editor:"input", width:900},
         ]
     })
 </script>

@@ -28,10 +28,11 @@ use Carbon\Carbon;
  * @property float closest_country_code_distance
  * @property string city_name
  * @property string state_name
- * @property string country_name
  * @property string country_code
+ * @property string country_name
  * @property string closest_country_code
  * @property Carbon created_at
+ * @property Carbon location_lookup_at
  *
  * AUTO GENERATED FILE DO NOT MODIFY
  */
@@ -45,6 +46,7 @@ class RoundUser extends Model {
 
     protected $casts = [
         'created_at' => 'datetime',
+        'location_lookup_at' => 'datetime',
     ];
 
     protected $guarded = ['id','updated_at','created_at','deleted_at'];

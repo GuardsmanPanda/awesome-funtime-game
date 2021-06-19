@@ -23,6 +23,7 @@ use Carbon\Carbon;
  * @property int id
  * @property int twitch_id
  * @property int language_id
+ * @property int map_style_id
  * @property int map_marker_id
  * @property bool is_admin
  * @property bool can_create_games
@@ -30,7 +31,6 @@ use Carbon\Carbon;
  * @property string work_email
  * @property string display_name
  * @property string country_code
- * @property string map_style_enum
  * @property Carbon update_at
  * @property Carbon created_at
  * @property Carbon last_login_at

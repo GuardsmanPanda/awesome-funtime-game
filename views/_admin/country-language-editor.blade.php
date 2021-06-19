@@ -42,7 +42,7 @@
     </div>
     <div class="flex flex-row-reverse gap-2">
         <form method="dialog">
-            <button class="button-gray">{{t('Close')}}</button>
+            <button class="button-gray">{{t('Done')}}</button>
         </form>
     </div>
 </div>
