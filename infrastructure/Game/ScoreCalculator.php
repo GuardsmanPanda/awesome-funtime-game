@@ -51,8 +51,8 @@ class ScoreCalculator {
             DB::update("
             UPDATE round_user ru SET
                 points = 100 * pow(0.90, rr_rank.round_rank - 1)
-                    + CASE WHEN ru.country_code = p.country_code THEN 20 ELSE 0 END,
-                is_correct_country = ru.country_code = p.country_code
+                    + CASE WHEN ru.closest_country_code = p.country_code THEN 20 ELSE 0 END,
+                is_correct_country = ru.closest_country_code = p.country_code
             FROM panorama p, (SELECT
                         ru2.round_id, ru2.user_id,
                         rank() OVER (PARTITION BY ru2.round_id ORDER BY ru2.distance) as round_rank

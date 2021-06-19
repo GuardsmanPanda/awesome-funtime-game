@@ -13,10 +13,16 @@ class Nominatim {
         if ($res->failed()) {
             throw new RuntimeException('Error in location lookup');
         }
-        $json = $res->json('address');
-        if ($json === null) {
-            throw new RuntimeException('Could not geo code location');
+        $j = $res->json();
+        if (!array_key_exists('address', $j)) {
+            return [
+                'country_code' => null,
+                'country_name' => null,
+                'state_name' => null,
+                'city_name' => null,
+            ];
         }
+        $json = $res->json('address');
         return [
             'country_code' => strtoupper($json['country_code'] ?? 'XX'),
             'country_name' => $json['country'] ?? 'Unknown',

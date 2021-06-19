@@ -49,7 +49,8 @@ class UpdateLocationInformation extends Command {
     private function reverseRoundUserLookup(): void {
         $rus = DB::select("
             SELECT ru.round_id, ru.user_id, ST_X(ru.location::geometry), ST_Y(ru.location::geometry)
-            FROM round_user ru           
+            FROM round_user ru
+            WHERE ru.location_lookup_at IS NULL
             LIMIT ?
         ", [$this->argument('limit')]);
         if (count($rus) === 0) {
@@ -59,7 +60,8 @@ class UpdateLocationInformation extends Command {
         $this->withProgressBar($rus, function ($ru) {
             $res = Nominatim::getLocationInformation($ru->st_y, $ru->st_x);
             DB::update("
-                UPDATE round_user SET country_code = ?, country_name = ?, state_name = ?, city_name = ?
+                UPDATE round_user 
+                SET country_code = ?, country_name = ?, state_name = ?, city_name = ?, location_lookup_at = CURRENT_TIMESTAMP
                 WHERE round_id = ? AND user_id = ?
             ", [$res['country_code'], $res['country_name'], $res['state_name'],  $res['city_name'], $ru->round_id, $ru->user_id]);
             sleep(1);
@@ -81,7 +83,7 @@ class UpdateLocationInformation extends Command {
         $this->withProgressBar($loc, function ($lo) {
             $res = Nominatim::getLocationInformation($lo->lat, $lo->lng);
             $data = LocationCities500::find($lo->id);
-            $data->country_code = $res['country_code'];
+            $data->country_code = $res['country_code'] ?? 'XX';
             $data->country_name = $res['country_name'];
             $data->state_name = $res['state_name'];
             $data->city_name = $res['city_name'];
