@@ -65,7 +65,7 @@
         center: [{{$game->y}}, {{$game->x}}],
         zoom: 6
     });
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+    L.tileLayer('/static/tile/{{\App\Tools\Auth::user()?->map_style_id ?? 1}}/{z}-{x}-{y}.png').addTo(map);
 
     L.marker([{{$game->y}}, {{$game->x}}], {icon:marker_win, zIndexOffset:500}).addTo(map);
 
