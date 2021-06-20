@@ -18,7 +18,7 @@
                 .then(data => {
                     table.replaceData(data);
                 })
-                .catch((error) => {
+                .catch(error => {
                     console.error('Error:', error);
                     table.replaceData(data);
                 });

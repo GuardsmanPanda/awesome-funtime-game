@@ -33,6 +33,7 @@ Route::post('create', [DashboardController::class, 'create']);
 Route::post('{game}/start', [LobbyController::class, 'start']);
 Route::get('{game}/lobby', [LobbyController::class, 'index']);
 Route::get('{game}/lobby-status', [LobbyController::class, 'lobbyStatus']);
+Route::view('lobby/map-selector', 'game.lobby.map-selector');
 
 Route::get('{id}/play', [PlayController::class, 'index']);
 Route::post('{game}/guess', [PlayController::class, 'guess']);

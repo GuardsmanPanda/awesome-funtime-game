@@ -3,7 +3,7 @@
     <div class="px-2 pt-0.5 pb-1 flex items-center justify-between text-teal-600">
         <div class="flex gap-1 items-center">
             <x-icon name="{{$icon}}"></x-icon>
-            <div class="font-bold text-xl leading-normal" style="font-family: 'Inkwell Sans',Verdana,sans-serif;">{{$title}}</div>
+            <div class="font-bold text-xl leading-normal capitalize" style="font-family: 'Inkwell Sans',Verdana,sans-serif;">{{$title}}</div>
         </div>
         <div>{{$header ?? ''}}</div>
     </div>

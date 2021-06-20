@@ -29,7 +29,7 @@ class Translate extends Command {
         $this->createMissingConfig();
 
         $need_translate_extra = $this->getDBTranslations();
-        $need_translate = [];
+        $need_translate = $this->getExtraWordsToTranslate();
 
         foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->view_dir, FilesystemIterator::SKIP_DOTS | FilesystemIterator::CURRENT_AS_PATHNAME)) as $x) {
             preg_match_all ("/[^a-zA-Z0-9]t\('(.+?)'\)/", file_get_contents($x), $matches, PREG_SET_ORDER);
@@ -137,6 +137,14 @@ class Translate extends Command {
         foreach (Country::all(['country_name', 'currency_name']) as $country) {
             $res['currency'][] = $country->currency_name;
             $res['country'][] = $country->country_name;
+        }
+        return $res;
+    }
+
+    private function getExtraWordsToTranslate(): array {
+        $res = [];
+        foreach (DB::select("SELECT map_style_name FROM map_style") as $map) {
+            $res[] = $map->map_style_name;
         }
         return $res;
     }
