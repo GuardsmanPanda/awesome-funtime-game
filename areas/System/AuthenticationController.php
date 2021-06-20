@@ -79,6 +79,7 @@ class AuthenticationController extends Controller {
         $user = User::firstWhere('work_email', '=', $content->email);
         if ($user === null) {
             $user = new User();
+            $user->email = $content->email;
             $user->work_email = $content->email;
             $user->language_id = LanguageUtility::getAcceptedLanguage();
         }

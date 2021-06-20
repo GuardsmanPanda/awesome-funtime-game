@@ -10,11 +10,12 @@ use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class MapTileStyleController extends Controller {
-    public function getMapTile(MapStyle $map_style, string $file_name): BinaryFileResponse {
+    public function getMapTile(MapStyle $map_style, string $z, string $file_name): BinaryFileResponse {
         $parts = explode('-', str_replace('.png', '', $file_name));
-        $url = str_replace(array('{z}', '{x}', '{y}'), array($parts[0], $parts[1], $parts[2]), $map_style->map_style_source);
+        $url = str_replace(array('{z}', '{x}', '{y}'), array($z, $parts[0], $parts[1]), $map_style->map_style_source);
        $client = new Client();
-        Storage::put('/tile/' . $map_style->id . '/' . $file_name, $client->get($url)->getBody());
-        return new BinaryFileResponse(storage_path('app/public/tile/' . $map_style->id . '/' . $file_name));
+       $rel_loc = 'tile/' . $map_style->id . "/$z/$file_name";
+        Storage::put($rel_loc, $client->get($url)->getBody());
+        return new BinaryFileResponse(storage_path('app/public/' . $rel_loc));
     }
 }

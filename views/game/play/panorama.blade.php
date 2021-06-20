@@ -37,7 +37,14 @@
     });
 
     const marker = L.marker([20, 20], {icon: map_icon}).addTo(map);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+    L.tileLayer('/static/files/tile/{{\App\Tools\Auth::user()->map_style_id}}/{z}/{x}-{y}.png', {
+        @if((\App\Tools\Auth::user()?->map_style_id ?? 1) !== 1)
+        tileSize: 512,
+        zoomOffset: -1
+        @endif
+    }).addTo(map);
+
     map.on('click', function (e) {
         fetch('/game/{{$game->id}}/guess', {
             method: 'POST',

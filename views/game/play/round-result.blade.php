@@ -63,9 +63,14 @@
     });
     const map = L.map('map', {
         center: [{{$game->y}}, {{$game->x}}],
-        zoom: 6
+        zoom: 5
     });
-    L.tileLayer('/static/files/tile/{{\App\Tools\Auth::user()?->map_style_id ?? 1}}/{z}-{x}-{y}.png').addTo(map);
+    L.tileLayer('/static/files/tile/{{\App\Tools\Auth::user()->map_style_id}}/{z}/{x}-{y}.png', {
+        @if((\App\Tools\Auth::user()?->map_style_id ?? 1) !== 1)
+        tileSize: 512,
+        zoomOffset: -1
+        @endif
+    }).addTo(map);
 
     L.marker([{{$game->y}}, {{$game->x}}], {icon:marker_win, zIndexOffset:500}).addTo(map);
 
