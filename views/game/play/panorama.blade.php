@@ -4,7 +4,7 @@
         <div id="map" class="h-full w-full"></div>
     </div>
 </div>
-@include('game.common.pengu-countdown', ['title_counter' => t('Round ends in'), 'class' => 'top-64 -right-3'])
+@include('game.common.pengu-countdown', ['title_counter' => t('Round ends'), 'class' => 'top-64 -right-3'])
 @include('game.common.countries-out')
 
 <div class="absolute bg-black bg-opacity-70 font-bold left-9 px-4 py-0.5 rounded-b-md text-gray-400 text-2xl z-20 shadow-lg"
