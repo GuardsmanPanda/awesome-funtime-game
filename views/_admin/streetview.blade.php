@@ -13,7 +13,8 @@
     });
 
     const marker = L.marker([20, 20], {icon: map_icon}).addTo(map);
-    L.tileLayer('/static/files/tile/{{\App\Tools\Auth::user()->map_style_id}}/{z}/{x}-{y}.png', {
+    L.tileLayer('/static/files/tile/{{\App\Tools\Auth::user()->map_style_id}}/{z}/{x}/{y}.png', {
+        maxNativeZoom: 16,
         @if((\App\Tools\Auth::user()?->map_style_id ?? 1) !== 1)
             tileSize: 512,
             zoomOffset: -1
