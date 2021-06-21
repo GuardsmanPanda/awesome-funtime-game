@@ -23,6 +23,7 @@ use Carbon\Carbon;
  * @property int id
  * @property int game_id
  * @property int round_number
+ * @property int country_fact_id
  * @property string panorama_id
  * @property Carbon created_at
  * @property Carbon round_end_at

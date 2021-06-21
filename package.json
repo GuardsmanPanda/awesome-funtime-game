@@ -14,7 +14,7 @@
     "autoprefixer": "^10.2.6",
     "dialog-polyfill": "^0.5.6",
     "htmx.org": "^1.4",
-    "hyperscript.org": "^0.8.0",
+    "hyperscript.org": "^0.8.1",
     "laravel-mix": "^6.0",
     "luxon": "^1.27.0",
     "postcss": "^8.3",

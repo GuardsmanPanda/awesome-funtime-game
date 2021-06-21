@@ -20,10 +20,12 @@ class PlayController {
                     g.id, g.next_round_at, g.current_round_id, g.round_count, g.is_queued, g.current_round,
                     r.round_end_at,
                     p.file_name, p.country_code, ST_X(p.panorama_location::geometry) as x, ST_Y(p.panorama_location::geometry) as y,
-                    p.city_name, p.state_name, p.country_name, p.captured_date
+                    p.city_name, p.state_name, p.country_name, p.captured_date,
+                    cf.fact_text
                 FROM game g
                 LEFT JOIN round r ON r.id = g.current_round_id
                 LEFT JOIN panorama p on r.panorama_id = p.panorama_id
+                LEFT JOIN country_fact cf ON cf.id = r.country_fact_id
                 WHERE g.id = ?
             ", [$id]);
 
@@ -40,6 +42,7 @@ class PlayController {
                     'game' => $game,
                 ]);
             }
+
             return view('game.play.round-result', [
                 'game' => $game,
                 'countdown_seconds' => max(Carbon::now()->diffInSeconds(Carbon::parse($game->next_round_at), false), 3),
@@ -63,13 +66,12 @@ class PlayController {
         return view('game.play.panorama', [
             'game' => $game,
             'out' => DB::select("
-            SELECT c.country_code, c.country_name
-            FROM game g
-            RIGHT JOIN round r ON r.game_id = g.id AND r.id != g.current_round_id
-            LEFT JOIN panorama p ON p.panorama_id = r.panorama_id
-            LEFT JOIN country c ON c.country_code = p.country_code
-            WHERE g.id = ?
-            ORDER BY r.id
+                SELECT c.country_code, c.country_name
+                FROM game g
+                RIGHT JOIN round r ON r.game_id = g.id AND r.id != g.current_round_id
+                LEFT JOIN panorama p ON p.panorama_id = r.panorama_id
+                LEFT JOIN country c ON c.country_code = p.country_code
+                WHERE g.id = ? ORDER BY r.id
         ", [$id]),
             'countdown_seconds' => $round_diff, //TODO: use proper local time
             'marker' => Marker::find(Auth::user()->map_marker_id)->file_name,

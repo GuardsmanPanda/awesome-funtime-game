@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static Builder with(array|string  $relations)
  *
  * @property int id
+ * @property string preview_img
  * @property string map_style_name
  * @property string map_style_source
  *

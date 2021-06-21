@@ -14,10 +14,10 @@
         <div id="player-table" class="w-96"></div>
     </x-content-raw>
     <div class="flex flex-col gap-4">
-        <button id="map-selector" class="transform hover:scale-105 rounded bg-orange-300 px-2 from-orange-200 bg-gradient-to-bl shadow flex gap-2 items-center py-1 justify-between" >
-            <x-icon name="map" class="text-orange-500 @if(\App\Tools\Auth::user()?->map_style_id === null) animate-pulse @endif"></x-icon>
+        <button id="map-selector" class="transform hover:shadow-xl duration-75 hover:scale-105 rounded bg-orange-300 px-2 from-orange-200 bg-gradient-to-bl shadow flex gap-2 items-center py-1 justify-between" >
+            <x-icon name="map" class="text-orange-500 {{\App\Tools\Auth::user()?->map_style_id ? '': 'animate-pulse'}}"></x-icon>
             <div class="font-bold text-xl leading-normal text-orange-600 capitalize truncate" style="font-family: 'Inkwell Sans',Verdana,sans-serif;">{{t('Click to select map')}}</div>
-            <x-icon name="map" class="text-orange-500 @if(\App\Tools\Auth::user()?->map_style_id === null) animate-pulse @endif"></x-icon>
+            <x-icon name="map" class="text-orange-500 {{\App\Tools\Auth::user()?->map_style_id ? '': 'animate-pulse'}}"></x-icon>
             </button>
         <div id="map-marker" style="width: 22rem;" class="rounded flex-col bg-teal-300 p-0.5 from-teal-200 bg-gradient-to-bl shadow" hx-target="this">
             @include('game.lobby.map-marker')
