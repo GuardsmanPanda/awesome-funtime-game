@@ -13,7 +13,7 @@
 <div class="absolute bottom-7 drop-shadow-lg filter font-bold origin-bottom-left pointer-events-none scale-75 transform" style="font-family: 'Inkwell Sans',Verdana,sans-serif; z-index: 500;">
     <div class="relative">
         <img src="/static/img/pengu-sign.png" class="h-52" alt="Cutest pengu around">
-        <div class="absolute capitalize opacity-70 rotate-1 text-xl text-center top-1 transform w-full">{{t('Round')}}</div>
+        <div class="absolute capitalize opacity-70 rotate-1 text-xl text-center top-1 transform w-full">{{t('Game round')}}</div>
         <div id="countdown" class="text-blueGray-800 text-3xl leading-7 tabular-nums absolute top-6 w-full text-center">{{$game->current_round}}/{{$game->round_count}}</div>
     </div>
 </div>
