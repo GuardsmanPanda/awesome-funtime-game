@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Integrations\Nominatim\Nominatim;
 
 class UpdateLocationInformation extends Command {
-    protected $signature = 'zz:update-location {limit=999}';
+    protected $signature = 'location:update {limit=999}';
     protected $description = 'Update panorama location from Nominatim';
 
     public function handle(): void {

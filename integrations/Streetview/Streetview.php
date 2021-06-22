@@ -12,11 +12,11 @@ class Streetview {
     private static string $base_url = 'https://maps.googleapis.com/maps/api/streetview';
 
 
-    public static function findNearbyPanorama(float $lat, float $lng, bool $user_request): string {
+    public static function findNearbyPanorama(float $lat, float $lng, bool $user_request = false, int $attempts = 30, float $precision = 60): string {
         $id = self::findPanorama($lat, $lng, $user_request);
-        for ($i = 0; $i < 30 && $id === ''; $i++) {
-            $lat2 = $lat + (mt_rand() / mt_getrandmax() - 0.5) * $i /60;
-            $lng2 = $lng + (mt_rand() / mt_getrandmax() - 0.5) * $i /60;
+        for ($i = 0; $i < $attempts && $id === ''; $i++) {
+            $lat2 = $lat + (mt_rand() / mt_getrandmax() - 0.5)  /$precision;
+            $lng2 = $lng + (mt_rand() / mt_getrandmax() - 0.5) /$precision;
             $id = self::findPanorama($lat2, $lng2, $user_request);
         }
         return $id;
