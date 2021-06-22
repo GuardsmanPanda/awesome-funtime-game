@@ -60,6 +60,13 @@ class AdminController {
         return $this->getCountryLanguageEditor($country);
     }
 
+    public function deleteLanguageCountry(Country $country, int $language_id): View {
+        DB::delete("
+            DELETE FROM country_language WHERE country_code = ? AND language_id = ?
+        ", [$country->country_code, $language_id]);
+        return $this->getCountryLanguageEditor($country);
+    }
+
 
     public function listLanguage(): JsonResponse  {
         return Resp::SQLJson("

@@ -1,5 +1,5 @@
-<div class="grid gap-4">
-    <form class="flex gap-4" hx-post="/admin/country/{{$country->country_code}}/language" hx-target="closest div">
+<div class="grid gap-4" hx-target="this">
+    <form class="flex gap-4" hx-post="/admin/country/{{$country->country_code}}/language">
         <label>{{t('Language')}}
             <select name="language_id">
                 @foreach(\App\Models\Language::orderBy('language_name')->get() as $lang)
@@ -20,10 +20,11 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Name</th>
-                        <th>Percentage</th>
+                        <th>{{t('Name')}}</th>
+                        <th>{{t('Percentage')}}</th>
                         <th>Code-2</th>
                         <th>Code-3</th>
+                        <th>{{t('Delete')}}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -34,6 +35,7 @@
                             <td>{{$lang->percentage}}%</td>
                             <td>{{$lang->two_letter_code}}</td>
                             <td>{{$lang->three_letter_code}}</td>
+                            <td><button class="small-scale-button-red" hx-delete="/admin/country/{{$country->country_code}}/language/{{$lang->id}}">{{t('Delete')}}</button></td>
                         </tr>
                     @endforeach
                 </tbody>

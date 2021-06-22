@@ -60,7 +60,7 @@
         }
     </script>
 </head>
-<body hx-indicator="#loading-status" hx-target="#primary" class="">
+<body hx-indicator="#loading-status" hx-target="#primary" class="subpixel-antialiased">
 <nav class="absolute bg-gray-800 flex  h-10 items-center justify-between shadow-md w-full top-0"
      style="font-family: 'Inkwell Sans',Verdana,sans-serif; line-height: 1.3; font-size: 1.3rem;">
     <div class="flex items-center gap-4">

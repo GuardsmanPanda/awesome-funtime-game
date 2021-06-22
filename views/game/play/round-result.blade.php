@@ -16,26 +16,35 @@
                 @endif
             </div>
         </div>
-        <div class="absolute bg-black bg-opacity-90 font-bold pl-2 pr-4 py-1 rounded-br-md text-green-500 text-xl shadow-lg leading-5"
+
+        <div class="absolute bg-black bg-opacity-90 font-bold pl-4 pr-4 py-1 rounded-br-md text-green-500 text-xl shadow-lg leading-5 grid gap-2"
              style="font-family: 'Inkwell Sans',Verdana,sans-serif;z-index: 50000;">
-            <div><span class="text-gray-500">{{t('Country')}}: </span>{{$country->country_name}} <span class="text-gray-400">[{{$country->country_code}}/{{$country->iso_3}}]</span></div>
+            <div class="text-center text-3xl text-blue-400">{{$country->country_name}} </div>
+
+          <div class="flex gap-3">
+              <img src="https://flagcdn.com/128x96/gb.png" width="128" height="96" alt="South Africa">
+              <div class="grid">
+                  <div class="flex gap-2"><x-icon name="phone" class="text-gray-500"></x-icon><span>+{{$country->dialing_code}}</span></div>
+                  <div class="flex gap-2"><x-icon name="globe-alt" class="text-gray-500"></x-icon><span>{{$country->tld}}</span></div>
+                  <div class="flex gap-2"><x-icon name="cash" class="text-gray-500"></x-icon><span>+{{$country->dialing_code}}</span></div>
+              </div>
+          </div>
             @if($country->independent_status !== 'Yes')
-            <div><span class="text-gray-500">{{t('Status')}}: </span>{{$country->independent_status}} </div>
+                <div><span class="text-gray-500">{{t('Status')}}: </span>{{$country->independent_status}} </div>
             @endif
             <div><span class="text-gray-500">{{t('Currency')}}: </span>{{$country->currency_name}} <span class="text-gray-400">[{{$country->currency_code}}]</span></div>
             <div><span class="text-gray-500">{{t('Capital city')}}: </span>{{$country->capital}}</div>
-            <div class="mt-1.5"><span class="text-gray-500">{{t('Dialing code')}}: </span>+{{$country->dialing_code}}</div>
-            <div><span class="text-gray-500">{{t('Domain')}}: </span>{{$country->tld}}</div>
+
             <div class="mt-1.5"><span class="text-gray-500">{{t('Population')}}: </span><span _="on load put ({{$country->population}}).toLocaleString() into me"></span> <span class="text-gray-400">#{{$country->population_rank}}</span></div>
             <div><span class="text-gray-500">{{t('Size')}}: </span><span _="on load put ({{$country->area}}).toLocaleString() into me"></span> <span class="text-gray-500">km<sup>2</sup></span> <span class="text-gray-400">#{{$country->area_rank}}</span></div>
         </div>
+
         @isset($game->fact_text)
             <div class="bottom-0 absolute w-full flex justify-center" style="font-family: 'Inkwell Sans',Verdana,sans-serif;z-index: 500;">
                 <div class="bg-gray-800 font-medium px-3 text-gray-200 text-xl py-1">{{$game->fact_text}}</div>
             </div>
         @endisset
     </div>
-
 
     <div style="width: 27rem; z-index: 500" class="shadow-2xl">
         <div class="grid gap-3 py-2 px-4">

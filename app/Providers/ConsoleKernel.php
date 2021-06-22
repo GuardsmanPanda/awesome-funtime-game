@@ -6,6 +6,7 @@ use App\Commands\Test;
 use App\Commands\Translate;
 use App\Commands\UpdateRanks;
 use App\Commands\GenerateModels;
+use App\Commands\LocationSearch;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel;
 use App\Commands\UpdateLocationInformation;
@@ -21,6 +22,7 @@ class ConsoleKernel extends Kernel {
         Translate::class,
         UpdateLocationInformation::class,
         UpdateRanks::class,
+        LocationSearch::class,
     ];
 
     /**

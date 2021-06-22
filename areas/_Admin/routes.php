@@ -12,6 +12,7 @@ Route::get('country/list', [AdminController::class, 'listCountry']);
 
 Route::get('country/{country}/language-editor', [AdminController::class, 'getCountryLanguageEditor']);
 Route::post('country/{country}/language',   [AdminController::class, 'addLanguageToCountry']);
+Route::delete('country/{country}/language/{language_id}',   [AdminController::class, 'deleteLanguageCountry']);
 
 Route::get('country/{country}/fact-editor', [AdminController::class, 'getCountryFactEditor']);
 Route::post('country/{country}/fact',   [AdminController::class, 'addFactToCountry']);
