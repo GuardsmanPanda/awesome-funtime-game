@@ -14,4 +14,8 @@ class Req {
     public static function input(string $name): mixed {
         return self::$r->input($name);
     }
+
+    public static function content(): string {
+        return self::$r->getContent();
+    }
 }

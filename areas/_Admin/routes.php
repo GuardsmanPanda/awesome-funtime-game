@@ -16,6 +16,7 @@ Route::delete('country/{country}/language/{language_id}',   [AdminController::cl
 
 Route::get('country/{country}/fact-editor', [AdminController::class, 'getCountryFactEditor']);
 Route::post('country/{country}/fact',   [AdminController::class, 'addFactToCountry']);
+Route::patch('country/{country}/fact',   [AdminController::class, 'patchFactCountry']);
 Route::get('country/{country_code}/fact/list',   [AdminController::class, 'listFact']);
 
 

@@ -11,7 +11,6 @@ use App\Models\Language;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Eloquent\Collection;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class AdminController {
@@ -92,8 +91,8 @@ class AdminController {
         return view('_admin.language');
     }
 
-    public function patchLanguage(Request $r): JsonResponse {
-        $json = json_decode($r->getContent(), true, 512, JSON_THROW_ON_ERROR);
+    public function patchLanguage(): JsonResponse {
+        $json = json_decode(Req::content(), true, 512, JSON_THROW_ON_ERROR);
         $language = Language::find($json['id']);
         $language->native_speakers = $json['native_speakers'];
         $language->total_speakers = $json['total_speakers'];
@@ -120,6 +119,12 @@ class AdminController {
             INSERT INTO country_fact (country_code, fact_text,  created_by_user_id) VALUES (?, ?, ?)
         ", [$country->country_code, Req::input('fact_text'), Auth::$user_id]);
         return $this->getCountryFactEditor($country);
+    }
+
+    public function patchFactCountry(Country $country): JsonResponse {
+        $json = json_decode(Req::content(), true, 512, JSON_THROW_ON_ERROR);
+        DB::insert("UPDATE country_fact SET fact_text = ? WHERE id = ?", [$json['fact_text'], $json['id']]);
+        return $this->listFact($country->country_code);
     }
 
     public function listFact(string $country_code): JsonResponse  {
