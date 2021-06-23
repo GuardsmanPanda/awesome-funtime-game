@@ -80,6 +80,7 @@ class UpdateLocationInformation extends Command {
         if (count($loc) === 0) {
             return;
         }
+        $this->info("Reverse Cities:");
         $this->withProgressBar($loc, function ($lo) {
             $res = Nominatim::getLocationInformation($lo->lat, $lo->lng);
             $data = LocationCities500::find($lo->id);
