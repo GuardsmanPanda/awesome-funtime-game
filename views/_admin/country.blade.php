@@ -36,6 +36,10 @@
             {title: "Capital city", field: "capital"},
             {title: "Population", field: "population", sorter:"number", editor:"number"},
             {title: "Area", field: "area", sorter:"number", editor:"number"},
+            {title: "GPD per capita", field: "gdp_per_capita", sorter:"number", editor:"number"},
+            {title: "Drives right", field: "is_right_handed_driving", editor:"select", editorParams:{
+                    values:true, //create list of values from all values contained in this column
+                }},
             {title: "{{t('Languages')}}", field: "language_count", sorter:"number"},
             {title: "{{t('Languages')}}", field: "country_code", formatter: function (cell, formatterParams, onRendered ) {
                     const elem = document.createElement('button');

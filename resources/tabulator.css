@@ -455,7 +455,7 @@
 }
 
 .tabulator-row.tabulator-selectable:hover {
-    background-color: #fafafa;
+    @apply bg-emerald-100;
     cursor: pointer;
 }
 

@@ -1,42 +1,92 @@
 <div class="flex bg-blueGray-900 h-screen">
     <div id="map" class="flex-grow relative">
         @include('game.common.pengu-countdown', ['title_counter' => ($game->current_round === $game->round_count ? t('Game ends in') : t('Next round'))])
-        <div class="w-full flex justify-center">
-            <div class="absolute bg-black bg-opacity-80 font-bold px-4 py-1 rounded-b-md text-gray-500 text-2xl shadow-lg text-center flex items-center"
-                 style="font-family: 'Inkwell Sans',Verdana,sans-serif;z-index: 500;">
-                <img src="/static/img/flags/iso-small/{{$game->country_code}}.png" class="h-8 shadow-md" alt="Country flag">
-                @if($game->city_name !== 'Unknown')
-                    <div>&nbsp;&nbsp;&nbsp;&nbsp;{{$game->city_name}}</div>
-                @endif
-                @if($game->state_name !== 'Unknown')
-                    <div class="text-gray-400">&nbsp;&nbsp;&nbsp;&nbsp;{{$game->state_name}}</div>
-                @endif
-                @if($game->country_name !== 'Unknown')
-                    <div class="text-gray-300">&nbsp;&nbsp;&nbsp;&nbsp;{{$game->country_name}}</div>
+
+        <div class="absolute bg-black bg-opacity-90 font-bold pl-4 pr-4 pt-1 pb-3 rounded-br-md text-emerald-500 text-lg shadow-lg grid"
+             style="font-family: 'Inkwell Sans',Verdana,sans-serif;z-index: 50000;">
+            <div class="text-center text-3xl text-blue-500">{{$country->country_name}}</div>
+            <div class="text-center text-lg text-cyan-400 leading-4">{{$game->state_name}}</div>
+            <div class="text-center text-lg text-cyan-500  leading-6">{{$game->city_name}}</div>
+
+            <div class="flex gap-3 justify-center">
+                <img src="/static/img/flags/wavy/{{strtolower($country->country_code)}}.png" width="140" alt="South Africa">
+                <div class="grid flex-grow">
+
+                    <div class="flex gap-2 items-center">
+                        <x-icon name="globe" class="text-gray-500"></x-icon>
+                        <span>{{$country->country_code}}/{{$country->iso_3}}</span>
+                    </div>
+                    <div class="flex gap-2 items-center">
+                        <x-icon name="globe-alt" class="text-gray-500"></x-icon>
+                        <span>{{$country->tld}}</span>
+                    </div>
+                    <div class="flex gap-2 items-center">
+                        <x-icon name="cash" class="text-gray-500"></x-icon>
+                        <span>{{$country->currency_code}}</span>
+                    </div>
+                    <div class="flex gap-2 items-center">
+                        <x-icon name="phone" class="text-gray-500"></x-icon>
+                        <span>+{{$country->dialing_code}}</span>
+                    </div>
+                </div>
+
+                @if($country->independent_status !== 'Yes')
+                    <div><span class="text-gray-500">{{t('Status')}}: </span>{{$country->independent_status}} </div>
                 @endif
             </div>
-        </div>
 
-        <div class="absolute bg-black bg-opacity-90 font-bold pl-4 pr-4 py-1 rounded-br-md text-green-500 text-xl shadow-lg leading-5 grid gap-2"
-             style="font-family: 'Inkwell Sans',Verdana,sans-serif;z-index: 50000;">
-            <div class="text-center text-3xl text-blue-400">{{$country->country_name}} </div>
+            <div class="flex gap-4 leading-4 mt-2 text-emerald-400">
+                <div class="flex flex-col gap-2">
+                    <div>
+                        <div class="text-gray-500">{{t('Capital city')}}</div>
+                        <div class="ml-2">{{$country->capital}}</div>
+                    </div>
+                    <div>
+                        <div class="text-gray-500">{{t('Currency')}}</div>
+                        <div class="ml-2">{{$country->currency_name}}</div>
+                    </div>
+                    @foreach($languages as $lang)
+                        @if($loop->first)<div><div class="text-gray-500">{{t('Languages')}}</div> @endif
+                            <div class="ml-2">
+                                <span >{{$lang->language_name}}</span>
+                                <span class="text-gray-400">{{$lang->percentage}}</span>
+                            </div>
+                        @if($loop->first)</div>@endif
+                    @endforeach
+                    <div>
+                        <div class="text-gray-500">{{t('Driving side')}}</div>
+                        <div class="ml-2">{{t($country->is_right_handed_driving ? 'No Data' : 'No Dat')}}</div>
+                    </div>
+                </div>
 
-          <div class="flex gap-3">
-              <img src="https://flagcdn.com/128x96/gb.png" width="128" height="96" alt="South Africa">
-              <div class="grid">
-                  <div class="flex gap-2"><x-icon name="phone" class="text-gray-500"></x-icon><span>+{{$country->dialing_code}}</span></div>
-                  <div class="flex gap-2"><x-icon name="globe-alt" class="text-gray-500"></x-icon><span>{{$country->tld}}</span></div>
-                  <div class="flex gap-2"><x-icon name="cash" class="text-gray-500"></x-icon><span>+{{$country->dialing_code}}</span></div>
-              </div>
-          </div>
-            @if($country->independent_status !== 'Yes')
-                <div><span class="text-gray-500">{{t('Status')}}: </span>{{$country->independent_status}} </div>
-            @endif
-            <div><span class="text-gray-500">{{t('Currency')}}: </span>{{$country->currency_name}} <span class="text-gray-400">[{{$country->currency_code}}]</span></div>
-            <div><span class="text-gray-500">{{t('Capital city')}}: </span>{{$country->capital}}</div>
-
-            <div class="mt-1.5"><span class="text-gray-500">{{t('Population')}}: </span><span _="on load put ({{$country->population}}).toLocaleString() into me"></span> <span class="text-gray-400">#{{$country->population_rank}}</span></div>
-            <div><span class="text-gray-500">{{t('Size')}}: </span><span _="on load put ({{$country->area}}).toLocaleString() into me"></span> <span class="text-gray-500">km<sup>2</sup></span> <span class="text-gray-400">#{{$country->area_rank}}</span></div>
+                <div class="flex flex-col gap-2">
+                    <div>
+                        <div class="text-gray-500">{{t('Population')}}</div>
+                        <div class="ml-2">
+                            <span _="on load put ({{$country->population}}).toLocaleString() into me"></span>
+                            <span class="text-gray-500"> - </span>
+                            <span class="text-amber-400">#{{$country->population_rank}}</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="text-gray-500">{{t('GDP per capita')}}</div>
+                        <div class="ml-2">
+                            <span _="on load put (400).toLocaleString() into me"></span>
+                            <span class="text-gray-500"> - </span>
+                            <span class="text-amber-400">#{{$country->area_rank}}</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="text-gray-500">{{t('Size')}} - km<sup>2</sup></div>
+                        <div class="ml-2">
+                            <span _="on load put ({{$country->area}}).toLocaleString() into me"></span>
+                            <span class="text-gray-500"> - </span>
+                            <span class="text-amber-400">#{{$country->area_rank}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div></div>
         </div>
 
         @isset($game->fact_text)
@@ -82,7 +132,7 @@
         zoom: 5
     });
     L.tileLayer('/static/files/tile/{{\App\Tools\Auth::user()?->map_style_id ?? 1}}/{z}/{x}/{y}.png', {
-        maxNativeZoom: 16,
+        maxNativeZoom: 17,
         @if((\App\Tools\Auth::user()?->map_style_id ?? 1) !== 1)
             tileSize: 512,
             zoomOffset: -1

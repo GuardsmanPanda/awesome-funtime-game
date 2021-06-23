@@ -23,7 +23,9 @@ use Carbon\Carbon;
  * @property int area
  * @property int area_rank
  * @property int population
+ * @property int gdp_per_capita
  * @property int population_rank
+ * @property int gdp_per_capita_rank
  * @property int independence_date_rank
  * @property bool is_right_handed_driving
  * @property string tld
@@ -32,8 +34,8 @@ use Carbon\Carbon;
  * @property string country_code
  * @property string dialing_code
  * @property string country_name
- * @property string currency_code
  * @property string currency_name
+ * @property string currency_code
  * @property string sub_region_name
  * @property string independent_status
  * @property Carbon independence_date

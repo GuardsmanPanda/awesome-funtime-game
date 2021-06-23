@@ -24,6 +24,8 @@ class AdminController {
         $country = Country::find($json['country_code']);
         $country->population = $json['population'];
         $country->area = $json['area'];
+        $country->is_right_handed_driving = $json['is_right_handed_driving'];
+        $country->gdp_per_capita = $json['gdp_per_capita'] !== '' ?  $json['gdp_per_capita'] : null;
         $country->independence_date = $json['independence_date'] ? Carbon::parse($json['independence_date']) : null;
         $country->save();
         return $this->listCountry();

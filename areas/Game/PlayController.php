@@ -47,6 +47,11 @@ class PlayController {
                 'game' => $game,
                 'countdown_seconds' => max(Carbon::now()->diffInSeconds(Carbon::parse($game->next_round_at), false), 3),
                 'country' => Country::find($game->country_code),
+                'languages' => DB::select("
+                    SELECT l.language_name, cl.percentage FROM country_language cl
+                    LEFT JOIN language l on cl.language_id = l.id
+                    WHERE cl.country_code = ? ORDER BY percentage
+                ", [$game->country_code]),
                 'players' => DB::select("
                     SELECT
                         u.display_name, u.country_code,
