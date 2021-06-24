@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\DB;
 
 class ScoreCalculator {
     public static function scoreRound(Round $round): void {
-        //TODO create gist index and see perf improvement
         try {
             DB::beginTransaction();
             DB::update("
@@ -44,7 +43,7 @@ class ScoreCalculator {
                         LIMIT 1
                         ) 
                     ORDER BY distance LIMIT 1) as close
-                )            
+                )
             WHERE ru.round_id = ?
         ", [$round->panorama_id, $round->id]);
 

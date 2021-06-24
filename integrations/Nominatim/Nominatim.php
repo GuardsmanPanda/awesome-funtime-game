@@ -11,7 +11,7 @@ class Nominatim {
     public static function getLocationInformation(float $lat, float $lon): array {
         $res = Http::withHeaders(['User-Agent' => 'Awesome Funtime Game (guardsmanpanda@gmail.com)'])->get(self::$url .'&lat=' . $lat . '&lon=' .$lon);
         if ($res->failed()) {
-            throw new RuntimeException('Error in location lookup');
+            throw new RuntimeException('Error in location lookup: ' .$res->body());
         }
         $j = $res->json();
         if (!array_key_exists('address', $j)) {

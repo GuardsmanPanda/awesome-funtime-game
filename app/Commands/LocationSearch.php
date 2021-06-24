@@ -4,6 +4,7 @@ namespace App\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
+use Integrations\Streetview\Streetview;
 
 class LocationSearch extends Command {
     protected $signature = 'location:search {limit=999}';
@@ -23,8 +24,13 @@ class LocationSearch extends Command {
             LIMIT ?
         ", [$this->argument('limit')]);
 
+        $hit = [];
+        $miss = [];
         foreach ($locations as $location) {
+            $res = Streetview::findNearbyPanorama($location->lat, $location->lng, attempts: 5, precision: 60);
+
             $this->info(json_encode($location));
+            $this->info($res);
         }
     }
 }
