@@ -24,8 +24,8 @@
                 });
         },
         columns: [
-            {title: "Code", field: "country_code", frozen:true},
-            {title: "Name", field: "country_name", frozen:true},
+            {title: "Code", field: "country_code", frozen:true, headerFilter:"input"},
+            {title: "Name", field: "country_name", frozen:true, headerFilter:"input"},
             {title: "Flag", field: "country_code", headerSort: false, formatter: "image", formatterParams: {
                     height: "26px",
                     width: "39px",
@@ -33,7 +33,7 @@
                     urlSuffix: ".png",
                 }
             },
-            {title: "Capital city", field: "capital"},
+            {title: "Capital city", field: "capital", headerFilter:"input"},
             {title: "Population", field: "population", sorter:"number", editor:"number"},
             {title: "Area", field: "area", sorter:"number", editor:"number"},
             {title: "GPD per capita", field: "gdp_per_capita", sorter:"number", editor:"number"},

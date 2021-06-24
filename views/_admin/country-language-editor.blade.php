@@ -3,7 +3,7 @@
         <label>{{t('Language')}}
             <select name="language_id">
                 @foreach(\App\Models\Language::orderBy('language_name')->get() as $lang)
-                    <option value="{{$lang->id}}">{{$lang->language_name}} [{{$lang->two_letter_code}}]</option>
+                    <option value="{{$lang->id}}" @if($lang->language_name === 'English') selected @endif>{{$lang->language_name}} [{{$lang->two_letter_code}}]</option>
                 @endforeach
             </select>
         </label>

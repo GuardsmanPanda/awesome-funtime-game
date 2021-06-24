@@ -3,12 +3,12 @@
         @include('game.common.pengu-countdown', ['title_counter' => ($game->current_round === $game->round_count ? t('Game ends in') : t('Next round'))])
 
         <div class="absolute bg-black bg-opacity-90 font-bold pl-4 pr-4 pt-1 pb-3 rounded-br-md text-emerald-500 text-lg shadow-lg grid"
-             style="font-family: 'Inkwell Sans',Verdana,sans-serif;z-index: 50000;">
+             style="font-family: 'Inkwell Sans',Verdana,sans-serif;z-index: 50000;max-width: 19rem;">
             <div class="text-center text-3xl text-blue-500">{{$country->country_name}}</div>
             <div class="text-center text-lg text-cyan-400 leading-4">{{$game->state_name}}</div>
             <div class="text-center text-lg text-cyan-500  leading-6">{{$game->city_name}}</div>
 
-            <div class="flex gap-3 justify-center">
+            <div class="flex gap-3 justify-center py-2">
                 <img src="/static/img/flags/wavy/{{strtolower($country->country_code)}}.png" width="140" alt="South Africa">
                 <div class="grid">
 
@@ -29,7 +29,6 @@
                         <span>+{{$country->dialing_code}}</span>
                     </div>
                 </div>
-
                 @if($country->independent_status !== 'Yes')
                     <div><span class="text-gray-500">{{t('Status')}}: </span>{{$country->independent_status}} </div>
                 @endif
@@ -49,7 +48,9 @@
                         @if($loop->first)<div><div class="text-gray-500">{{t('Languages')}}</div> @endif
                             <div class="ml-2">
                                 <span >{{$lang->language_name}}</span>
-                                <span class="text-gray-400">{{$lang->percentage}}</span>
+                                <span class="text-gray-500"> - </span>
+                                <span class="text-lightBlue-400">{{$lang->percentage}}</span>
+                                <span class="text-lightBlue-600">%</span>
                             </div>
                         @if($loop->first)</div>@endif
                     @endforeach

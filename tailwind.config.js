@@ -47,6 +47,7 @@ module.exports = {
             height: ['hover'],
             width: ['hover'],
             display: ["group-hover"],
+            textOverflow: ['hover'],
         },
     },
     plugins: [
