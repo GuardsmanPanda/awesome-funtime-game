@@ -10,7 +10,7 @@
 
             <div class="flex gap-3 justify-center">
                 <img src="/static/img/flags/wavy/{{strtolower($country->country_code)}}.png" width="140" alt="South Africa">
-                <div class="grid flex-grow">
+                <div class="grid">
 
                     <div class="flex gap-2 items-center">
                         <x-icon name="globe" class="text-gray-500"></x-icon>
@@ -55,7 +55,7 @@
                     @endforeach
                     <div>
                         <div class="text-gray-500">{{t('Driving side')}}</div>
-                        <div class="ml-2">{{t($country->is_right_handed_driving ? 'No Data' : 'No Dat')}}</div>
+                        <div class="ml-2">{{t($country->is_right_handed_driving ? 'Right' : 'Left')}}</div>
                     </div>
                 </div>
 
