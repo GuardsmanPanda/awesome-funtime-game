@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Response;
 class PlayController {
     public function index(int $id): view|RedirectResponse {
         if (Auth::$user_id === -1) {
-            return new RedirectResponse('/login?redirect=' . Req::$r->getRequestUri(), 401);
+            Resp::hxRedirectAbort('/login?redirect=' . Req::$r->getRequestUri(), code:401);
         }
         $game = DB::selectOne("
                 SELECT

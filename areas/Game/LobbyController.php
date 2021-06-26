@@ -16,6 +16,9 @@ use Illuminate\Http\RedirectResponse;
 
 class LobbyController extends Controller {
     public function index(Game $game): view|RedirectResponse|string {
+        if (Auth::$user_id === -1) {
+            Resp::hxRedirectAbort('/login?redirect=' . Req::$r->getRequestUri(), code:401);
+        }
         if ($game->current_round > 0 && !$game->is_queued) {
             Resp::hxRedirectAbort('/game/' . $game->id . '/result');
         }

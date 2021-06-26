@@ -13,9 +13,9 @@ class Resp {
         ", $data)[0]->json_agg ?? '[]', json: true);
     }
 
-    public static function hxRedirectAbort(string $location, string $message = 'Redirect'):void {
+    public static function hxRedirectAbort(string $location, string $message = 'Redirect', int $code = 302):void {
         self::header('hx-redirect', $location);
-        abort(302, $message);
+        abort($code, $message);
     }
 
     public static function hxRefresh(string $message = 'Redirect'):void {
