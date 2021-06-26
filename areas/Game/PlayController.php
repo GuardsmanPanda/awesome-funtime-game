@@ -55,7 +55,7 @@ class PlayController {
                 'languages' => DB::select("
                     SELECT l.language_name, cl.percentage FROM country_language cl
                     LEFT JOIN language l on cl.language_id = l.id
-                    WHERE cl.country_code = ? ORDER BY percentage
+                    WHERE cl.country_code = ? ORDER BY percentage DESC
                 ", [$game->country_code]),
                 'players' => DB::select("
                     SELECT

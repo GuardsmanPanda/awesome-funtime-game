@@ -52,7 +52,7 @@
                                 <span class="text-lightBlue-400">{{$lang->percentage}}</span>
                                 <span class="text-lightBlue-600">%</span>
                             </div>
-                        @if($loop->first)</div>@endif
+                        @if($loop->last)</div>@endif
                     @endforeach
                     <div>
                         <div class="text-gray-500">{{t('Driving side')}}</div>
