@@ -1,12 +1,17 @@
-<div class="flex gap-4">
-    <x-content-raw title="{{t('Rounds')}}" icon="users">
-        <div>
-            <div>&#x1f947</div>
-        </div>
-        <div class="flex-grow">
-            <div>&#x1f947</div>
-        </div>
-    </x-content-raw>
+<div class="flex gap-4 pt-12 px-4">
+    <div class="flex flex-col gap-4">
+        <x-content-raw title="{{t('Rounds')}}" icon="users">
+            <div>
+                <div>&#x1f947</div>
+            </div>
+            <div class="flex-grow">
+                <div>&#x1f947</div>
+            </div>
+        </x-content-raw>
+        <x-content-raw title="{{t('Active Games')}}" icon="users">
+            <div id="active-games"></div>
+        </x-content-raw>
+    </div>
 
     <x-content-raw title="{{t('Round Details')}}" icon="users" style="flex-grow: 1">
         Not implemented yet..
@@ -44,3 +49,26 @@
     </x-content-raw>
 </div>
 
+
+<script>
+    const active = new Tabulator('#active-games', {
+        ajaxURL: '/game/active',
+        columns: [
+            {title:"ID", field: "id", headerSort:false},
+            {title:"{{t('Created by')}}", field: "display_name", headerSort:false},
+            {title:"{{t('Players')}}", field: "player_count", headerSort:false},
+            {title:"{{t('Play')}}", field: "id", headerSort:false, formatter: function (cell, formatterParams, onRendered ) {
+                    const elem = document.createElement('a');
+                    elem.setAttribute('href', '/game/' + cell.getValue() + '/lobby');
+                    elem.setAttribute('class', 'small-button-blue');
+                    elem.text = "{{t('Play')}}";
+                    return elem;
+                }
+            },
+        ]
+    });
+
+    setInterval(function () {
+        active.replaceData();
+    }, 20000);
+</script>

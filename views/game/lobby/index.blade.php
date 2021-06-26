@@ -1,4 +1,4 @@
-<div class="flex gap-4 mt-4 flex-row flex-wrap">
+<div class="flex gap-4 flex-row flex-wrap pt-12 px-4">
     <x-content-raw title="{{t('Players')}}" icon="users">
         <x-slot name="header">
             @if(\App\Tools\Auth::$user_id === $game->created_by_user_id && !$game->is_queued)

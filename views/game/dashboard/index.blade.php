@@ -1,4 +1,4 @@
-<div class="flex gap-4">
+<div class="flex gap-4 pt-12 px-4">
     <div class="flex-grow grid gap-4">
         <x-content-raw title="{{t('Active games')}}" icon="users">
             <x-slot name="header">
@@ -51,6 +51,7 @@
             {title:"ID", field: "id", headerSort:false},
             {title:"{{t('Created by')}}", field: "display_name", headerSort:false},
             {title:"{{t('Rounds')}}", field: "round_count", headerSort:false},
+            {title:"{{t('Players')}}", field: "player_count", headerSort:false},
             {title:"{{t('Round time')}}", field: "round_time", headerSort:false},
             {title:"{{t('Started')}}", field: "current_round", headerSort:false, formatter: function (cell, formatterParams, onRendered ) {
                     return cell.getValue() === 0 ? '-' : 'Yes';
@@ -77,6 +78,7 @@
             {title:"ID", field: "id", headerSort:false},
             {title:"{{t('Created by')}}", field: "display_name", headerSort:false},
             {title:"{{t('Rounds')}}", field: "round_count", headerSort:false},
+            {title:"{{t('Players')}}", field: "player_count", headerSort:false},
             {title:"{{t('Round time')}}", field: "round_time", headerSort:false},
             {title:"{{t('Ending time')}}", field: "ended_at", headerSort:false},
             {title:"{{t('Result')}}", field: "id", headerSort:false, formatter: function (cell, formatterParams, onRendered ) {

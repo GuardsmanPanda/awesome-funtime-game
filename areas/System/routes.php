@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Route;
 use Areas\System\MapTileStyleController;
 
 Route::redirect('', '/game');
+
+Route::view('/login', 'login');
+
 Route::patch('/user/language/{id}', [UserController::class, 'selectLanguage']);
 Route::patch('/user/map-style/{id}', [UserController::class, 'selectMapStyle']);
 

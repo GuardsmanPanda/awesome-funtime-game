@@ -3,6 +3,7 @@
 namespace Areas\Game;
 
 use Carbon\Carbon;
+use App\Tools\Req;
 use App\Tools\Auth;
 use App\Tools\Resp;
 use App\Models\Game;
@@ -11,10 +12,14 @@ use App\Models\Country;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Response;
 
 class PlayController {
-    public function index(int $id): view {
+    public function index(int $id): view|RedirectResponse {
+        if (Auth::$user_id === -1) {
+            return new RedirectResponse('/login?redirect=' . Req::$r->getRequestUri(), 401);
+        }
         $game = DB::selectOne("
                 SELECT
                     g.id, g.next_round_at, g.current_round_id, g.round_count, g.is_queued, g.current_round,

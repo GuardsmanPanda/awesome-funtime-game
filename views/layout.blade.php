@@ -70,7 +70,8 @@
         @if(\App\Tools\Auth::is_admin())
             <a href="/admin/country" class="rounded text-orange-600 font-bold border-2 border-orange-600 px-2 text-2xl leading-6 hover:bg-orange-600 hover:text-gray-50">Admin</a>
         @endif
-        <a href="/stats" class="rounded text-cyan-600 font-bold border-2 border-cyan-600 px-2 text-2xl leading-6 hover:bg-cyan-600 hover:text-gray-50">Stats</a>
+        <a href="/stats" class="hidden rounded text-cyan-600 font-bold border-2 border-cyan-600 px-2 text-2xl leading-6 hover:bg-cyan-600 hover:text-gray-50">Stats</a>
+        <a href="/Achievements" class="hidden rounded text-cyan-600 font-bold border-2 border-cyan-600 px-2 text-2xl leading-6 hover:bg-cyan-600 hover:text-gray-50">Stats</a>
     </div>
     <div class="flex gap-2">
         <div id="game-status" class="font-bold text-3xl text-gray-500"></div>
@@ -127,9 +128,7 @@
             </button>
         </form>
     </div>
-    <div class="px-4 pb-4 pt-2 grid gap-2" id="pop">
-        test
-    </div>
+    <div class="px-4 pb-4 pt-2 grid gap-2" id="pop">Please report system error</div>
 </dialog>
 @if($area === 'admin')
     <div class="w-full min-w-0  min-h-screen text-gray-800 bg-gray-100 ">
@@ -143,7 +142,7 @@
         <div id="primary" {!!$primary_hx!!} hx-trigger="load" class="px-4"></div>
     </div>
 @else
-    <div id="primary" {!!$primary_hx!!} hx-trigger="load" class="pt-12 px-4 w-full min-w-0 min-h-screen text-gray-800 bg-gray-100"></div>
+    <div id="primary" {!!$primary_hx!!} hx-trigger="load" class="w-full min-w-0 min-h-screen text-gray-800 bg-gray-100"></div>
 @endif
 
 <script>

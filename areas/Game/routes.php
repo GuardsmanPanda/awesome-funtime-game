@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('', [DashboardController::class, 'index']);
 Route::get('active', function () { return Resp::SQLJson("
-        SELECT g.id, g.round_count, g.round_time, g.current_round, u.display_name
+        SELECT g.id, g.round_count, g.round_time, g.current_round, u.display_name,
+               (SELECT COUNT(*) FROM game_user WHERE game_id = g.id) as player_count
         FROM game g
         LEFT JOIN users u ON u.id = g.created_by_user_id
         LEFT JOIN realm r ON r.id = g.realm_id
@@ -19,7 +20,8 @@ Route::get('active', function () { return Resp::SQLJson("
         ORDER BY u.display_name", [Auth::$user_id]);
 });
 Route::get('recent', function () { return Resp::SQLJson("
-        SELECT g.id, g.round_count, u.display_name, g.ended_at
+        SELECT g.id, g.round_count, u.display_name, g.ended_at,
+               (SELECT COUNT(*) FROM game_user WHERE game_id = g.id) as player_count
         FROM game g
         LEFT JOIN users u ON u.id = g.created_by_user_id
         LEFT JOIN realm r ON r.id = g.realm_id

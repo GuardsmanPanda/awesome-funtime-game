@@ -9,6 +9,10 @@ module.exports = {
     darkMode: 'class', // or 'media' or 'class'
     theme: {
         extend: {
+            backdropBrightness: {
+                25: '.25',
+                35: '.35',
+            },
             spacing: {
                 '144': '36rem',
                 '192': '48rem',

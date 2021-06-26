@@ -61,7 +61,7 @@ class AuthenticationController extends Controller {
         $user->display_name = $twitch_user['display_name'];
         $user->email = $twitch_user['email'];
         $this->updateUserAndAddRealm($user, 1);
-        return $this->logUserIn($user);
+        return $this->logUserIn($user, $r->get('state') ?? '/game');
     }
 
 
@@ -99,10 +99,10 @@ class AuthenticationController extends Controller {
     }
 
 
-    private function logUserIn(User $user): RedirectResponse {
+    private function logUserIn(User $user, string $path = '/game'): RedirectResponse {
         session()->migrate(true);
         session()->put('login_id', $user->id);
         Translator::setSessionLanguage($user);
-        return Redirect::to('/game', 303);
+        return Redirect::to($path, 303);
     }
 }
