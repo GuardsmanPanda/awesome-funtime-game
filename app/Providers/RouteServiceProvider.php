@@ -14,6 +14,7 @@ class RouteServiceProvider extends ServiceProvider {
         $this->routes(function () {
             Route::middleware('web')->group(function() {
                 Route::prefix('')->group(base_path('areas/System/routes.php'));
+                Route::prefix('dev')->group(base_path('areas/_Dev/routes.php'));
                 Route::prefix('stat')->group(base_path('areas/Stat/routes.php'));
                 Route::prefix('game')->group(base_path('areas/Game/routes.php'));
                 Route::prefix('admin')->group(base_path('areas/_Admin/routes.php'));
