@@ -44,6 +44,10 @@
                         <div class="text-gray-500">{{t('Currency')}}</div>
                         <div class="ml-2">{{$country->currency_name}}</div>
                     </div>
+                    <div>
+                        <div class="text-gray-500">{{t('Driving side')}}</div>
+                        <div class="ml-2">{{t($country->is_right_handed_driving ? 'Right' : 'Left')}}</div>
+                    </div>
                     @foreach($languages as $lang)
                         @if($loop->first)<div><div class="text-gray-500">{{t('Languages')}}</div> @endif
                             <div class="ml-2">
@@ -54,34 +58,27 @@
                             </div>
                         @if($loop->last)</div>@endif
                     @endforeach
-                    <div>
-                        <div class="text-gray-500">{{t('Driving side')}}</div>
-                        <div class="ml-2">{{t($country->is_right_handed_driving ? 'Right' : 'Left')}}</div>
-                    </div>
                 </div>
 
                 <div class="flex flex-col gap-2">
                     <div>
                         <div class="text-gray-500">{{t('Population')}}</div>
-                        <div class="ml-2">
+                        <div class="ml-2 flex justify-between gap-2">
                             <span _="on load put ({{$country->population}}).toLocaleString() into me"></span>
-                            <span class="text-gray-500"> - </span>
                             <span class="text-amber-400">#{{$country->population_rank}}</span>
                         </div>
                     </div>
                     <div>
                         <div class="text-gray-500">{{t('GDP per capita')}}</div>
-                        <div class="ml-2">
+                        <div class="ml-2 flex justify-between gap-2">
                             <span _="on load put (400).toLocaleString() into me"></span>
-                            <span class="text-gray-500"> - </span>
                             <span class="text-amber-400">#{{$country->area_rank}}</span>
                         </div>
                     </div>
                     <div>
                         <div class="text-gray-500">{{t('Size')}} - km<sup>2</sup></div>
-                        <div class="ml-2">
+                        <div class="ml-2 flex justify-between gap-2">
                             <span _="on load put ({{$country->area}}).toLocaleString() into me"></span>
-                            <span class="text-gray-500"> - </span>
                             <span class="text-amber-400">#{{$country->area_rank}}</span>
                         </div>
                     </div>

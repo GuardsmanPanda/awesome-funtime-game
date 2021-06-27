@@ -22,14 +22,14 @@ class Streetview {
 
     private static function findPanorama(float $lat, float $lng, bool $user_request): string {
         $resp = self::query('/metadata', ['location' => $lat . ' ' . $lng]);
-        if ($resp['status'] === 'ZERO_RESULTS' || !self::insertPanorama($resp, $user_request)) {
+        if ($resp['status'] === 'ZERO_RESULTS' || $resp['status'] === 'NOT_FOUND' || !self::insertPanorama($resp, $user_request)) {
             return '';
         }
         return $resp['pano_id'];
     }
 
     private static function insertPanorama(array $data, bool $user_request): bool {
-        DB::selectOne("
+        DB::insert("
                 INSERT INTO panorama (panorama_id, captured_date, panorama_location, added_by_user_id) VALUES (?, ?, ?, ?)
                 ON CONFLICT (panorama_id) DO NOTHING
             ", [$data['pano_id'], $data['date'].'-01', 'POINT('.$data['location']['lng'].' '.$data['location']['lat'].')', $user_request ? Auth::$user_id : null]);

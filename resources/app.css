@@ -1,5 +1,6 @@
 @import "base.css";
 @import "tabulator.css";
+@import "marker-cluster.css";
 
 .headline {
     @apply border-b-2 border-dotted border-warmGrey-300 mb-2 flex justify-between leading-5;

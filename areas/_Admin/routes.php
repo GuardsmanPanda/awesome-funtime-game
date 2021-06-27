@@ -1,5 +1,6 @@
 <?php
 
+use App\Tools\Resp;
 use App\Models\Country;
 use Areas\_Admin\AdminController;
 use Illuminate\Support\Facades\Route;
@@ -28,4 +29,10 @@ Route::get('language/list',  [AdminController::class, 'listLanguage']);
 Route::prefix('streetview')->group(function () {
     Route::view('', '_admin.streetview');
     Route::post('add', [StreetviewAdminController::class, 'add']);
+    Route::get('list', function () {
+        return Resp::SQLJson("
+            SELECT ST_Y(p.panorama_location::geometry) as lat, ST_X(p.panorama_location::geometry) as lng
+            FROM panorama p
+        ");
+    });
 });

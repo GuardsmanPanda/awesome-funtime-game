@@ -13,6 +13,7 @@
     });
 
     const marker = L.marker([20, 20], {icon: map_icon}).addTo(map);
+
     L.tileLayer('/static/files/tile/{{\App\Tools\Auth::user()?->map_style_id ?? 1}}/{z}/{x}/{y}.png', {
         maxNativeZoom: 17,
         @if((\App\Tools\Auth::user()?->map_style_id ?? 1) !== 1)
@@ -20,6 +21,21 @@
             zoomOffset: -1
         @endif
     }).addTo(map);
+
+
+    fetch('/admin/streetview/list')
+        .then(resp => resp.json())
+        .then(json => {
+            const markLayer = L.markerClusterGroup({maxClusterRadius: 40});
+            const tmp = [];
+            json.forEach(item => {
+                tmp.push(L.marker([item.lat, item.lng]))
+            })
+            markLayer.addLayers(tmp);
+            map.addLayer(markLayer);
+        });
+
+
     map.on('click', function (e) {
         fetch('/admin/streetview/add', {
             method: 'POST',
@@ -34,9 +50,12 @@
                         document.getElementById("resp").innerHTML = text;
                     })
                 } else {
-                    resp.text().then(text => {
-                        document.getElementById("resp").innerHTML = text;
-                        marker.setLatLng(e.latlng);
+                    resp.json().then(json => {
+                        console.log(json)
+                        if ('lat' in json) {
+                            L.marker([json.lat, json.lng], {icon: map_icon}).addTo(map);
+                        }
+                        document.getElementById("resp").innerHTML = json;
                     })
                 }
             });

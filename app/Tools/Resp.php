@@ -13,6 +13,10 @@ class Resp {
         ", $data)[0]->json_agg ?? '[]', json: true);
     }
 
+    public static function SQLJsonSingle(string $sql, $data = []): JsonResponse {
+        return new JsonResponse(DB::selectOne($sql, $data));
+    }
+
     public static function hxRedirectAbort(string $location, string $message = 'Redirect', int $code = 302):void {
         self::header('hx-redirect', $location);
         abort($code, $message);
