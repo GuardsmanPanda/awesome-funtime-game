@@ -70,7 +70,7 @@
         @if(\App\Tools\Auth::is_admin())
             <a href="/admin/country" class="rounded text-orange-600 font-bold border-2 border-orange-600 px-2 text-2xl leading-6 hover:bg-orange-600 hover:text-gray-50">Admin</a>
         @endif
-        <a href="/stats" class="hidden rounded text-cyan-600 font-bold border-2 border-cyan-600 px-2 text-2xl leading-6 hover:bg-cyan-600 hover:text-gray-50">Stats</a>
+        <a href="/stat" class="rounded text-cyan-600 font-bold border-2 border-cyan-600 px-2 text-2xl leading-6 hover:bg-cyan-600 hover:text-gray-50">Stats</a>
         <a href="/Achievements" class="hidden rounded text-cyan-600 font-bold border-2 border-cyan-600 px-2 text-2xl leading-6 hover:bg-cyan-600 hover:text-gray-50">Stats</a>
     </div>
     <div class="flex gap-2">
@@ -137,6 +137,15 @@
                 <a href="/admin/country" class="small-button-blue">Countries</a>
                 <a href="/admin/language" class="small-button-blue">Languages</a>
                 <a href="/admin/streetview" class="small-button-blue">Streetview</a>
+            </div>
+        </div>
+        <div id="primary" {!!$primary_hx!!} hx-trigger="load" class="px-4"></div>
+    </div>
+@elseif($area === 'stat')
+    <div class="w-full min-w-0  min-h-screen text-gray-800 bg-gray-100 ">
+        <div class="pt-10 bg-gray-100 flex justify-center pb-4">
+            <div class="bg-gray-800 flex gap-4 px-4 py-2 rounded-b-md shadow-lg" hx-boost="true" hx-target="#primary">
+                <a href="/stat/country" class="small-button-blue">Countries</a>
             </div>
         </div>
         <div id="primary" {!!$primary_hx!!} hx-trigger="load" class="px-4"></div>

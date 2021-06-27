@@ -3,7 +3,8 @@
 <script>
     const map = L.map('map', {
         center: [25, 0],
-        zoom: 3
+        zoom: 3,
+        worldCopyJump: true
     });
     const map_icon = L.icon({
         iconUrl: '/static/img/markers/bobdino.png',
@@ -12,7 +13,6 @@
         tooltipAnchor: [0, -48],
     });
 
-    const marker = L.marker([20, 20], {icon: map_icon}).addTo(map);
 
     L.tileLayer('/static/files/tile/{{\App\Tools\Auth::user()?->map_style_id ?? 1}}/{z}/{x}/{y}.png', {
         maxNativeZoom: 17,
