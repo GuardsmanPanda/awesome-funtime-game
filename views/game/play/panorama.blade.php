@@ -20,7 +20,7 @@
 <script>
     pannellum.viewer('primary', {
         "type": "equirectangular",
-        "panorama": "https://funtime.gman.bot/static/files/sv/{{$game->jpg_name}}.jpg",
+        "panorama": "https://funtime.gman.bot/static/files/sv-jpg/{{$game->jpg_name}}.jpg",
         "autoLoad": true
     });
 </script>
