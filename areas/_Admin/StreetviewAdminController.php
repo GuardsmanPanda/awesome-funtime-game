@@ -8,6 +8,6 @@ use Integrations\Streetview\Streetview;
 
 class StreetviewAdminController extends Controller {
     public function add(): array {
-        return Streetview::findNearbyPanorama(Req::input('lat'), Req::input('lng'),false, 15, 20);
+        return Streetview::findNearbyPanorama(Req::input('lat'), Req::input('lng'),true, 15, 20);
     }
 }

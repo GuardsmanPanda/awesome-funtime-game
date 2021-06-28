@@ -1,5 +1,11 @@
-<div id="resp">Click to add</div>
-<div id="map" class="w-full h-192"></div>
+<div class="flex gap-2">
+    <label class="flex items-center gap-2">
+        Google Maps URL
+        <input type="text" class="w-192" id="map-url">
+    </label>
+    <button class="small-button-blue" id="map-add-button">Add</button>
+</div>
+<div id="map" class="w-full h-192 mt-2"></div>
 <script>
     const map = L.map('map', {
         center: [25, 0],
@@ -40,6 +46,35 @@
             map.addLayer(markLayer);
         });
 
+    const addGuesses = function (guesses) {
+        guesses.forEach(val => {
+            if (val.result) L.marker([val.lat, val.lng], {icon: map_icon}).addTo(map);
+            else L.marker([val.lat, val.lng], {icon: small_icon}).addTo(map);
+        });
+    }
+
+    document.getElementById("map-add-button").addEventListener("click", function() {
+        const text = document.getElementById('map-url').value.split('@')[1].split(',');
+
+        fetch('/admin/streetview/add', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({lat:text[0], lng:text[1]}),
+        })
+            .then(resp => {
+                if (!resp.ok) {
+                    resp.text().then(text => {
+                        document.getElementById("resp").innerHTML = text;
+                    })
+                } else {
+                    map.panTo([text[0], text[1]]);
+                    document.getElementById('map-url').value = '';
+                    resp.json().then(json => addGuesses(json));
+                }
+            });
+    });
 
     map.on('click', function (e) {
         fetch('/admin/streetview/add', {
@@ -54,14 +89,7 @@
                     resp.text().then(text => {
                         document.getElementById("resp").innerHTML = text;
                     })
-                } else {
-                    resp.json().then(json => {
-                        json.forEach(val => {
-                            if (val.result) L.marker([val.lat, val.lng], {icon: map_icon}).addTo(map);
-                            else L.marker([val.lat, val.lng], {icon: small_icon}).addTo(map);
-                        });
-                    })
-                }
+                } else resp.json().then(json => addGuesses(json))
             });
     });
 </script>
