@@ -17,7 +17,6 @@ class ImportPanoramas extends Command {
             if ($name === '.' || $name === '..') {
                 return;
             }
-            $this->info($name);
             do  {
                 $target = strtolower(Str::random(10));
                 $test = Panorama::firstWhere('jpg_name','=', 'target');

@@ -13,7 +13,7 @@ class Streetview {
 
     public static function findNearbyPanorama(float $lat, float $lng, bool $user_request = false, int $attempts = 30, float $precision = 60): array {
         $id = self::findPanorama($lat, $lng, $user_request);
-        $results = [];
+        $results = [['lat' => $lat, 'lng' => $lng, 'result' => $id !== '']];
         for ($i = 0; $i < $attempts && $id === ''; $i++) {
             $lat2 = $lat + (mt_rand() / mt_getrandmax() - 0.5) / $precision;
             $lng2 = $lng + (mt_rand() / mt_getrandmax() - 0.5) / $precision;
