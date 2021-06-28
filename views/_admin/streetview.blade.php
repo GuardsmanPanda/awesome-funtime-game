@@ -61,7 +61,7 @@
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({lat:text[0], lng:text[1]}),
+            body: JSON.stringify({lat:text[0], lng:text[1], curated:true}),
         })
             .then(resp => {
                 if (!resp.ok) {
