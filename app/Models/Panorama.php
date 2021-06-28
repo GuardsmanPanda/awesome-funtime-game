@@ -22,6 +22,7 @@ use Carbon\Carbon;
  *
  * @property int map_box
  * @property int added_by_user_id
+ * @property string jpg_name
  * @property string city_name
  * @property string file_name
  * @property string state_name

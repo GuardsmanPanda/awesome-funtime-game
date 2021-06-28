@@ -12,11 +12,16 @@
         iconAnchor: [24, 48],
         tooltipAnchor: [0, -48],
     });
+    const small_icon = L.icon({
+        iconUrl: '/static/img/markers/standard.png',
+        iconSize: [24, 24],
+        iconAnchor: [12, 24],
+    });
 
 
-    L.tileLayer('/static/files/tile/{{\App\Tools\Auth::user()?->map_style_id ?? 1}}/{z}/{x}/{y}.png', {
+    L.tileLayer('/static/files/tile/{{\App\Tools\Auth::user()?->map_style_id ?? 4}}/{z}/{x}/{y}.png', {
         maxNativeZoom: 17,
-        @if((\App\Tools\Auth::user()?->map_style_id ?? 1) !== 1)
+        @if((\App\Tools\Auth::user()?->map_style_id ?? 4) !== 1)
             tileSize: 512,
             zoomOffset: -1
         @endif
@@ -51,11 +56,10 @@
                     })
                 } else {
                     resp.json().then(json => {
-                        console.log(json)
-                        if ('lat' in json) {
-                            L.marker([json.lat, json.lng], {icon: map_icon}).addTo(map);
-                        }
-                        document.getElementById("resp").innerHTML = json;
+                        json.forEach(val => {
+                            if (val.result) L.marker([val.lat, val.lng], {icon: map_icon}).addTo(map);
+                            else L.marker([val.lat, val.lng], {icon: small_icon}).addTo(map);
+                        });
                     })
                 }
             });

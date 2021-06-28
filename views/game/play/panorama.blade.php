@@ -20,7 +20,7 @@
 <script>
     pannellum.viewer('primary', {
         "type": "equirectangular",
-        "panorama": "https://funtime.gman.bot/static/files/sv/{{$game->file_name}}.webp",
+        "panorama": "https://funtime.gman.bot/static/files/sv/{{$game->jpg_name}}.jpg",
         "autoLoad": true
     });
 </script>
@@ -38,9 +38,9 @@
 
     const marker = L.marker([20, 20], {icon: map_icon}).addTo(map);
 
-    L.tileLayer('/static/files/tile/{{\App\Tools\Auth::user()?->map_style_id ?? 1}}/{z}/{x}/{y}.png', {
+    L.tileLayer('/static/files/tile/{{\App\Tools\Auth::user()?->map_style_id ?? 4}}/{z}/{x}/{y}.png', {
         maxNativeZoom: 17,
-        @if((\App\Tools\Auth::user()?->map_style_id ?? 1) !== 1)
+        @if((\App\Tools\Auth::user()?->map_style_id ?? 4) !== 1)
             tileSize: 512,
             zoomOffset: -1
         @endif

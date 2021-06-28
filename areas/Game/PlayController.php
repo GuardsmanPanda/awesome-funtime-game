@@ -24,7 +24,7 @@ class PlayController {
                 SELECT
                     g.id, g.next_round_at, g.current_round_id, g.round_count, g.is_queued, g.current_round,
                     r.round_end_at,
-                    p.file_name, p.country_code, ST_X(p.panorama_location::geometry) as x, ST_Y(p.panorama_location::geometry) as y,
+                    p.jpg_name, p.country_code, ST_X(p.panorama_location::geometry) as x, ST_Y(p.panorama_location::geometry) as y,
                     p.city_name, p.state_name, p.country_name, p.captured_date,
                     cf.fact_text
                 FROM game g

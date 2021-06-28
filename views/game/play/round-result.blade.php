@@ -129,9 +129,9 @@
         center: [{{$game->y}}, {{$game->x}}],
         zoom: 5
     });
-    L.tileLayer('/static/files/tile/{{\App\Tools\Auth::user()?->map_style_id ?? 1}}/{z}/{x}/{y}.png', {
+    L.tileLayer('/static/files/tile/{{\App\Tools\Auth::user()?->map_style_id ?? 4}}/{z}/{x}/{y}.png', {
         maxNativeZoom: 17,
-        @if((\App\Tools\Auth::user()?->map_style_id ?? 1) !== 1)
+        @if((\App\Tools\Auth::user()?->map_style_id ?? 4) !== 1)
             tileSize: 512,
             zoomOffset: -1
         @endif

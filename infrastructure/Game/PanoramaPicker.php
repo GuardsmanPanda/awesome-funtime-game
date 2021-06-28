@@ -42,7 +42,7 @@ class PanoramaPicker {
                 WHERE gu.game_id = ?
                 GROUP BY r.id
             ) p3 ON p3.panorama_id = p.panorama_id
-            WHERE p.file_name IS NOT NULL AND p3.panorama_id IS NULL AND c2.country_code IS NULL
+            WHERE p.jpg_name IS NOT NULL AND p3.panorama_id IS NULL AND c2.country_code IS NULL AND p.captured_date > '2011-01-01'
             GROUP BY p.map_box
             ORDER BY random() LIMIT 1
         ", [$this->game->id, $this->game->id])->map_box;
@@ -67,7 +67,7 @@ class PanoramaPicker {
                 WHERE gu.game_id = ?
                 GROUP BY r.id
             ) p3 ON p3.panorama_id = p.panorama_id
-            WHERE p.file_name IS NOT NULL AND p3.panorama_id IS NULL AND c2.country_code IS NULL
+            WHERE p.jpg_name IS NOT NULL AND p3.panorama_id IS NULL AND c2.country_code IS NULL AND p.captured_date > '2011-01-01'
             AND $where
             ORDER BY random() LIMIT 1
         ",  array_merge([$this->game->id, $this->game->id], $param))->panorama_id;
