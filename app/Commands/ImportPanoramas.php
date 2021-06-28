@@ -24,6 +24,7 @@ class ImportPanoramas extends Command {
             $panorama = Panorama::firstWhere('panorama_id', '=', substr($name, 0, -4));
             if ($panorama === null || $panorama->jpg_name !== null) {
                 $this->error('Error on ' . $this->name);
+                File::delete(storage_path('app/public/raw/') .$name);
                 return;
             }
             File::move(storage_path('app/public/raw/') .$name, storage_path('app/public/sv-jpg/') . $target . '.jpg');
