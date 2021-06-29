@@ -29,6 +29,7 @@ use Carbon\Carbon;
  * @property string panorama_id
  * @property string country_code
  * @property string country_name
+ * @property string extended_country_code
  * @property Carbon captured_date
  *
  * AUTO GENERATED FILE DO NOT MODIFY

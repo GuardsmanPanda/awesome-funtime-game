@@ -51,6 +51,7 @@ class Streetview {
                 if ($pan->added_by_user_id === null) {
                     $pan->added_by_user_id = Auth::$user_id;
                     $pan->save();
+                    return true;
                 }
             }
             return false;

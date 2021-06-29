@@ -29,6 +29,7 @@ use Carbon\Carbon;
  * @property int created_by_user_id
  * @property bool is_queued
  * @property bool is_round_active
+ * @property bool should_override_user_ready
  * @property Carbon ended_at
  * @property Carbon updated_at
  * @property Carbon created_at

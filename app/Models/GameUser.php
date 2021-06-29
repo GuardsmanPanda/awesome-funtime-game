@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int game_id
  * @property int user_id
+ * @property bool ready
  * @property float points_total
  *
  * AUTO GENERATED FILE DO NOT MODIFY
