@@ -4,6 +4,7 @@ namespace Integrations\Streetview;
 
 use App\Tools\Auth;
 use RuntimeException;
+use App\Models\Panorama;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Database\QueryException;
@@ -17,7 +18,7 @@ class Streetview {
         for ($i = 0; $i < $attempts && $id === ''; $i++) {
             $lat2 = $lat + (mt_rand() / mt_getrandmax() - 0.5) / $precision;
             $lng2 = $lng + (mt_rand() / mt_getrandmax() - 0.5) / $precision;
-            $id = self::findPanorama($lat2, $lng2, $user_request);
+            $id = self::findPanorama($lat2, $lng2, false);
             if ($id === '') {
                 $results[] = ['lat' => $lat2, 'lng' => $lng2, 'result' => false];
             } else {
@@ -45,6 +46,13 @@ class Streetview {
             ", [$data['pano_id'], $data['date'] . '-01', 'POINT(' . $data['location']['lng'] . ' ' . $data['location']['lat'] . ')', $user_request ? Auth::$user_id : null]);
             return true;
         } catch (QueryException $e) {
+            if ($user_request) {
+                $pan = Panorama::firstWhere('panorama_id', '=', $data['pano_id']);
+                if ($pan->added_by_user_id === null) {
+                    $pan->added_by_user_id = Auth::$user_id;
+                    $pan->save();
+                }
+            }
             return false;
         }
     }

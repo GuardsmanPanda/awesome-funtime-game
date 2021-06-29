@@ -32,9 +32,7 @@ class UpdateLocationInformation extends Command {
         }
         $this->info("Reverse Panorama Lookup:");
         $this->withProgressBar($panoramas, function ($panorama) {
-            //$this->info(json_encode($panorama, JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT));
             $res = Nominatim::getLocationInformation($panorama->st_y, $panorama->st_x);
-            //$this->info(json_encode($res, JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT));
             $data = Panorama::find($panorama->panorama_id);
             $data->country_code = $res['country_code'];
             $data->country_name = $res['country_name'];
