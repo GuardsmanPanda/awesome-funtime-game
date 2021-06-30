@@ -6,4 +6,5 @@ class Fixer {
     public static function fixCountries() {
 
     }
+
 }

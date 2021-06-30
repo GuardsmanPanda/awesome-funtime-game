@@ -22,12 +22,6 @@ class Nominatim {
                 'city_name' => null,
             ];
         }
-        $json = $res->json('address');
-        return [
-            'country_code' => strtoupper($json['country_code'] ?? 'XX'),
-            'country_name' => $json['country'] ?? 'Unknown',
-            'state_name' => $json['region'] ?? $json['state'] ?? $json['state_district'] ?? $json['county'] ?? 'Unknown',
-            'city_name' => $json['city'] ?? $json['municipality'] ?? $json['town'] ?? $json['village'] ?? 'Unknown',
-        ];
+        return $j;
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Commands;
 
-use App\Models\LocationCities500;
 use App\Models\Panorama;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +14,6 @@ class UpdateLocationInformation extends Command {
     public function handle(): void {
         $this->reverseLookup();
         $this->reverseRoundUserLookup();
-        $this->reverseCites();
         $this->fixAntarctica();
         $this->assignMapBox();
     }
@@ -32,12 +30,18 @@ class UpdateLocationInformation extends Command {
         }
         $this->info("Reverse Panorama Lookup:");
         $this->withProgressBar($panoramas, function ($panorama) {
-            $res = Nominatim::getLocationInformation($panorama->st_y, $panorama->st_x);
+            $json = Nominatim::getLocationInformation($panorama->st_y, $panorama->st_x);
             $data = Panorama::find($panorama->panorama_id);
-            $data->country_code = $res['country_code'];
-            $data->country_name = $res['country_name'];
-            $data->state_name = $res['state_name'];
-            $data->city_name = $res['city_name'];
+            $data->country_code = strtoupper($json['country_code'] ?? 'XX');
+            $data->country_name = $json['country'];
+            $data->region_name = $json['region'];
+            $data->state_name = $json['state'];
+            $data->state_district_name = $json['state_district'];
+            $data->county_name = $json['county'];
+            $data->municipality_name = $json['municipality'];
+            $data->city_name = $json['city'];
+            $data->town_name = $json['town'];
+            $data->village_name = $json['village'];
             $data->save();
             sleep(1);
         });
@@ -56,37 +60,12 @@ class UpdateLocationInformation extends Command {
         }
         $this->info("Reverse Round User Lookup:");
         $this->withProgressBar($rus, function ($ru) {
-            $res = Nominatim::getLocationInformation($ru->st_y, $ru->st_x);
+            $json = Nominatim::getLocationInformation($ru->st_y, $ru->st_x);
             DB::update("
                 UPDATE round_user 
                 SET country_code = ?, country_name = ?, state_name = ?, city_name = ?, location_lookup_at = CURRENT_TIMESTAMP
                 WHERE round_id = ? AND user_id = ?
-            ", [$res['country_code'], $res['country_name'], $res['state_name'],  $res['city_name'], $ru->round_id, $ru->user_id]);
-            sleep(1);
-        });
-        $this->newLine();
-    }
-
-
-    private function reverseCites(): void {
-        $loc = DB::select("
-            SELECT lc.id, lc.lat, lc.lng
-            FROM location_cities_500 lc
-            WHERE country_code IS NULL
-            LIMIT ?
-        ", [$this->argument('limit')]);
-        if (count($loc) === 0) {
-            return;
-        }
-        $this->info("Reverse Cities:");
-        $this->withProgressBar($loc, function ($lo) {
-            $res = Nominatim::getLocationInformation($lo->lat, $lo->lng);
-            $data = LocationCities500::find($lo->id);
-            $data->country_code = $res['country_code'] ?? 'XX';
-            $data->country_name = $res['country_name'];
-            $data->state_name = $res['state_name'];
-            $data->city_name = $res['city_name'];
-            $data->save();
+            ", [strtoupper($json['country_code'] ?? 'XX'), $json['country'], $json['state'],  $json['city'], $ru->round_id, $ru->user_id]);
             sleep(1);
         });
         $this->newLine();
