@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Commands\Test;
 use App\Commands\Translate;
 use App\Commands\UpdateRanks;
+use App\Commands\LocationFix;
 use App\Commands\GenerateModels;
 use App\Commands\LocationSearch;
 use App\Commands\ImportPanoramas;
@@ -25,6 +26,7 @@ class ConsoleKernel extends Kernel {
         UpdateRanks::class,
         LocationSearch::class,
         ImportPanoramas::class,
+        LocationFix::class,
     ];
 
     /**

@@ -34,7 +34,7 @@ class RunGameJob implements ShouldQueue {
             $round->country_fact_id = DB::selectOne("
                 SELECT cf.id
                 FROM panorama p, country_fact cf 
-                WHERE p.panorama_id = ? AND cf.country_code = p.country_code
+                WHERE p.panorama_id = ? AND cf.country_code = p.extended_country_code
                 ORDER BY random() LIMIT 1
             ", [$round->panorama_id])?->id;
             $round->round_end_at = Carbon::now()->addSeconds($game->round_time);

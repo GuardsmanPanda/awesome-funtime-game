@@ -26,15 +26,12 @@ use Carbon\Carbon;
  * @property float points
  * @property float distance
  * @property float closest_country_code_distance
- * @property string town_name
  * @property string city_name
  * @property string state_name
  * @property string region_name
  * @property string county_name
- * @property string village_name
  * @property string country_code
  * @property string country_name
- * @property string municipality_name
  * @property string state_district_name
  * @property string closest_country_code
  * @property string extended_country_code

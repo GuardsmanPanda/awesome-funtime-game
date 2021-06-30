@@ -32,7 +32,7 @@ Route::prefix('streetview')->group(function () {
     Route::get('list', function () {
         return Resp::SQLJson("
             SELECT ST_Y(p.panorama_location::geometry) as lat, ST_X(p.panorama_location::geometry) as lng
-            FROM panorama p
+            FROM panorama p WHERE added_by_user_id IS NOT NULL
         ");
     });
 });

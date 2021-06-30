@@ -14,7 +14,6 @@ class UpdateLocationInformation extends Command {
     public function handle(): void {
         $this->reverseLookup();
         $this->reverseRoundUserLookup();
-        $this->fixAntarctica();
         $this->assignMapBox();
     }
 
@@ -22,7 +21,7 @@ class UpdateLocationInformation extends Command {
         $panoramas = DB::select("
             SELECT p.panorama_id, ST_X(p.panorama_location::geometry), ST_Y(p.panorama_location::geometry)
             FROM panorama p
-            WHERE country_code IS NULL
+            WHERE p.country_code IS NULL
             LIMIT ?
         ", [$this->argument('limit')]);
         if (count($panoramas) === 0) {
@@ -30,18 +29,15 @@ class UpdateLocationInformation extends Command {
         }
         $this->info("Reverse Panorama Lookup:");
         $this->withProgressBar($panoramas, function ($panorama) {
-            $json = Nominatim::getLocationInformation($panorama->st_y, $panorama->st_x);
+            $j = Nominatim::getLocationInformation($panorama->st_y, $panorama->st_x);
             $data = Panorama::find($panorama->panorama_id);
-            $data->country_code = strtoupper($json['country_code'] ?? 'XX');
-            $data->country_name = $json['country'];
-            $data->region_name = $json['region'];
-            $data->state_name = $json['state'];
-            $data->state_district_name = $json['state_district'];
-            $data->county_name = $json['county'];
-            $data->municipality_name = $json['municipality'];
-            $data->city_name = $json['city'];
-            $data->town_name = $json['town'];
-            $data->village_name = $json['village'];
+            $data->country_code = strtoupper($j['address']['country_code'] ?? 'XX');
+            $data->country_name = $j['address']['country'] ?? null;
+            $data->region_name = $j['address']['region'] ?? null;
+            $data->state_name = $j['address']['state'] ?? null;
+            $data->state_district_name = $j['address']['state_district'] ?? null;
+            $data->county_name = $j['address']['county'] ?? null;
+            $data->city_name = $j['address']['city'] ?? $j['address']['municipality'] ?? $j['address']['town'] ?? $j['address']['village'] ?? null;
             $data->save();
             sleep(1);
         });
@@ -60,32 +56,25 @@ class UpdateLocationInformation extends Command {
         }
         $this->info("Reverse Round User Lookup:");
         $this->withProgressBar($rus, function ($ru) {
-            $json = Nominatim::getLocationInformation($ru->st_y, $ru->st_x);
+            $j = Nominatim::getLocationInformation($ru->st_y, $ru->st_x);
             DB::update("
                 UPDATE round_user 
-                SET country_code = ?, country_name = ?, state_name = ?, city_name = ?, location_lookup_at = CURRENT_TIMESTAMP
+                SET country_code = ?, country_name = ?, state_name = ?, city_name = ?,
+                    location_lookup_at = CURRENT_TIMESTAMP,
+                    region_name = ?, state_district_name = ?, county_name = ?
                 WHERE round_id = ? AND user_id = ?
-            ", [strtoupper($json['country_code'] ?? 'XX'), $json['country'], $json['state'],  $json['city'], $ru->round_id, $ru->user_id]);
+            ", [
+                strtoupper($j['country_code'] ?? 'XX'),
+                $j['address']['country'],
+                $j['address']['state'],
+                $j['address']['city'] ?? $j['address']['municipality'] ?? $j['address']['town'] ?? $j['address']['village'] ?? null,
+                $j['address']['region'],
+                $j['address']['state_district'],
+                $j['address']['county'],
+                $ru->round_id, $ru->user_id]);
             sleep(1);
         });
         $this->newLine();
-    }
-
-
-    private function fixAntarctica(): void {
-        $panoramas = DB::select("
-            SELECT p.panorama_id FROM panorama p
-            WHERE p.city_name = 'McMurdo Station' AND p.country_code = 'XX'
-        ");
-        if (count($panoramas) > 0) {
-            foreach ($panoramas as $panorama) {
-                DB::update("
-                    UPDATE panorama SET country_code = 'AQ', country_name = 'Antarctica'
-                    WHERE panorama_id = ?
-                ", [$panorama->panorama_id]);
-            }
-            $this->info('Updated ' . count($panoramas) . ' Antarctica panoramas');
-        }
     }
 
     private function assignMapBox(): void {

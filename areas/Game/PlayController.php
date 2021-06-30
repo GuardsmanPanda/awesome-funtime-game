@@ -20,12 +20,13 @@ class PlayController {
         if (Auth::$user_id === -1) {
             Resp::hxRedirectAbort('/login?redirect=' . Req::$r->getRequestUri(), code:401);
         }
+        //TODO query for game and result independently
         $game = DB::selectOne("
                 SELECT
                     g.id, g.next_round_at, g.current_round_id, g.round_count, g.is_queued, g.current_round,
                     r.round_end_at,
-                    p.jpg_name, p.country_code, ST_X(p.panorama_location::geometry) as x, ST_Y(p.panorama_location::geometry) as y,
-                    p.city_name, p.state_name, p.country_name, p.captured_date,
+                    p.jpg_name, p.extended_country_code, ST_X(p.panorama_location::geometry) as x, ST_Y(p.panorama_location::geometry) as y,
+                    p.captured_date,
                     cf.fact_text
                 FROM game g
                 LEFT JOIN round r ON r.id = g.current_round_id
@@ -51,12 +52,12 @@ class PlayController {
             return view('game.play.round-result', [
                 'game' => $game,
                 'countdown_seconds' => max(Carbon::now()->diffInSeconds(Carbon::parse($game->next_round_at), false), 3),
-                'country' => Country::find($game->country_code),
+                'country' => Country::find($game->extended_country_code),
                 'languages' => DB::select("
                     SELECT l.language_name, cl.percentage FROM country_language cl
                     LEFT JOIN language l on cl.language_id = l.id
                     WHERE cl.country_code = ? ORDER BY percentage DESC
-                ", [$game->country_code]),
+                ", [$game->extended_country_code]),
                 'players' => DB::select("
                     SELECT
                         u.display_name, u.country_code,
@@ -80,7 +81,7 @@ class PlayController {
                 FROM game g
                 RIGHT JOIN round r ON r.game_id = g.id AND r.id != g.current_round_id
                 LEFT JOIN panorama p ON p.panorama_id = r.panorama_id
-                LEFT JOIN country c ON c.country_code = p.country_code
+                LEFT JOIN country c ON c.country_code = p.extended_country_code
                 WHERE g.id = ? ORDER BY r.id
         ", [$id]),
             'countdown_seconds' => $round_diff, //TODO: use proper local time

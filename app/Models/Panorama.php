@@ -24,19 +24,17 @@ use Carbon\Carbon;
  * @property int added_by_user_id
  * @property string jpg_name
  * @property string city_name
- * @property string town_name
  * @property string file_name
  * @property string state_name
- * @property string region_name
  * @property string county_name
  * @property string panorama_id
- * @property string village_name
+ * @property string region_name
  * @property string country_code
  * @property string country_name
- * @property string municipality_name
  * @property string state_district_name
  * @property string extended_country_code
  * @property Carbon captured_date
+ * @property Carbon created_at
  *
  * AUTO GENERATED FILE DO NOT MODIFY
  */
@@ -50,6 +48,7 @@ class Panorama extends Model {
 
     protected $casts = [
         'captured_date' => 'date',
+        'created_at' => 'datetime',
     ];
 
     protected $guarded = ['id','updated_at','created_at','deleted_at'];
