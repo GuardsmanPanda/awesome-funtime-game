@@ -29,10 +29,10 @@
                         <span>+{{$country->dialing_code}}</span>
                     </div>
                 </div>
-                @if($country->independent_status !== 'Yes')
-                    <div><span class="text-gray-500">{{t('Status')}}: </span>{{$country->independent_status}} </div>
-                @endif
             </div>
+            @if($country->independent_status !== 'Yes')
+                <div><span class="text-gray-500">{{t('Status')}}: </span>{{$country->independent_status}} </div>
+            @endif
 
             <div class="flex gap-4 leading-4 mt-2 text-emerald-400">
                 <div class="flex flex-col gap-2">
@@ -84,7 +84,6 @@
                     </div>
                 </div>
             </div>
-            <div></div>
         </div>
 
         @isset($game->fact_text)

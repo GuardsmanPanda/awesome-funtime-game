@@ -65,12 +65,12 @@ class UpdateLocationInformation extends Command {
                 WHERE round_id = ? AND user_id = ?
             ", [
                 strtoupper($j['country_code'] ?? 'XX'),
-                $j['address']['country'],
-                $j['address']['state'],
+                $j['address']['country'] ?? null,
+                $j['address']['state'] ?? null,
                 $j['address']['city'] ?? $j['address']['municipality'] ?? $j['address']['town'] ?? $j['address']['village'] ?? null,
-                $j['address']['region'],
-                $j['address']['state_district'],
-                $j['address']['county'],
+                $j['address']['region'] ?? null,
+                $j['address']['state_district'] ?? null,
+                $j['address']['county'] ?? null,
                 $ru->round_id, $ru->user_id]);
             sleep(1);
         });
