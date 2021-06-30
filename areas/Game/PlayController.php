@@ -26,7 +26,7 @@ class PlayController {
                     g.id, g.next_round_at, g.current_round_id, g.round_count, g.is_queued, g.current_round,
                     r.round_end_at,
                     p.jpg_name, p.extended_country_code, ST_X(p.panorama_location::geometry) as x, ST_Y(p.panorama_location::geometry) as y,
-                    p.captured_date,
+                    p.captured_date, p.city_name, COALESCE(p.state_name, p.region_name, p.state_district_name, p.county_name) as state_name,
                     cf.fact_text
                 FROM game g
                 LEFT JOIN round r ON r.id = g.current_round_id

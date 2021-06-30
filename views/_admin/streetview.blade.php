@@ -37,7 +37,7 @@
     fetch('/admin/streetview/list')
         .then(resp => resp.json())
         .then(json => {
-            const markLayer = L.markerClusterGroup({maxClusterRadius: 40});
+            const markLayer = L.markerClusterGroup({maxClusterRadius: 0});
             const tmp = [];
             json.forEach(item => {
                 tmp.push(L.marker([item.lat, item.lng]))
