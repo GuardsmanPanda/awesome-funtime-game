@@ -40,7 +40,7 @@
             const markLayer = L.markerClusterGroup({maxClusterRadius: 0});
             const tmp = [];
             json.forEach(item => {
-                tmp.push(L.marker([item.lat, item.lng]))
+                tmp.push(L.marker([item.lat, item.lng], {icon: small_icon}))
             })
             markLayer.addLayers(tmp);
             map.addLayer(markLayer);
