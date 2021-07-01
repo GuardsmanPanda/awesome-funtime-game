@@ -11,6 +11,7 @@ class LocationFix extends Command {
 
     public function handle(): void {
         $this->fixSvalbard();
+        $this->fixAAland();
         $this->fixAntarctica();
         $this->fixRemaining();
     }
@@ -26,6 +27,20 @@ class LocationFix extends Command {
         ");
         if ($tmp > 0) {
             $this->info("Fixed $tmp Svalbard.");
+        }
+    }
+
+    private function fixAAland(): void {
+        $tmp = DB::update("
+            UPDATE panorama SET extended_country_code = 'AX' 
+            WHERE (county_name = 'Åland' OR county_name = 'Landskapet Åland') AND extended_country_code != 'AX'
+        ");
+        $tmp += DB::update("
+            UPDATE round_user SET extended_country_code = 'AX' 
+            WHERE (county_name = 'Åland' OR county_name = 'Landskapet Åland') AND extended_country_code != 'AX'
+        ");
+        if ($tmp > 0) {
+            $this->info("Fixed $tmp Åland.");
         }
     }
 
