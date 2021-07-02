@@ -10,10 +10,11 @@ class LocationFix extends Command {
     protected $description = 'Fix location from Nominatim';
 
     public function handle(): void {
-        $this->fixSvalbard();
-        $this->fixAAland();
         $this->fixAntarctica();
         $this->fixRemaining();
+
+        $this->fixSvalbard();
+        $this->fixAAland();
     }
 
     private function fixSvalbard(): void {

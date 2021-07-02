@@ -20,6 +20,7 @@
             },
             {title: "{{t('Curated')}}", field: "curated_count", sorter:"number"},
             {title: "{{t('Remaining')}}", field: "remaining_count", sorter:"number"},
+            {title: "{{t('Total')}}", field: "panorama_count", sorter:"number"},
         ]
     })
 </script>
