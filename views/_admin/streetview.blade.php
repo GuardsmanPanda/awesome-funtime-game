@@ -5,8 +5,34 @@
     </label>
     <button class="small-button-blue" id="map-add-button">Add</button>
 </div>
-<div id="map" class="w-full h-192 mt-2"></div>
+<div class="w-full flex h-192 mt-2 gap-4">
+    <div id="map" class="h-192 flex-grow"></div>
+    <div id="country-table" class="w-96"></div>
+</div>
 <script>
+    const table = new Tabulator('#country-table', {
+        ajaxURL: "/stat/country/list",
+        height: "100%",
+        layout:"fitDataStretch",
+        initialSort:[{column:"missing_count", dir:"asc"},],
+        initialFilter:[
+            {field:"missing_count", type:">", value:0}
+        ],
+        columns: [
+            {title: "Iso", field: "country_code", headerSort: false},
+            {title: "Name", field: "country_name", width: 150},
+            {title: "Flag", field: "country_code", headerSort: false, formatter: "image", formatterParams: {
+                    height: "26px",
+                    width: "39px",
+                    urlPrefix: "/static/img/flags/iso-small/",
+                    urlSuffix: ".png",
+                }
+            },
+            {title: "Miss", field: "missing_count", sorter:"number"},
+        ]
+    });
+
+
     const map = L.map('map', {
         center: [25, 0],
         zoom: 3,

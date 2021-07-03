@@ -23,8 +23,14 @@
         "panorama": "https://funtime.gman.bot/static/files/sv-jpg/{{$game->jpg_name}}.jpg",
         "autoLoad": true
     });
-</script>
-<script>
+
+    //Make pengu bouncy if no guess made in time
+    let guessMade = false;
+    setTimeout(function () {
+        if (!guessMade) document.getElementById('pengu').classList.add('animate-bounce');
+    }, {{$countdown_seconds}}*1000 - 11000);
+
+
     const map = L.map('map', {
         center: [25, 0],
         zoom: 1
@@ -57,7 +63,11 @@
             .then(resp => {
                 if (!resp.ok) {
                     console.log('RESP ERROR');
-                } else marker.setLatLng(e.latlng);
+                } else {
+                    guessMade = true;
+                    document.getElementById('pengu').classList.remove('animate-bounce');
+                    marker.setLatLng(e.latlng);
+                }
             });
     });
 

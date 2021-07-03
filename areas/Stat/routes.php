@@ -11,10 +11,15 @@ Route::get('/country/list', function () { return Resp::SQLJson("
             (SELECT COUNT(*) FROM panorama p WHERE p.extended_country_code = c.country_code) as panorama_count,
             (SELECT COUNT(*) FROM panorama p WHERE p.extended_country_code = c.country_code AND p.added_by_user_id IS NOT NULL) as curated_count,
             (SELECT COUNT(*) FROM panorama p
-            WHERE 
-                p.extended_country_code = c.country_code AND p.added_by_user_id IS NOT NULL
-                AND NOT EXISTS(SELECT * FROM round r WHERE r.panorama_id = p.panorama_id)
-                ) as remaining_count
+             WHERE 
+                   p.extended_country_code = c.country_code AND p.added_by_user_id IS NOT NULL
+                    AND NOT EXISTS(SELECT * FROM round r WHERE r.panorama_id = p.panorama_id)
+                   ) as remaining_count,
+            c.panorama_buffer - (SELECT COUNT(*) FROM panorama p
+                WHERE 
+                    p.extended_country_code = c.country_code AND p.added_by_user_id IS NOT NULL
+                    AND NOT EXISTS(SELECT * FROM round r WHERE r.panorama_id = p.panorama_id)
+                    ) as missing_count
         FROM country c
     ");
 });
