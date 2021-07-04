@@ -126,7 +126,8 @@
     });
     const map = L.map('map', {
         center: [{{$game->y}}, {{$game->x}}],
-        zoom: 5
+        zoom: 5,
+        worldCopyJump: true
     });
     L.tileLayer('/static/files/tile/{{\App\Tools\Auth::user()?->map_style_id ?? 4}}/{z}/{x}/{y}.png', {
         maxNativeZoom: 17,

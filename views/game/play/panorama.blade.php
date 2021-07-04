@@ -33,7 +33,8 @@
 
     const map = L.map('map', {
         center: [25, 0],
-        zoom: 1
+        zoom: 1,
+        worldCopyJump: true
     });
     const map_icon = L.icon({
         iconUrl: '/static/img/markers/{{$marker}}',

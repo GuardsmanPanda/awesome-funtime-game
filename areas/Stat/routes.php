@@ -1,9 +1,10 @@
 <?php
 
 use App\Tools\Resp;
+use Areas\Stat\StatController;
 use Illuminate\Support\Facades\Route;
 
-Route::view('', 'stat.index');
+Route::get('', [StatController::class, 'index']);
 Route::view('country', 'stat.country');
 Route::get('/country/list', function () { return Resp::SQLJson("
         SELECT 

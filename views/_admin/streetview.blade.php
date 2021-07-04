@@ -4,6 +4,7 @@
         <input type="text" class="w-192" id="map-url">
     </label>
     <button class="small-button-blue" id="map-add-button">Add</button>
+    <button class="small-button-gray" id="google-maps">Google Maps</button>
 </div>
 <div class="w-full flex h-192 mt-2 gap-4">
     <div id="map" class="h-192 flex-grow"></div>
@@ -81,7 +82,6 @@
 
     document.getElementById("map-add-button").addEventListener("click", function() {
         const text = document.getElementById('map-url').value.split('@')[1].split(',');
-
         fetch('/admin/streetview/add', {
             method: 'POST',
             headers: {
@@ -103,19 +103,10 @@
     });
 
     map.on('click', function (e) {
-        fetch('/admin/streetview/add', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(e.latlng),
-        })
-            .then(resp => {
-                if (!resp.ok) {
-                    resp.text().then(text => {
-                        document.getElementById("resp").innerHTML = text;
-                    })
-                } else resp.json().then(json => addGuesses(json))
-            });
+        window.open('https://google.com/maps/@' + e.latlng.lat+','+e.latlng.lng+',' + map.getZoom()+'z', '', 'width=1300,height=800');
     });
+
+    document.getElementById("google-maps").addEventListener("click", function() {
+       window.open('https://maps.google.com', '_blank');
+    })
 </script>

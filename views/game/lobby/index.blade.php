@@ -26,8 +26,8 @@
 
     <div class="flex flex-col gap-4 w-96 flex-grow">
         <div class="grid grid-cols-2 gap-4">
-            <x-text-card top-text="{{$game->round_count}}" bot-text="{{t('Rounds')}}"></x-text-card>
-            <x-text-card top-text="{{$game->round_time}}" bot-text="{{t('Seconds')}}"></x-text-card>
+            <x-text-card class="bg-teal-600" top-text="{{$game->round_count}}" bot-text="{{t('Rounds')}}"></x-text-card>
+            <x-text-card class="bg-teal-600" top-text="{{$game->round_time}}" bot-text="{{t('Seconds')}}"></x-text-card>
         </div>
         <div>
             <x-content-raw title="{{t('Find panorama')}}" icon="globe">
