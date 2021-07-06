@@ -28,6 +28,7 @@ class LocationFix extends Command {
         $this->fixBoth("extended_country_code = 'RE' WHERE state_name = 'La Réunion' AND extended_country_code = 'FR'", 'Reunion');
         $this->fixBoth("extended_country_code = 'YT' WHERE state_name = 'Mayotte' AND extended_country_code = 'FR'", 'Mayotte');
 
+        $this->fixBoth("extended_country_code = 'VI' WHERE state_name = 'United States Virgin Islands' AND extended_country_code = 'US'", 'United States Virgin Islands');
         $this->fixBoth("extended_country_code = 'MP' WHERE state_name = 'Northern Mariana Islands' AND extended_country_code = 'US'", 'Northern Mariana Islands	');
         $this->fixBoth("extended_country_code = 'AS' WHERE state_name = 'American Samoa' AND extended_country_code = 'US'", 'American Samoa');
         $this->fixBoth("extended_country_code = 'PR' WHERE state_name = 'Puerto Rico' AND extended_country_code = 'US'", 'Puerto Rico');

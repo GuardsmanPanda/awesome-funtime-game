@@ -17,13 +17,13 @@ class ScoreCalculator {
                 closest_country_code = (
                     SELECT close.extended_country_code  FROM ((
                         SELECT p2.extended_country_code, ST_distance(ru.location, p2.panorama_location) as distance FROM panorama p2
-                        WHERE p2.extended_country_code IS NOT NULL
+                        WHERE p2.extended_country_code IS NOT NULL AND p2.extended_country_code != 'XX'
                         ORDER BY ru.location <-> p2.panorama_location
                         LIMIT 1
                         ) 
                         UNION (
                         SELECT r3.extended_country_code, ST_distance(ru.location, r3.location) as distance FROM round_user r3
-                        WHERE r3.extended_country_code IS NOT NULL
+                        WHERE r3.extended_country_code IS NOT NULL AND r3.extended_country_code != 'XX'
                         ORDER BY ru.location <-> r3.location
                         LIMIT 1
                         ) 

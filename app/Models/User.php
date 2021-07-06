@@ -31,6 +31,9 @@ use Carbon\Carbon;
  * @property string work_email
  * @property string display_name
  * @property string country_code
+ * @property string country_code_2
+ * @property string country_code_3
+ * @property string country_code_1
  * @property Carbon update_at
  * @property Carbon created_at
  * @property Carbon last_login_at

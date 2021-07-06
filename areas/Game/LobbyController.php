@@ -72,4 +72,37 @@ class LobbyController extends Controller {
         }
         return 'Error';
     }
+
+    public function patchCountrySelection(int $game_id): view {
+        $user = Auth::user();
+        $user->country_code_1 = Req::input('country_1') ?? $user->country_code_1;
+        $user->country_code_2 = Req::input('country_2') ?? $user->country_code_2;
+        $user->country_code_3 = Req::input('country_3') ?? $user->country_code_3;
+        $user->save();
+        return $this->getCountrySelector($game_id);
+    }
+
+    public function getCountrySelector(int $game_id): view {
+        return view('game.lobby.country-selector', [
+            'game_id' => $game_id,
+            'user_data' => DB::selectOne("SELECT u.country_code_1, u.country_code_2, u.country_code_3 FROM users u WHERE u.id = ?", [Auth::$user_id]),
+            'countries' => DB::select("
+                SELECT c.country_code, c.country_name, count(p.panorama_id) as country_count
+                FROM country c
+                LEFT JOIN panorama p on c.country_code = p.extended_country_code
+                LEFT JOIN (
+                        SELECT DISTINCT r.panorama_id
+                        FROM game_user gu
+                        LEFT JOIN round_user ru ON ru.user_id = gu.user_id
+                        LEFT JOIN round r ON r.id = ru.round_id
+                        WHERE gu.game_id = ?
+                        GROUP BY r.id
+                ) p3 ON p3.panorama_id = p.panorama_id
+                WHERE p3.panorama_id IS NULL
+                GROUP BY  c.country_code, c.country_name
+                HAVING count(p.panorama_id) > 0
+                ORDER BY c.country_name 
+         ", [$game_id]),
+        ]);
+    }
 }

@@ -5,6 +5,7 @@ use App\Tools\Resp;
 use Areas\Game\PlayController;
 use Areas\Game\LobbyController;
 use Areas\Game\ResultController;
+use Illuminate\Support\Facades\DB;
 use Areas\Game\DashboardController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,6 +37,8 @@ Route::post('{game}/start', [LobbyController::class, 'start']);
 Route::get('{game}/lobby', [LobbyController::class, 'index']);
 Route::get('{game}/lobby-status', [LobbyController::class, 'lobbyStatus']);
 Route::view('lobby/map-selector', 'game.lobby.map-selector');
+Route::get('lobby/country-selector/{game_id}', [LobbyController::class, 'getCountrySelector']);
+Route::patch('lobby/country-selector/{game_id}', [LobbyController::class, 'patchCountrySelection']);
 
 Route::get('{id}/play', [PlayController::class, 'index']);
 Route::post('{game}/guess', [PlayController::class, 'guess']);

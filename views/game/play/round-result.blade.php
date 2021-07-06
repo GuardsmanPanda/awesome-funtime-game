@@ -86,6 +86,34 @@
             </div>
         </div>
 
+        <div id="panorama-rating" hx-target="#panorama-rating" class="bottom-16 absolute w-full flex justify-center" style="font-family: 'Inkwell Sans',Verdana,sans-serif;z-index: 500;">
+            <div class="bg-gray-800 font-medium px-4 text-lime-300 text-3xl pt-2 pb-4 rounded-md shadow-md">
+                <div class="text-center capitalize">{{t('Rate the last panorama')}}</div>
+                <div class="flex gap-4 text-white font-bold pt-1 text-xl leading-6">
+                    <button hx-post="/contribute/rate/{{$game->panorama_id}}/5" class="font-bold py-2 px-4 bg-green-700 rounded transform hover:scale-105 w-36 shadow-md hover:rotate-2 duration-75">
+                        <div>{{t('Perfection')}}</div>
+                        <div class="opacity-70">{{t('Amazing')}}</div>
+                    </button>
+                    <button hx-post="/contribute/rate/{{$game->panorama_id}}/4" class="font-bold py-2 px-4 bg-lime-700 rounded transform hover:scale-105 w-36 shadow-md hover:-rotate-2 duration-75">
+                        <div>{{t('Good')}}</div>
+                        <div class="opacity-70">{{t('Keep')}}</div>
+                    </button>
+                    <button hx-post="/contribute/rate/{{$game->panorama_id}}/3" class="font-bold py-2 px-4 bg-yellow-700 rounded transform hover:scale-105 w-36 shadow-md duration-75">
+                        <div>{{t('Decent')}}</div>
+                        <div class="opacity-70">{{t('Unsure')}}</div>
+                    </button>
+                    <button hx-post="/contribute/rate/{{$game->panorama_id}}/2" class="font-bold py-2 px-4 bg-orange-700 rounded transform hover:scale-105 w-36 shadow-md hover:rotate-2 duration-75">
+                        <div>{{t('Bad')}}</div>
+                        <div class="opacity-70">{{t('Remove')}}</div>
+                    </button>
+                    <button hx-post="/contribute/rate/{{$game->panorama_id}}/1" class="font-bold py-2 px-4 bg-red-700 rounded transform hover:scale-105 w-36 shadow-md hover:-rotate-2 duration-75">
+                        <div>{{t('Terrible')}}</div>
+                        <div class="opacity-70">{{t('Broken')}}</div>
+                    </button>
+                </div>
+            </div>
+        </div>
+
         @isset($game->fact_text)
             <div class="bottom-0 absolute w-full flex justify-center" style="font-family: 'Inkwell Sans',Verdana,sans-serif;z-index: 500;">
                 <div class="bg-gray-800 font-medium px-3 text-gray-200 text-xl py-1">{{$game->fact_text}}</div>

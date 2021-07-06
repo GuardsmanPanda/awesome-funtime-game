@@ -64,7 +64,7 @@ class UpdateLocationInformation extends Command {
                     region_name = ?, state_district_name = ?, county_name = ?
                 WHERE round_id = ? AND user_id = ?
             ", [
-                strtoupper($j['country_code'] ?? 'XX'),
+                strtoupper($j['address']['country_code'] ?? 'XX'),
                 $j['address']['country'] ?? null,
                 $j['address']['state'] ?? null,
                 $j['address']['city'] ?? $j['address']['municipality'] ?? $j['address']['town'] ?? $j['address']['village'] ?? null,

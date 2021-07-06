@@ -18,7 +18,7 @@
             <x-icon name="map" class="text-orange-500 {{\App\Tools\Auth::user()?->map_style_id ? '': 'animate-pulse'}}"></x-icon>
             <div class="font-bold text-xl leading-normal text-orange-600 capitalize truncate" style="font-family: 'Inkwell Sans',Verdana,sans-serif;">{{t('Click to select map')}}</div>
             <x-icon name="map" class="text-orange-500 {{\App\Tools\Auth::user()?->map_style_id ? '': 'animate-pulse'}}"></x-icon>
-            </button>
+        </button>
         <div id="map-marker" style="width: 22rem;" class="rounded flex-col bg-teal-300 p-0.5 from-teal-200 bg-gradient-to-bl shadow" hx-target="this">
             @include('game.lobby.map-marker')
         </div>
@@ -29,11 +29,9 @@
             <x-text-card class="bg-teal-600" top-text="{{$game->round_count}}" bot-text="{{t('Rounds')}}"></x-text-card>
             <x-text-card class="bg-teal-600" top-text="{{$game->round_time}}" bot-text="{{t('Seconds')}}"></x-text-card>
         </div>
-        <div>
-            <x-content-raw title="{{t('Find panorama')}}" icon="globe">
-                <div class="px-4 py-1 grid gap-4">Not implemented yet...</div>
-            </x-content-raw>
-        </div>
+        <x-content-raw title="{{t('Find panorama')}}" icon="globe">
+            <div class="px-4 py-1 grid gap-4">Not implemented yet...</div>
+        </x-content-raw>
     </div>
     <x-content-raw title="{{t('Information')}}" icon="information-circle">
         <div class="px-4 py-1 grid gap-4 prose">
@@ -89,6 +87,5 @@
     document.getElementById('map-selector').onclick = function () {
         htmx.ajax('GET','/game/lobby/map-selector', htmx.find('#pop'))
             .then(res => pop.showModal());
-
     }
 </script>

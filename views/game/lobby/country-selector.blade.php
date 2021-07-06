@@ -1,0 +1,28 @@
+<div hx-target="this">
+    <div class="prose mb-4">
+        <h3>--- Not Implemented yet ---</h3>
+        <p>This feature allows you to select a number of countries in secret, the panoramas in the game will then be chosen from the pool of secret country selections.</p>
+    </div>
+    <div class="grid grid-cols-3 gap-5 p-1">
+        <div>
+            <div class="text-xl font-bold">Country 1</div>
+            @include('game.lobby.country-selector-list', ['country_code' => $user_data->country_code_1, 'input_name' => 'country_1'])
+        </div>
+        <div>
+            <div class="text-xl font-bold">Country 2</div>
+            @include('game.lobby.country-selector-list', ['country_code' => $user_data->country_code_2, 'input_name' => 'country_2'])
+        </div>
+        <div>
+            <div class="text-xl font-bold">Country 3</div>
+            @include('game.lobby.country-selector-list', ['country_code' => $user_data->country_code_3, 'input_name' => 'country_3'])
+        </div>
+    </div>
+    <div hx-swap-oob="true" id="pop-title" class="capitalize">{{t('Choose my secret countries')}}</div>
+    <datalist id="countries" >
+        @foreach($countries as $country)
+            <option value="{{$country->country_code}}" class="leading-4">
+                {{\Illuminate\Support\Str::limit(t($country->country_name), 20)}}
+            </option>
+        @endforeach
+    </datalist>
+</div>

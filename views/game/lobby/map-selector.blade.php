@@ -7,4 +7,4 @@
     @endforeach
 </div>
 
-<div hx-swap-oob="true" id="pop-title" class="capitalize">{{t('Chose map style')}}</div>
+<div hx-swap-oob="true" id="pop-title" class="capitalize">{{t('Choose map style')}}</div>
