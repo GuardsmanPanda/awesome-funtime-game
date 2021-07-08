@@ -30,8 +30,7 @@ class PanoramaPicker {
             $this->user_countries[] = $t->country_code_3 ?? 'XX';
             $this->user_countries[] = $t->country_code_4 ?? 'XX';
         }
-        $user_country_chance = min($this->user_country_chance, 70);
-        $this->user_countries = array_unique($this->user_countries);
+        $this->user_country_chance = min($this->user_country_chance, 70);
         shuffle($this->user_countries);
     }
 
