@@ -63,7 +63,7 @@
 <body hx-indicator="#loading-status" hx-target="#primary" class="subpixel-antialiased">
 <nav class="absolute bg-gray-800 flex  h-10 items-center justify-between shadow-md w-full top-0"
      style="font-family: 'Inkwell Sans',Verdana,sans-serif; line-height: 1.3; font-size: 1.3rem;">
-    <div class="flex items-center gap-4">
+    <div class="flex items-center gap-2">
         <a href="/" class="flex items-center ">
             <img src="/static/img/icons/top.png" class="ml-4" alt="Logo">
         </a>

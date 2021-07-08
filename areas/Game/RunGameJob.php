@@ -24,8 +24,8 @@ class RunGameJob implements ShouldQueue {
         $game->game_start_at = Carbon::now()->addMinutes($this->countdown);
         $game->save();
         sleep($this->countdown * 60 - 3);
-        $picker = new PanoramaPicker($game);
 
+        $picker = new PanoramaPicker($game);
         for ($i = 1; $i <= $game->round_count; $i++) {
             $round = new Round();
             $round->round_number = $i;

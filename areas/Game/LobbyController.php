@@ -39,6 +39,10 @@ class LobbyController extends Controller {
                 LEFT JOIN users u ON u.id = g.created_by_user_id
                 WHERE g.id = ?
             ", [$game->id]),
+            'user_data' => DB::selectOne("
+                SELECT u.country_pick_at > current_timestamp - Interval '7 day' as recent_pick
+                FROM users u WHERE u.id = ?
+            ", [Auth::$user_id]),
         ]);
     }
 
@@ -78,6 +82,8 @@ class LobbyController extends Controller {
         $user->country_code_1 = Req::input('country_1') ?? $user->country_code_1;
         $user->country_code_2 = Req::input('country_2') ?? $user->country_code_2;
         $user->country_code_3 = Req::input('country_3') ?? $user->country_code_3;
+        $user->country_code_4 = Req::input('country_4') ?? $user->country_code_4;
+        $user->country_pick_at = Carbon::now();
         $user->save();
         return $this->getCountrySelector($game_id);
     }
@@ -85,7 +91,13 @@ class LobbyController extends Controller {
     public function getCountrySelector(int $game_id): view {
         return view('game.lobby.country-selector', [
             'game_id' => $game_id,
-            'user_data' => DB::selectOne("SELECT u.country_code_1, u.country_code_2, u.country_code_3 FROM users u WHERE u.id = ?", [Auth::$user_id]),
+            'user_data' => DB::selectOne("
+                SELECT 
+                       u.country_code_1, (SELECT country_name FROM country WHERE country_code = u.country_code_1) as country_name_1,
+                       u.country_code_2, (SELECT country_name FROM country WHERE country_code = u.country_code_2) as country_name_2,
+                       u.country_code_3, (SELECT country_name FROM country WHERE country_code = u.country_code_3) as country_name_3,
+                       u.country_code_4, (SELECT country_name FROM country WHERE country_code = u.country_code_4) as country_name_4
+                FROM users u WHERE u.id = ?", [Auth::$user_id]),
             'countries' => DB::select("
                 SELECT c.country_code, c.country_name, count(p.panorama_id) as country_count
                 FROM country c

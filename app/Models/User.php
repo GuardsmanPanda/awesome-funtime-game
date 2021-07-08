@@ -31,12 +31,14 @@ use Carbon\Carbon;
  * @property string work_email
  * @property string display_name
  * @property string country_code
+ * @property string country_code_1
  * @property string country_code_2
  * @property string country_code_3
- * @property string country_code_1
+ * @property string country_code_4
  * @property Carbon update_at
  * @property Carbon created_at
  * @property Carbon last_login_at
+ * @property Carbon country_pick_at
  *
  * AUTO GENERATED FILE DO NOT MODIFY
  */
@@ -46,6 +48,7 @@ class User extends Model {
     public $timestamps = false;
 
     protected $casts = [
+        'country_pick_at' => 'datetime',
         'created_at' => 'datetime',
         'last_login_at' => 'datetime',
         'update_at' => 'datetime',

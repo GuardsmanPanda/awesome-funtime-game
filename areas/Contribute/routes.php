@@ -10,7 +10,7 @@ Route::post('/rate/{panorama_id}/{rating}', function (string $panorama_id, int $
         LEFT JOIN round r ON r.panorama_id = p.panorama_id
         LEFT JOIN round_user ru on r.id = ru.round_id
         WHERE p.panorama_id = ? AND ru.user_id = ?", [$panorama_id, Auth::$user_id]);
-    if ($test === null || $rating < 1 || $rating > 5) {
+    if ($test === null || $rating < 1 || $rating > 7) {
         throw new InvalidArgumentException("Not allowed to rate this panorama");
     }
     DB::insert("

@@ -25,6 +25,10 @@ class RouteServiceProvider extends ServiceProvider {
             Route::middleware(['cookie', 'session'])->get('auth/payload-login', [AuthenticationController::class, 'loginWithSignedPayload']);
             Route::middleware(['cookie', 'session'])->get('auth/logout', [AuthenticationController::class, 'logout']);
 
+            Route::get('test', function () {
+                $picker = new PanoramaPicker(Game::find(48));
+                return $picker->pickPanorama();
+            });
         });
     }
 }

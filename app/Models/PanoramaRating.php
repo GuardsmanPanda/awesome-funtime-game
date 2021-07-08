@@ -4,6 +4,7 @@ namespace App\Models;
 
 use  Illuminate\Database\Query\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 /**
  * AUTO GENERATED FILE DO NOT MODIFY
@@ -22,6 +23,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int rating
  * @property int user_id
  * @property string panorama_id
+ * @property Carbon created:at
  *
  * AUTO GENERATED FILE DO NOT MODIFY
  */
@@ -32,6 +34,10 @@ class PanoramaRating extends Model {
     protected $keyType = 'string';
     public $incrementing = false;
     public $timestamps = false;
+
+    protected $casts = [
+        'created:at' => 'datetime',
+    ];
 
     protected $guarded = ['id','updated_at','created_at','deleted_at'];
 }
