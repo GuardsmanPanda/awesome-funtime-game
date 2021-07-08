@@ -1,4 +1,4 @@
-<div class="flex gap-4 pt-12 px-4">
+<div class="flex gap-4 pt-12 px-4 h-screen pb-4">
     <div class="flex flex-col gap-4">
         <x-content-raw title="{{t('Rounds')}}" icon="users">
             <div>
@@ -19,7 +19,7 @@
 
 
     <x-content-raw title="{{t('Game Result')}}" icon="users">
-        <div style="width: 27rem; z-index: 500" class="">
+        <div style="width: 27rem; z-index: 500" class="h-full overflow-auto">
             <div class="grid gap-2 py-1 px-2">
                 @foreach($players as $player)
                     <div class="bg-gradient-to-r flex items-center px-2 py-2 rounded-md to-gray-800">

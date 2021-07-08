@@ -24,7 +24,7 @@ class PanoramaPicker {
             if (!$t->recent_pick) {
                 continue;
             }
-            $this->user_country_chance += 5;
+            $this->user_country_chance += 8;
             $this->user_countries[] = $t->country_code_1 ?? 'XX';
             $this->user_countries[] = $t->country_code_2 ?? 'XX';
             $this->user_countries[] = $t->country_code_3 ?? 'XX';
