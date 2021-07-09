@@ -4,14 +4,18 @@ namespace Infrastructure\Game;
 
 use Throwable;
 use App\Models\Game;
+use App\Models\Country;
 use Illuminate\Support\Facades\DB;
 
 class PanoramaPicker {
+    private array $higher_chance = ['US', 'BE', 'DK', 'DE', 'IE', 'ES', 'FR', 'IT', 'PT', 'FI', 'SE', 'NO', 'CH', 'UK', 'EL', 'EE', 'LV', 'LT', 'PL', 'AT'];
     private array $countries_used = ['XX'];
     private array $user_countries;
+    private array $all_countries;
     private float $user_country_chance = 0;
 
     public function __construct(private Game $game) {
+        $this->all_countries = Country::pluck('country_code')->toArray();
         $tmp = DB::select("
             SELECT
                 u.country_code_1, u.country_code_2, u.country_code_3, u.country_code_4,
@@ -24,18 +28,19 @@ class PanoramaPicker {
             if (!$t->recent_pick) {
                 continue;
             }
-            $this->user_country_chance += 8;
+            $this->user_country_chance += 5;
             $this->user_countries[] = $t->country_code_1 ?? 'XX';
             $this->user_countries[] = $t->country_code_2 ?? 'XX';
             $this->user_countries[] = $t->country_code_3 ?? 'XX';
             $this->user_countries[] = $t->country_code_4 ?? 'XX';
         }
-        $this->user_country_chance = min($this->user_country_chance, 70);
+        $this->user_country_chance = min($this->user_country_chance, 50);
         shuffle($this->user_countries);
+        shuffle($this->higher_chance);
     }
 
     public function pickPanorama(int $attempts = 0): string {
-        if ($attempts > 10) {
+        if ($attempts > 15) {
             return  "CAoSLEFGMVFpcE15NTBwMlhHcURhY2NFbklXeUtrb1pSZjJZZ0lEcUJaRW1iUXhI";
         }
         $panorama = null;
@@ -50,6 +55,25 @@ class PanoramaPicker {
                     }
                 }
             }
+
+            if (random_int(0, 100) < 20) {
+                while ($country === null && count($this->higher_chance) > 0) {
+                    $t = array_pop($this->higher_chance);
+                    if (!in_array($t, $this->countries_used, true)) {
+                        $country = $t;
+                    }
+                }
+            }
+
+            if (random_int(0, 100) < 40) {
+                while ($country === null && count($this->all_countries) > 0) {
+                    $t = array_pop($this->all_countries);
+                    if (!in_array($t, $this->countries_used, true)) {
+                        $country = $t;
+                    }
+                }
+            }
+
             $map_box = $this->selectMapBox($country);
             $panorama = $this->selectPanorama(extended_country_code: $country, map_box: $map_box);
         } catch (Throwable $t) {

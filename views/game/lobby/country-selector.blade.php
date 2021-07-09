@@ -1,7 +1,7 @@
 <div hx-target="this">
     <div class="prose mb-4">
         <p>This feature allows you to select a number of countries in secret, the panoramas in the game will then be chosen from the pool of secret country selections.</p>
-        <p>For each player who have chosen countries there is an 8% chance a player country will be chosen in a given round (up to 70%).</p>
+        <p>For each player who have chosen countries there is an 5% chance a player country will be chosen in a given round (up to 50%).</p>
     </div>
     <div class="grid grid-cols-4 gap-4 p-1">
         <div>
