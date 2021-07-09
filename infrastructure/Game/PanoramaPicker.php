@@ -29,7 +29,7 @@ class PanoramaPicker {
             if (!$t->recent_pick) {
                 continue;
             }
-            $this->user_country_chance += 5;
+            $this->user_country_chance += 4;
             $this->user_countries[] = $t->country_code_1 ?? 'XX';
             $this->user_countries[] = $t->country_code_2 ?? 'XX';
             $this->user_countries[] = $t->country_code_3 ?? 'XX';
@@ -54,7 +54,7 @@ class PanoramaPicker {
             if ($country === null && random_int(0, 100) < 25) {
                 $country = $this->pickCountry($this->tier_one);
             }
-            if ($country === null && random_int(0, 100) < 25) {
+            if ($country === null && random_int(0, 100) < 20) {
                 $country = $this->pickCountry($this->tier_two);
             }
             if ($country === null && random_int(0, 100) < 40) {
