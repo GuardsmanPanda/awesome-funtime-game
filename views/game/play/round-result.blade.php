@@ -9,7 +9,7 @@
             <div class="text-center text-lg text-cyan-500  leading-6">{{$game->city_name}}</div>
 
             <div class="flex gap-3 justify-center py-2">
-                <img src="/static/img/flags/wavy/{{strtolower($country->country_code)}}.png" width="140" alt="South Africa">
+                <img src="/static/img/flags/wavy/{{strtolower($country->country_code)}}.png" width="140" alt="Wavy flag">
                 <div class="grid">
 
                     <div class="flex gap-2 items-center">
@@ -90,25 +90,25 @@
             <div class="bg-gray-800 font-medium px-4 text-lime-300 text-3xl pt-2 pb-4 rounded-md shadow-md">
                 <div class="text-center capitalize">{{t('Rate the last panorama')}}</div>
                 <div class="flex gap-3 text-white font-bold pt-1 text-xl leading-5">
-                    <button hx-post="/contribute/rate/{{$game->panorama_id}}/1" class="font-bold py-2 px-3 bg-rose-700 rounded transform hover:scale-105 w-24 shadow-md hover:rotate-3 duration-75">
+                    <button hx-post="/contribute/rate/{{$game->panorama_id}}/1" class="font-bold py-2 px-3 bg-rose-700 rounded transform hover:scale-105 w-24 shadow-md hover:rotate-3 duration-50">
                         <span>{{t('Terrible')}}</span><br><span class="opacity-70">{{t('Broken')}}</span>
                     </button>
-                    <button hx-post="/contribute/rate/{{$game->panorama_id}}/2" class="font-bold py-2 px-3 bg-red-700 rounded transform hover:scale-105 w-24 shadow-md hover:-rotate-3 duration-75">
+                    <button hx-post="/contribute/rate/{{$game->panorama_id}}/2" class="font-bold py-2 px-3 bg-red-700 rounded transform hover:scale-105 w-24 shadow-md hover:-rotate-3 duration-50">
                         <span>{{t('Bad')}}</span><br><span class="opacity-70">{{t('Remove')}}</span>
                     </button>
-                    <button hx-post="/contribute/rate/{{$game->panorama_id}}/3" class="font-bold py-2 px-3 bg-orange-700 rounded transform hover:scale-105 w-24 shadow-md hover:rotate-3 duration-75">
+                    <button hx-post="/contribute/rate/{{$game->panorama_id}}/3" class="font-bold py-2 px-3 bg-orange-700 rounded transform hover:scale-105 w-24 shadow-md hover:rotate-3 duration-50">
                         <span>{{t('Poor')}}</span><br><span class="opacity-70">{{t('Lacking')}}</span>
                     </button>
-                    <button hx-post="/contribute/rate/{{$game->panorama_id}}/4" class="font-bold py-2 px-3 bg-amber-700 rounded transform hover:scale-105 w-24 shadow-md duration-75">
+                    <button hx-post="/contribute/rate/{{$game->panorama_id}}/4" class="font-bold py-2 px-3 bg-amber-700 rounded transform hover:scale-105 w-24 shadow-md duration-50">
                         <span>{{t('Decent')}}</span><br><span class="opacity-70">{{t('Unsure')}}</span>
                     </button>
-                    <button hx-post="/contribute/rate/{{$game->panorama_id}}/5" class="font-bold py-2 px-3 bg-yellow-700 rounded transform hover:scale-105 w-24 shadow-md hover:-rotate-3 duration-75">
+                    <button hx-post="/contribute/rate/{{$game->panorama_id}}/5" class="font-bold py-2 px-3 bg-yellow-700 rounded transform hover:scale-105 w-24 shadow-md hover:-rotate-3 duration-50">
                         <span>{{t('Good')}}</span><br><span class="opacity-70">{{t('Keep')}}</span>
                     </button>
-                    <button hx-post="/contribute/rate/{{$game->panorama_id}}/6" class="font-bold py-2 px-3 bg-lime-700 rounded transform hover:scale-105 w-24 shadow-md hover:rotate-3 duration-75">
+                    <button hx-post="/contribute/rate/{{$game->panorama_id}}/6" class="font-bold py-2 px-3 bg-lime-700 rounded transform hover:scale-105 w-24 shadow-md hover:rotate-3 duration-50">
                         <span>{{t('Great')}}</span><br><span class="opacity-70">{{t('Amazing')}}</span>
                     </button>
-                    <button hx-post="/contribute/rate/{{$game->panorama_id}}/7" class="font-bold py-2 px-3 bg-green-700 rounded transform hover:scale-105 w-24 shadow-md hover:-rotate-3 duration-75">
+                    <button hx-post="/contribute/rate/{{$game->panorama_id}}/7" class="font-bold py-2 px-3 bg-green-700 rounded transform hover:scale-105 w-24 shadow-md hover:-rotate-3 duration-50">
                         <span>{{t('Perfect')}}</span><br><span class="opacity-70">{{t('Wow')}}</span>
                     </button>
                 </div>

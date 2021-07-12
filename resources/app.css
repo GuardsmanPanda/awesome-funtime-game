@@ -33,7 +33,7 @@
     @apply px-2 py-0.5 rounded text-sm border-2 border-teal-400 font-medium hover:text-teal-100 text-teal-500 hover:bg-teal-400;
 }
 .small-scale-button-red {
-    @apply bg-red-600 px-1.5 rounded shadow py-0.5 text-sm text-gray-100 duration-75 hover:scale-105 hover:shadow-xl transform;
+    @apply bg-red-600 px-1.5 rounded shadow py-0.5 text-sm text-gray-100 duration-50 hover:scale-105 hover:shadow-xl transform;
 }
 
 

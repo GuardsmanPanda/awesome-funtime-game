@@ -13,6 +13,9 @@ module.exports = {
                 25: '.25',
                 35: '.35',
             },
+            transitionDuration: {
+                '50': '50ms',
+            },
             spacing: {
                 '144': '36rem',
                 '192': '48rem',
@@ -54,6 +57,7 @@ module.exports = {
             width: ['hover'],
             display: ["group-hover"],
             textOverflow: ['hover'],
+            cursor: ['hover'],
         },
     },
     plugins: [
