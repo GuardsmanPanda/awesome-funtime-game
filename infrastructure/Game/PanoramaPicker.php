@@ -38,6 +38,8 @@ class PanoramaPicker {
         $this->user_country_chance = min($this->user_country_chance, 50);
         shuffle($this->user_countries);
         shuffle($this->tier_one);
+        shuffle($this->tier_two);
+        shuffle($this->all_countries);
     }
 
     public function pickPanorama(int $attempts = 0): string {
@@ -51,10 +53,10 @@ class PanoramaPicker {
             if ($country === null && random_int(0, 100) < $this->user_country_chance) {
                 $country = $this->pickCountry($this->user_countries);
             }
-            if ($country === null && random_int(0, 100) < 25) {
+            if ($country === null && random_int(0, 100) < 30) {
                 $country = $this->pickCountry($this->tier_one);
             }
-            if ($country === null && random_int(0, 100) < 20) {
+            if ($country === null && random_int(0, 100) < 22) {
                 $country = $this->pickCountry($this->tier_two);
             }
             if ($country === null && random_int(0, 100) < 40) {
