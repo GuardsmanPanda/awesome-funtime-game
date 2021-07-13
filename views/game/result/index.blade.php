@@ -37,7 +37,7 @@
 
 
     <x-content-raw title="{{t('Game Result')}}" icon="users">
-        <div style="width: 27rem; z-index: 500" class="h-full overflow-auto">
+        <div style="width: 27rem; z-index: 500" class="h-full overflow-y-auto">
             <div class="grid gap-2 py-1 px-2">
                 @foreach($players as $player)
                     <div class="bg-gradient-to-r flex items-center px-2 py-2 rounded-md to-gray-800">

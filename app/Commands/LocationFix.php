@@ -40,8 +40,15 @@ class LocationFix extends Command {
         $this->fixBoth("extended_country_code = 'HK' WHERE state_name = '香港 Hong Kong' AND extended_country_code = 'CN'", 'Hong Kong');
         $this->fixBoth("extended_country_code = 'MO' WHERE state_name = '澳門 Macau' AND extended_country_code = 'CN'", 'Macau');
 
-        $this->fixBoth("extended_country_code = 'AX' WHERE (county_name = 'Åland' OR county_name = 'Landskapet Åland') AND extended_country_code = 'FI'", 'Åland');
+        $this->fixBoth("extended_country_code = 'SJ' WHERE county_name = 'Jan Mayen' AND extended_country_code = 'NO'", 'Svalbard');
         $this->fixBoth("extended_country_code = 'SJ' WHERE region_name = 'Svalbard' AND extended_country_code = 'NO'", 'Svalbard');
+
+        $this->fixBoth("extended_country_code = 'GB-NIR' WHERE state_name = 'Northern Ireland' AND extended_country_code = 'GB'", 'Northern Ireland');
+        $this->fixBoth("extended_country_code = 'GB-WLS' WHERE state_name = 'Cymru / Wales' AND extended_country_code = 'GB'", 'Cymru / Wales');
+        $this->fixBoth("extended_country_code = 'GB-SCT' WHERE state_name = 'Scotland' AND extended_country_code = 'GB'", 'Scotland');
+        $this->fixBoth("extended_country_code = 'GB-ENG' WHERE state_name = 'England' AND extended_country_code = 'GB'", 'England');
+
+        $this->fixBoth("extended_country_code = 'AX' WHERE (county_name = 'Åland' OR county_name = 'Landskapet Åland') AND extended_country_code = 'FI'", 'Åland');
         $this->fixBoth("extended_country_code = 'CW' WHERE state_name = 'Curaçao' AND extended_country_code = 'NL'", 'Curaçao');
     }
 

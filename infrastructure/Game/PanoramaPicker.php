@@ -8,8 +8,8 @@ use App\Models\Country;
 use Illuminate\Support\Facades\DB;
 
 class PanoramaPicker {
-    private array $tier_one = ['AT', 'BE', 'CH', 'DE', 'DK', 'EE', 'EL', 'ES', 'FI', 'FR', 'GR', 'IE', 'IT', 'LT', 'LV', 'NL', 'NO', 'PL', 'PT', 'SE', 'UK', 'US'];
-    private array $tier_two = ['AL', 'AU', 'BA', 'BG', 'BY', 'CA', 'CN', 'CZ', 'GE', 'HR', 'JP', 'KR', 'LU', 'NZ', 'RS', 'RU', 'SI', 'SK', 'UA', 'VA', 'XK'];
+    private array $tier_one = ['AT', 'BE', 'CH', 'DE', 'DK', 'EE', 'EL', 'ES', 'FI', 'FR', 'GB-ENG', 'GB-SCT', 'GB-WLS', 'GR', 'IE', 'IT', 'LT', 'LV', 'NL', 'NO', 'PL', 'PT', 'SE', 'US'];
+    private array $tier_two = ['AL', 'AU', 'BA', 'BG', 'BY', 'CA', 'CN', 'CZ', 'GB-NIR', 'GE', 'HR', 'JP', 'KR', 'LU', 'NZ', 'RS', 'RU', 'SI', 'SK', 'UA', 'VA', 'XK'];
     private array $countries_used = ['XX'];
     private array $user_countries;
     private array $all_countries;

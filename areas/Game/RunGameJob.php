@@ -33,7 +33,7 @@ class RunGameJob implements ShouldQueue {
             $round->panorama_id = $picker->pickPanorama();
             $round->country_fact_id = DB::selectOne("
                 SELECT cf.id
-                FROM panorama p, country_fact cf 
+                FROM panorama p, country_fact cf
                 WHERE p.panorama_id = ? AND cf.country_code = p.extended_country_code
                 ORDER BY random() LIMIT 1
             ", [$round->panorama_id])?->id;
@@ -42,7 +42,7 @@ class RunGameJob implements ShouldQueue {
 
             DB::insert("
                 INSERT INTO round_user (round_id, user_id)
-                SELECT ?, user_id FROM game_user WHERE game_id = ? 
+                SELECT ?, user_id FROM game_user WHERE game_id = ?
             ", [$round->id, $game->id]);
 
             $game->current_round_id = $round->id;
@@ -56,9 +56,9 @@ class RunGameJob implements ShouldQueue {
             $game->save();
 
             ScoreCalculator::scoreRound($round);
-            $game->next_round_at = Carbon::now()->addSeconds(27);
+            $game->next_round_at = Carbon::now()->addSeconds(25);
             $game->save();
-            sleep(25);
+            sleep(23);
         }
         $game->ended_at = Carbon::now();
         $game->is_queued = false;

@@ -5,7 +5,7 @@
                 <form hx-post="/game/{{$game->id}}/start" hx-target="this" class="flex">
                     <label>
                         Min
-                        <input name="countdown" type="number" value="2" class="inline w-16" min="1" max="9">
+                        <input name="countdown" type="number" value="1" class="inline w-16" min="1" max="9">
                     </label>
                     <button class="outline-button-lightTeal ml-2 capitalize">{{t('Start countdown')}}</button>
                 </form>
