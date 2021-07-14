@@ -44,6 +44,7 @@ Route::get('{id}/play', [PlayController::class, 'index']);
 Route::post('{game}/guess', [PlayController::class, 'guess']);
 
 Route::get('{game}/result', [ResultController::class, 'index']);
+Route::get('{game_id}/result/round/{round_id}', [ResultController::class, 'roundResult']);
 
 
 Route::post('marker/{marker}', [LobbyController::class, 'changeMapMarker']);

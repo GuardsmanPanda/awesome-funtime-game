@@ -123,7 +123,7 @@
     </div>
 
     <div style="width: 27rem; z-index: 500" class="shadow-2xl h-full">
-        <div class="grid gap-3 py-2 px-4 overflow-y-auto h-full">
+        <div class="grid gap-3 py-2 px-4 overflow-y-auto max-h-full">
             @foreach($players as $player)
                 <div class="flex items-center px-4 py-2 rounded-md shadow-xl bg-blueGray-800">
                     <div class="text-center font-medium text-blueGray-500 text-2xl">{{$player->rank}}</div>
@@ -158,9 +158,9 @@
         zoom: 5,
         worldCopyJump: true
     });
-    L.tileLayer('/static/files/tile/{{\App\Tools\Auth::user()?->map_style_id ?? 4}}/{z}/{x}/{y}.png', {
+    L.tileLayer('/static/files/tile/{{\App\Tools\Auth::user()?->map_style_id ?? 1}}/{z}/{x}/{y}.png', {
         maxNativeZoom: 17,
-        @if((\App\Tools\Auth::user()?->map_style_id ?? 4) !== 1)
+        @if((\App\Tools\Auth::user()?->map_style_id ?? 1) !== 1)
             tileSize: 512,
             zoomOffset: -1
         @endif

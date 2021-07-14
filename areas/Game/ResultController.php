@@ -34,4 +34,27 @@ class ResultController {
             ", [$game->id]),
             ]);
     }
+
+    public function roundResult(int $game_id, int $round_id): view {
+        return view('game.result.round-details', [
+            'round' => DB::selectOne("
+                SELECT 
+                       ST_X(p.panorama_location::geometry) as x, ST_Y(p.panorama_location::geometry) as y,
+                       p.file_name
+                FROM round r
+                LEFT JOIN panorama p on r.panorama_id = p.panorama_id
+                WHERE r.id = ?
+            ", [$round_id]),
+
+            'players' => DB::select("
+                SELECT
+                    ST_X(ru.location::geometry) as x, ST_Y(ru.location::geometry) as y,
+                    u.display_name, m.file_name
+                FROM round_user ru
+                LEFT JOIN users u ON u.id = ru.user_id
+                LEFT JOIN marker m ON m.id = u.map_marker_id
+                WHERE ru.round_id = ?
+            ", [$round_id]),
+        ]);
+    }
 }

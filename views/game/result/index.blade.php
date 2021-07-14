@@ -1,12 +1,12 @@
 <div class="flex gap-4 pt-12 px-4 h-screen pb-4">
-    <div class="flex flex-col gap-4 w-80">
-        <x-content-raw title="{{t('Rounds')}}" icon="users">
-            <div class="px-2 pb-1">
+    <div class="flex flex-col gap-4 w-80 max-h-full">
+        <x-content-raw title="{{t('Rounds')}}" class="flex-grow min-h-0" icon="users">
+            <div class="px-2 pb-1 overflow-y-auto h-full">
                 @foreach($rounds as $round)
                     @if(!$loop->first)
                         <hr class="border-teal-400">
                     @endif
-                    <div class="pb-3 pt-1 transform hover:scale-105 hover:cursor-pointer duration-50">
+                    <div class="pb-3 pt-1 transform hover:scale-105 hover:cursor-pointer duration-50" hx-get="/game/{{$game->id}}/result/round/{{$round->id}}" hx-target="#round-details">
                         <div class="text-center font-bold text-xl truncate">{{$round->country_name}}</div>
                         <div class="flex">
                             <img src="/static/img/flags/wavy/{{strtolower($round->country_code)}}.png" width="80" alt="Wavy flag">
@@ -32,7 +32,9 @@
     </div>
 
     <x-content-raw title="{{t('Round Details')}}" icon="users" style="flex-grow: 1">
-        Not implemented yet..
+        <div id="round-details" class="h-full">
+            Not implemented yet...
+        </div>
     </x-content-raw>
 
 
