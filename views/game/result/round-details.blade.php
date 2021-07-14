@@ -6,7 +6,7 @@
 <script>
     pannellum.viewer('panorama', {
         "type": "equirectangular",
-        "panorama": "https://funtime.gman.bot/static/files/sv-jpg/{{$round->file_name}}.jpg",
+        "panorama": "https://funtime.gman.bot/static/files/sv-jpg/{{$round->jpg_name}}.jpg",
         "autoLoad": true
     });
 
