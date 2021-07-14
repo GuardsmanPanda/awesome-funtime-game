@@ -1,6 +1,6 @@
 <div class="h-full flex flex-col">
-    <div id="map" class="h-full">map</div>
-    <div id="panorama" class="h-full">pano</div>
+    <div id="map" class="h-full"></div>
+    <div id="panorama" class="h-full"></div>
 </div>
 
 <script>
