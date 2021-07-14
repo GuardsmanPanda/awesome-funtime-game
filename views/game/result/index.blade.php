@@ -38,8 +38,8 @@
     </x-content-raw>
 
 
-    <x-content-raw title="{{t('Game Result')}}" icon="users">
-        <div style="width: 27rem; z-index: 500" class="h-full overflow-y-auto">
+    <x-content-raw title="{{t('Game Result')}}" icon="users" class="w-96">
+        <div class="h-full overflow-y-auto">
             <div class="grid gap-2 py-1 px-2">
                 @foreach($players as $player)
                     <div class="bg-gradient-to-r flex items-center px-2 py-2 rounded-md to-gray-800">
@@ -55,7 +55,7 @@
                         <img class="h-12 ml-2" src="/static/img/markers/{{$player->file_name}}" alt="Map Marker">
                         <img class="w-12 shadow-md mx-1" src="/static/img/flags/iso-small/{{$player->country_code}}.png" alt="Country Flag">
                         <div class="ml-2 flex-grow">
-                            <div class="font-bold text-lg">
+                            <div class="font-bold text-lg truncate">
                                 {{$player->display_name}}
                             </div>
                             <div class="font-medium text-blueGray-400 flex items-center">

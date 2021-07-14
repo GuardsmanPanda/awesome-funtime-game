@@ -1,6 +1,10 @@
-<div class="h-full flex flex-col">
-    <div id="map" class="h-full"></div>
-    <div id="panorama" class="h-full"></div>
+<div id="panorama" class="h-full relative">
+    <div class="filter drop-shadow-xl z-30 absolute h-64 hover:h-2/3 hover:opacity-100 hover:w-2/3 opacity-75 right-0 rounded-bl overflow-hidden w-96">
+        <div id="map-container" style="clip-path: polygon(0 0, 100% 0, 100% 100%, 55% 100%);"
+             class="w-full h-full z-10">
+            <div id="map" class="h-full w-full"></div>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -46,5 +50,17 @@
             .addTo(map)
             .bindTooltip(item.display_name, {direction:'top', permanent:true, opacity:0.9})
             .openTooltip();
+    });
+
+    const map_ele = document.getElementById('map-container');
+    map_ele.addEventListener('mouseenter', _ => {
+        map_ele.style.clipPath = '';
+        map.zoomIn(1, {animate:false});
+        map.invalidateSize();
+    });
+    map_ele.addEventListener('mouseleave', _ => {
+        map_ele.style.clipPath = 'polygon(0 0, 100% 0, 100% 100%, 55% 100%)';
+        map.zoomOut(1, {animate:false});
+        map.invalidateSize();
     });
 </script>
