@@ -5,6 +5,8 @@ use Areas\Stat\StatController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('', [StatController::class, 'index']);
+Route::get('user-panorama', [StatController::class, 'getUserPanoramaStats']);
+
 Route::view('country', 'stat.country');
 Route::get('/country/list', function () { return Resp::SQLJson("
         SELECT 

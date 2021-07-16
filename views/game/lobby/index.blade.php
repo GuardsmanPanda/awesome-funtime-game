@@ -65,13 +65,13 @@
         ajaxURL: "/game/{{$game->id}}/player",
         minHeight: "100%",
         layout:"fitDataStretch",
+        dataLoaded: function(data) {
+            tippy('[data-tippy-content]');
+        },
         columns: [
             {
-                title: "{{t('Flag')}}", field: "country_code", headerSort: false, formatter: "image", formatterParams: {
-                    height: "26px",
-                    width: "39px",
-                    urlPrefix: "/static/img/flags/iso-small/",
-                    urlSuffix: ".png",
+                title: "{{t('Flag')}}", field: "country_code", headerSort: false, formatter:function(cell, formatterParams, onRendered){
+                    return `<img src="/static/img/flags/iso-small/${cell.getValue()}.png" data-tippy-content="${cell.getData().country_name}" alt="Country flag" width="39">`;
                 }
             },
             {

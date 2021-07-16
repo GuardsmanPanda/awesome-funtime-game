@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="/static/pannellum.css">
     <link rel="stylesheet" href="{{mix('/static/dist/app.css')}}">
 
-    <script src="https://unpkg.com/hyperscript.org@0.0.9"></script>
+    <script src="/static/hyperscript.min.js"></script>
     <script src="/static/leaflet/leaflet.js"></script>
     <script src="/static/pannellum.js"></script>
     <script src="{{mix('/static/dist/app.js')}}"></script>
@@ -71,8 +71,11 @@
             <a href="/admin/country" class="rounded text-orange-600 font-bold border-2 border-orange-600 px-2 text-2xl leading-6 hover:bg-orange-600 hover:text-gray-50">Admin</a>
         @endif
         <a href="/stat" class="rounded text-cyan-600 font-bold border-2 border-cyan-600 px-2 text-2xl leading-6 hover:bg-cyan-600 hover:text-gray-50">Stats</a>
-        <a href="/Achievements" class="hidden rounded text-cyan-600 font-bold border-2 border-cyan-600 px-2 text-2xl leading-6 hover:bg-cyan-600 hover:text-gray-50">Stats</a>
-        @if(\App\Tools\Auth::$user_id === 1)
+        <a href="/Achievement" class="hidden rounded text-cyan-600 font-bold border-2 border-cyan-600 px-2 text-2xl leading-6 hover:bg-cyan-600 hover:text-gray-50">Achievements</a>
+        @if(\App\Tools\Auth::has_permission('contribute'))
+            <a href="/contribute" class="rounded text-sky-600 font-bold border-2 border-sky-600 px-2 text-2xl leading-6 hover:bg-sky-600 hover:text-gray-50">Contribute</a>
+        @endif
+        @if(\App\Tools\Auth::has_permission('dev'))
             <a href="/dev" class="rounded text-red-600 font-bold border-2 border-red-600 px-2 text-2xl leading-6 hover:bg-red-600 hover:text-gray-50">Dev</a>
         @endif
     </div>
@@ -149,6 +152,15 @@
         <div class="pt-10 bg-gray-100 flex justify-center pb-4">
             <div class="bg-gray-800 flex gap-4 px-4 py-2 rounded-b-md shadow-lg" hx-boost="true" hx-target="#primary">
                 <a href="/stat/country" class="small-button-blue">Countries</a>
+            </div>
+        </div>
+        <div id="primary" {!!$primary_hx!!} hx-trigger="load" class="px-4"></div>
+    </div>
+@elseif($area === 'contribute')
+    <div class="w-full min-w-0  min-h-screen text-gray-800 bg-gray-100 ">
+        <div class="pt-10 bg-gray-100 flex justify-center pb-4">
+            <div class="bg-gray-800 flex gap-4 px-4 py-2 rounded-b-md shadow-lg" hx-boost="true" hx-target="#primary">
+                <a href="/contribute/panorama" class="small-button-blue">Panoramas</a>
             </div>
         </div>
         <div id="primary" {!!$primary_hx!!} hx-trigger="load" class="px-4"></div>

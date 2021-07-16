@@ -50,10 +50,11 @@ Route::get('{game_id}/result/round/{round_id}', [ResultController::class, 'round
 Route::post('marker/{marker}', [LobbyController::class, 'changeMapMarker']);
 Route::get("{game_id}/player", function ($game_id) {
     return Resp::SQLJson("
-            SELECT u.country_code, u.display_name, m.file_name
+            SELECT u.country_code, u.display_name, m.file_name, c.country_name
             FROM game_user gu
             LEFT JOIN users u ON u.id = gu.user_id
             LEFT JOIN marker m ON m.id = u.map_marker_id
+            LEFT JOIN country c ON c.country_code = u.country_code
             WHERE gu.game_id = ?
             ORDER BY u.display_name
     ", [$game_id]);

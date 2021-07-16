@@ -14,11 +14,12 @@ class RouteServiceProvider extends ServiceProvider {
         $this->routes(function () {
             Route::middleware('web')->group(function() {
                 Route::prefix('')->group(base_path('areas/System/routes.php'));
-                Route::prefix('dev')->group(base_path('areas/_Dev/routes.php'));
                 Route::prefix('stat')->group(base_path('areas/Stat/routes.php'));
                 Route::prefix('game')->group(base_path('areas/Game/routes.php'));
                 Route::prefix('admin')->group(base_path('areas/_Admin/routes.php'));
-                Route::prefix('contribute')->group(base_path('areas/Contribute/routes.php'));
+                Route::prefix('contribute')->group(base_path('areas/_Contribute/routes.php'));
+
+                Route::prefix('dev')->middleware('permission:dev')->group(base_path('areas/_Dev/routes.php'));
             });
 
             Route::middleware(['cookie', 'session'])->get('auth/twitch-login', [AuthenticationController::class, 'twitchLogin']);

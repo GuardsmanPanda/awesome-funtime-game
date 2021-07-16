@@ -26,7 +26,6 @@ class ConsoleKernel extends Kernel {
         UpdateRanks::class,
         LocationSearch::class,
         ImportPanoramas::class,
-        LocationFix::class,
     ];
 
     /**
@@ -36,7 +35,7 @@ class ConsoleKernel extends Kernel {
      * @return void
      */
     protected function schedule(Schedule $schedule):void {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('location:update')->everyTwoMinutes();
     }
 
     /**

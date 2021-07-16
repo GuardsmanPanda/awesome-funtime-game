@@ -53,7 +53,7 @@ class PanoramaPicker {
             if ($country === null && random_int(0, 100) < $this->user_country_chance) {
                 $country = $this->pickCountry($this->user_countries);
             }
-            if ($country === null && random_int(0, 100) < 35) {
+            if ($country === null && random_int(0, 100) < 40) {
                 $country = $this->pickCountry($this->tier_one);
             }
             if ($country === null && random_int(0, 100) < 22) {
