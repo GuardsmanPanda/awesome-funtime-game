@@ -86,4 +86,9 @@
         map.invalidateSize();
     });
     tippy('[data-tippy-content]');
+
+    document.getElementById('map-selector').onclick = function () {
+        htmx.ajax('GET','/game/lobby/map-selector', htmx.find('#pop'))
+            .then(res => pop.showModal());
+    }
 </script>
