@@ -46,8 +46,8 @@ class PanoramaPicker {
         if ($attempts > 15) {
             return  "CAoSLEFGMVFpcE15NTBwMlhHcURhY2NFbklXeUtrb1pSZjJZZ0lEcUJaRW1iUXhI";
         }
+        $pick_strategy = 'None';
         $panorama = null;
-        $map_box = null;
         $country = null;
         try {
             if ($country === null && random_int(0, 100) < $this->user_country_chance) {

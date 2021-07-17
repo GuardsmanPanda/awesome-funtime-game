@@ -27,6 +27,7 @@ class StatController extends Controller {
             SELECT
                 COALESCE(u.display_name, 'System') AS display_name,
                 COALESCE(u.country_code, 'XX') AS country_code,
+                COALESCE(c.country_name, 'Unknown') AS country_name,
                 COUNT(*) as count,
                 SUM(data.wow) as wow,
                 ROUND(SUM(data.wow) / (SUM(data.total)+1)*100) as wow_percent,
@@ -49,7 +50,8 @@ class StatController extends Controller {
                 GROUP BY p.panorama_id
                  ) AS data ON p2.panorama_id = data.panorama_id
             LEFT JOIN users u ON u.id = p2.added_by_user_id
-            GROUP BY u.id
+            LEFT JOIN country c ON c.country_code = u.country_code
+            GROUP BY u.id, c.country_code
             ORDER BY count DESC
         ");
     }

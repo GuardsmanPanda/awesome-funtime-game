@@ -7,6 +7,8 @@
 @include('game.common.pengu-countdown', ['title_counter' => t('Round ends'), 'class' => 'top-64 -right-3'])
 @include('game.common.countries-out')
 
+<button id="map-selector" class="text-sm bg-opacity-70 z-40 absolute bg-gray-800 font-bold px-2 py-0.5 right-0 rounded-bl-md shadow-md text-gray-100 transform hover:scale-110 duration-50 capitalize origin-top-right">{{t('Map style')}}</button>
+
 <div class="absolute bg-black bg-opacity-70 font-bold left-9 px-4 py-0.5 rounded-b-md text-gray-400 text-2xl z-20 shadow-lg"
      style="font-family: 'Inkwell Sans',Verdana,sans-serif;"><span class="text-gray-300"  _="on load put df('{{$game->captured_date}}', 'LLLL y') into me"></span></div>
 

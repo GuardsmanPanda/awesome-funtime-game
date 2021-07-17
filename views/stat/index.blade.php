@@ -27,7 +27,7 @@
                             return `<img src="/static/img/flags/iso-small/${cell.getValue()}.png" data-tippy-content="${cell.getData().country_name}" alt="Country flag" width="39">`;
                         }
                     },
-                    {title: "{{t('Name')}}", field: "display_name", headerSort: false},
+                    {title: "{{t('Name')}}", field: "display_name"},
                     {title: "{{t('Panoramas')}}", field: "count", sorter:"number", hozAlign:"right"},
                 ]
             },

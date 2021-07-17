@@ -33,7 +33,7 @@
 
     <x-content-raw title="{{t('Round Details')}}" icon="users" style="flex-grow: 1">
         <div id="round-details" class="h-full">
-            Not implemented yet...
+            {{t('Click on a round to see details')}}
         </div>
     </x-content-raw>
 
