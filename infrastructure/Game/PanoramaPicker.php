@@ -42,9 +42,9 @@ class PanoramaPicker {
         shuffle($this->all_countries);
     }
 
-    public function pickPanorama(int $attempts = 0): string {
+    public function pickPanorama(int $attempts = 0): array {
         if ($attempts > 15) {
-            return  "CAoSLEFGMVFpcE15NTBwMlhHcURhY2NFbklXeUtrb1pSZjJZZ0lEcUJaRW1iUXhI";
+            return  ["CAoSLEFGMVFpcE15NTBwMlhHcURhY2NFbklXeUtrb1pSZjJZZ0lEcUJaRW1iUXhI", 'Error'];
         }
         $pick_strategy = 'None';
         $panorama = null;
@@ -52,22 +52,29 @@ class PanoramaPicker {
         try {
             if ($country === null && random_int(0, 100) < $this->user_country_chance) {
                 $country = $this->pickCountry($this->user_countries);
+                $pick_strategy = 'Player choice';
             }
             if ($country === null && random_int(0, 100) < 40) {
                 $country = $this->pickCountry($this->tier_one);
+                $pick_strategy = 'Tier 1';
             }
             if ($country === null && random_int(0, 100) < 22) {
                 $country = $this->pickCountry($this->tier_two);
+                $pick_strategy = 'Tier 2';
             }
             if ($country === null && random_int(0, 100) < 40) {
                 $country = $this->pickCountry($this->all_countries);
+                $pick_strategy = 'Random Country';
+            }
+            if ($country === null) {
+                $pick_strategy = 'Random Country';
             }
             $map_box = $this->selectMapBox($country);
             $panorama = $this->selectPanorama(extended_country_code: $country, map_box: $map_box);
         } catch (Throwable $t) {
             report($t);
         }
-        return $panorama ?? $this->pickPanorama(++$attempts);
+        return $panorama === null ?  $this->pickPanorama(++$attempts) : [$panorama, $pick_strategy];
     }
 
     private function pickCountry(array &$country_list): null|string {

@@ -25,7 +25,6 @@ use Carbon\Carbon;
  * @property bool is_retired
  * @property string jpg_name
  * @property string city_name
- * @property string file_name
  * @property string state_name
  * @property string county_name
  * @property string panorama_id

@@ -25,6 +25,7 @@ use Carbon\Carbon;
  * @property int round_number
  * @property int country_fact_id
  * @property string panorama_id
+ * @property string panorama_pick_strategy
  * @property Carbon created_at
  * @property Carbon round_end_at
  *

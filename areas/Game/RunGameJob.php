@@ -30,7 +30,11 @@ class RunGameJob implements ShouldQueue {
             $round = new Round();
             $round->round_number = $i;
             $round->game_id = $game->id;
-            $round->panorama_id = $picker->pickPanorama();
+
+            $arr = $picker->pickPanorama();
+            $round->panorama_id = $arr[0];
+            $round->panorama_pick_strategy = $arr[1];
+
             $round->country_fact_id = DB::selectOne("
                 SELECT cf.id
                 FROM panorama p, country_fact cf

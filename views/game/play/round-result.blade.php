@@ -1,6 +1,7 @@
 <div class="flex bg-blueGray-900 h-screen">
     <div id="map" class="flex-grow relative">
         @include('game.common.pengu-countdown', ['title_counter' => ($game->current_round === $game->round_count ? t('Game ends in') : t('Next round'))])
+        <div class="bg-opacity-70 z-40 absolute bg-gray-800 font-bold px-2 text-sm py-0.5 bottom-0 rounded-tr-md shadow-md text-gray-100 capitalize" style="z-index: 50000;">{{$game->panorama_pick_strategy}}</div>
 
         <div class="absolute bg-black bg-opacity-90 font-bold pl-4 pr-4 pt-1 pb-3 rounded-br-md text-emerald-500 text-lg shadow-lg grid"
              style="font-family: 'Inkwell Sans',Verdana,sans-serif;z-index: 50000;max-width: 19rem;">

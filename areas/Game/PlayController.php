@@ -24,7 +24,7 @@ class PlayController {
         $game = DB::selectOne("
                 SELECT
                     g.id, g.next_round_at, g.current_round_id, g.round_count, g.is_queued, g.current_round,
-                    r.round_end_at,
+                    r.round_end_at, r.panorama_pick_strategy,
                     p.jpg_name, p.extended_country_code, ST_X(p.panorama_location::geometry) as x, ST_Y(p.panorama_location::geometry) as y,
                     p.captured_date, p.city_name, COALESCE(p.state_name, p.region_name, p.state_district_name, p.county_name) as state_name,
                     p.panorama_id, cf.fact_text
