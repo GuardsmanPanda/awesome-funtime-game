@@ -40,7 +40,7 @@ class ResultController {
             'round' => DB::selectOne("
                 SELECT 
                        ST_X(p.panorama_location::geometry) as x, ST_Y(p.panorama_location::geometry) as y,
-                       p.jpg_name, p.captured_date
+                       p.jpg_name, p.captured_date, r.panorama_pick_strategy
                 FROM round r
                 LEFT JOIN panorama p on r.panorama_id = p.panorama_id
                 WHERE r.id = ?

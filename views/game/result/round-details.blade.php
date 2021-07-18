@@ -5,7 +5,8 @@
             <div id="map" class="h-full w-full"></div>
         </div>
     </div>
-    @if(\App\Tools\Auth::$user_id !== -1)
+    <div class="bg-opacity-70 z-40 absolute bg-gray-800 font-bold px-2 text-sm py-0.5 bottom-0 rounded-tr-md shadow-md text-gray-100 capitalize" style="z-index: 50000;">{{$round->panorama_pick_strategy}}</div>
+@if(\App\Tools\Auth::$user_id !== -1)
         <button id="map-selector" class="bg-opacity-70 z-40 absolute bg-gray-800 font-bold px-2 text-sm py-0.5 right-0 rounded-bl-md shadow-md text-gray-100 transform hover:scale-110 duration-50 capitalize origin-top-right">{{t('Map style')}}</button>
     @endif
     <div class="absolute bg-black bg-opacity-70 font-bold left-9 px-4 py-0.5 rounded-b-md text-gray-400 text-2xl z-20 shadow-lg"
