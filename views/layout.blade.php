@@ -181,7 +181,7 @@
 
 <script>
     window.pop = document.getElementById('general-dialog');
-    Dialog.registerDialog(pop);
+    Dialog.registerDialog(window.pop);
     tippy('[data-tippy-content]');
 </script>
 </body>

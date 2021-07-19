@@ -54,7 +54,7 @@ class PanoramaPicker {
                 $country = $this->pickCountry($this->user_countries);
                 $pick_strategy = 'Player choice';
             }
-            if ($country === null && random_int(0, 100) < 40) {
+            if ($country === null && random_int(0, 100) < 35) {
                 $country = $this->pickCountry($this->tier_one);
                 $pick_strategy = 'Tier 1';
             }

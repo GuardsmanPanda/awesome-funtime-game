@@ -54,7 +54,7 @@
         }
     </script>
 </head>
-<body id="primary" {!!$primary_hx!!} hx-trigger="load" class="w-full flex-grow min-w-0 flex-shrink min-h-screen dark:bg-gray-800 text-gray-800 bg-gray-100 dark:text-gray-200 relative" style="min-height: 100vh;">
+<body id="primary" {!!$primary_hx!!} hx-trigger="load" class="w-full min-w-0 min-h-screen dark:bg-gray-800 text-gray-800 bg-gray-100 dark:text-gray-200 relative" style="min-height: 100vh;">
 <dialog class="dialog" id="general-dialog">
     <div class="flex bg-blueGray-600 text-gray-100 justify-between h-8 items-center font-medium pl-4 gap-4">
         <div id="pop-title">{{t('Dialog')}}</div>
@@ -70,7 +70,7 @@
 </dialog>
 <script>
     window.pop = document.getElementById('general-dialog');
-    Dialog.registerDialog(pop);
+    Dialog.registerDialog(window.pop);
 </script>
 </body>
 </html>
