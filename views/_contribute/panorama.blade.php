@@ -63,7 +63,7 @@
     fetch('/contribute/panorama/list')
         .then(resp => resp.json())
         .then(json => {
-            const markLayer = L.markerClusterGroup({maxClusterRadius: 0});
+            const markLayer = L.markerClusterGroup({maxClusterRadius: 35});
             const tmp = [];
             json.forEach(item => {
                 tmp.push(L.marker([item.lat, item.lng], {icon: small_icon}))
