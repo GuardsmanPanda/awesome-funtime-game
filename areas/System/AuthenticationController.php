@@ -28,7 +28,7 @@ class AuthenticationController extends Controller {
     public function twitchLogin(Request $r): RedirectResponse {
         $url = "https://id.twitch.tv/oauth2/token?client_id=" . $this->client_id;
         $url .= "&client_secret=" . config('settings.twitch_secret');
-        $url .= "&redirect_uri=https://gman.bot/oauth/twitch";
+        $url .= "&redirect_uri=".urlencode(config('app.url') . '/auth/twitch-login');
         $url .= "&scope=" . $r->get('scope');
         $url .= "&grant_type=authorization_code";
         $url .= "&code=" . $r->get('code');

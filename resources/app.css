@@ -2,30 +2,10 @@
 @import "tabulator.css";
 @import "marker-cluster.css";
 
-.headline {
-    @apply border-b-2 border-dotted border-warmGrey-300 mb-2 flex justify-between leading-5;
-}
-
 .leaflet-tooltip {
     @apply font-bold text-lg;
     padding-bottom: 0!important;
     padding-top: 0!important;
-}
-
-
-.content-header {
-    @apply border-b flex justify-between items-center leading-5;
-}
-.content-body {
-    @apply p-2;
-}
-
-.inline-header {
-    @apply font-bold;
-}
-
-.page-external {
-    @apply transform hover:scale-110 transition-transform;
 }
 
 

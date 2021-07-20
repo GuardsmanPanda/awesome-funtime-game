@@ -60,7 +60,6 @@ class HttpKernel extends Kernel {
 
     protected $routeMiddleware = [
         'cookie' => AddQueuedCookiesToResponse::class,
-        'htmx' => HtmxBuster::class,
         'permission' => Permission::class,
         'session' => StartSession::class,
     ];
