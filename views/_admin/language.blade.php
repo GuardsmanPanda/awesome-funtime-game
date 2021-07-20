@@ -1,43 +1,4 @@
 <x-content-raw title="{{t('Languages')}}" icon="translate">
-    <x-slot name="header">
-        <x-dialog class="outline-button-lightTeal" id="language-create" title="{{t('Add a new language')}}" button-text="{{t('Add language')}}">
-           <form method="dialog" id="language-form" class="grid gap-2" autocomplete="off" hx-post="/admin/language">
-               <label>
-                   Language Name
-                   <input name="language_name" required type="text" autofocus class="w-full">
-               </label>
-               <fieldset class="flex gap-2">
-                   <legend>Letter code (lowercase)</legend>
-                   <label>
-                       Two
-                       <input name="two_letter_code" type="text" pattern="[a-z]{2}" class="w-32">
-                   </label>
-                   <label>
-                       Three
-                       <input name="three_letter_code" type="text" pattern="[a-z]{3}" class="w-32">
-                   </label>
-               </fieldset>
-
-               <fieldset class="flex gap-2">
-                   <legend>Speakers</legend>
-                   <label>
-                       Native
-                       <input name="native_speakers" type="number" class="w-32" value="-1">
-                   </label>
-                   <label>
-                       Total
-                       <input name="total_speakers" type="number" class="w-32" value="-1">
-                   </label>
-               </fieldset>
-           </form>
-            <div class="flex flex-row-reverse gap-2 pt-2">
-                <form method="dialog">
-                    <button class="button-gray">{{t('Cancel')}}</button>
-                </form>
-                <button class="button-blue" form="language-form">{{t('Add')}}</button>
-            </div>
-        </x-dialog>
-    </x-slot>
     <div id="language-table"></div>
 </x-content-raw>
 
