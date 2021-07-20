@@ -7,7 +7,7 @@
     </div>
     <div class="bg-opacity-70 z-40 absolute bg-gray-800 font-bold px-2 text-sm py-0.5 bottom-0 rounded-tr-md shadow-md text-gray-100 capitalize" style="z-index: 50000;">{{$round->panorama_pick_strategy}}</div>
 @if(\App\Tools\Auth::$user_id !== -1)
-        <button id="map-selector" class="bg-opacity-70 z-40 absolute bg-gray-800 font-bold px-2 text-sm py-0.5 right-0 rounded-bl-md shadow-md text-gray-100 transform hover:scale-110 duration-50 capitalize origin-top-right">{{t('Map style')}}</button>
+        <button id="map-selector" onclick="dialog('/game/lobby/map-selector')" class="bg-opacity-70 z-40 absolute bg-gray-800 font-bold px-2 text-sm py-0.5 right-0 rounded-bl-md shadow-md text-gray-100 transform hover:scale-110 duration-50 capitalize origin-top-right">{{t('Map style')}}</button>
     @endif
     <div class="absolute bg-black bg-opacity-70 font-bold left-9 px-4 py-0.5 rounded-b-md text-gray-400 text-2xl z-20 shadow-lg"
          style="font-family: 'Inkwell Sans',Verdana,sans-serif;"><span class="text-gray-300"  _="on load put df('{{$round->captured_date}}', 'LLLL y') into me"></span></div>
@@ -19,7 +19,6 @@
         "panorama": "https://funtime.gman.bot/static/files/sv-jpg/{{$round->jpg_name}}.jpg",
         "autoLoad": true
     });
-
 
     const marker_win = L.icon({
         iconUrl: '/static/img/markers/marker-win2.png',
@@ -69,9 +68,4 @@
         map.zoomOut(1, {animate:false});
         map.invalidateSize();
     });
-
-    document.getElementById('map-selector').onclick = function () {
-        htmx.ajax('GET','/game/lobby/map-selector', htmx.find('#pop'))
-            .then(res => pop.showModal());
-    }
 </script>

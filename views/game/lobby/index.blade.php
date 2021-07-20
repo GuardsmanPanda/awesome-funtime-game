@@ -14,7 +14,7 @@
         <div id="player-table" class="w-96"></div>
     </x-content-raw>
     <div class="flex flex-col gap-4">
-        <button id="map-selector" class="transform hover:shadow-xl duration-50 hover:scale-105 rounded bg-orange-300 px-2 from-orange-200 bg-gradient-to-bl shadow flex gap-2 items-center py-1 justify-between" >
+        <button id="map-selector" onclick="dialog('/game/lobby/map-selector')" class="transform hover:shadow-xl duration-50 hover:scale-105 rounded bg-orange-300 px-2 from-orange-200 bg-gradient-to-bl shadow flex gap-2 items-center py-1 justify-between" >
             <x-icon name="map" class="text-orange-500 {{\App\Tools\Auth::user()?->map_style_id ? '': 'animate-pulse'}}"></x-icon>
             <span class="font-bold text-xl leading-normal text-orange-600 capitalize truncate" style="font-family: 'Inkwell Sans',Verdana,sans-serif;">{{t('Click to select map')}}</span>
             <x-icon name="map" class="text-orange-500 {{\App\Tools\Auth::user()?->map_style_id ? '': 'animate-pulse'}}"></x-icon>
@@ -90,9 +90,4 @@
     }, 20000);
 
     htmx.ajax('GET', '/game/{{$game->id}}/lobby-status', '#game-status');
-
-    document.getElementById('map-selector').onclick = function () {
-        htmx.ajax('GET','/game/lobby/map-selector', htmx.find('#pop'))
-            .then(res => pop.showModal());
-    }
 </script>

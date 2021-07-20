@@ -3,10 +3,7 @@
         <x-content-raw title="{{t('Active games')}}" icon="users">
             <x-slot name="header">
                 @if(\App\Tools\Auth::user()?->can_create_games)
-                    <x-dialog id="create-game" button-text="{{t('Create')}}" title="{{t('Create a new game')}}"
-                              class="outline-button-lightTeal">
-                        @include('game.dashboard.create-game-form')
-                    </x-dialog>
+                    <button onclick="dialog('/game/create/form')" class="outline-button-lightTeal">{{t('Create')}}</button>
                 @endif
             </x-slot>
             <div id="active-games"></div>

@@ -31,6 +31,7 @@ Route::get('recent', function () { return Resp::SQLJson("
         ORDER BY g.ended_at DESC LIMIT 6", [Auth::$user_id]);
 });
 
+Route::view('create/form', 'game.dashboard.create-game-form');
 Route::post('create', [DashboardController::class, 'create']);
 
 Route::post('{game}/start', [LobbyController::class, 'start']);

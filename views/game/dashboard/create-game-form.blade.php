@@ -15,10 +15,10 @@
     </label>
     <fieldset class="flex gap-3">
         <legend> {{t('Round time')}} - {{t('Seconds')}}</legend>
-        <label>30<input type="radio" name="round_time" value="30" class="ml-1"></label>
-        <label>50<input type="radio" name="round_time" value="45" class="ml-1"></label>
-        <label>70<input type="radio" name="round_time" value="70" class="ml-1" checked></label>
-        <label>90<input type="radio" name="round_time" value="85" class="ml-1"></label>
+        <label>35<input type="radio" name="round_time" value="35" class="ml-1"></label>
+        <label>45<input type="radio" name="round_time" value="45" class="ml-1" checked></label>
+        <label>65<input type="radio" name="round_time" value="65" class="ml-1"></label>
+        <label>85<input type="radio" name="round_time" value="85" class="ml-1"></label>
     </fieldset>
 </form>
 <hr class="">
@@ -26,3 +26,5 @@
     <form method="dialog"><button class="button-gray">{{t('Cancel')}}</button></form>
     <button type="submit" class="button-blue" form="round-create-form">{{t('Create')}}</button>
 </div>
+
+<div hx-swap-oob="true" id="pop-title" class="capitalize">{{t('Create game')}}</div>
