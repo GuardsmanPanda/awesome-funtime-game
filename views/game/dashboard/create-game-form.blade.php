@@ -26,5 +26,3 @@
     <form method="dialog"><button class="button-gray">{{t('Cancel')}}</button></form>
     <button type="submit" class="button-blue" form="round-create-form">{{t('Create')}}</button>
 </div>
-
-<div hx-swap-oob="true" id="pop-title" class="capitalize">{{t('Create game')}}</div>

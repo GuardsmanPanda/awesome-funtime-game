@@ -125,7 +125,7 @@
 </nav>
 <dialog class="dialog" id="general-dialog">
     <div class="flex bg-blueGray-600 text-gray-100 justify-between h-8 items-center font-medium pl-4 gap-4">
-        <div id="pop-title">{{t('Dialog')}}</div>
+        <div id="pop-title" class="capitalize">{{t('Dialog')}}</div>
         <form method="dialog">
             <button class="w-8 h-8 hover:text-red-600 align-middle">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">

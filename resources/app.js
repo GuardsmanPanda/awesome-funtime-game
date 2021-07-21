@@ -14,9 +14,12 @@ window.luxon  = require('luxon')
 window.Dialog = dialogPolyfill;
 window.tippy = tippy
 
-window.dialog = function (url) {
-    htmx.ajax('GET', url, htmx.find('#pop'))
-        .then(res => window.pop.showModal());
+window.dialog = function (url, title) {
+    htmx.ajax('GET', url, '#pop')
+        .then(_ => {
+            document.getElementById('pop-title').innerText = title
+            window.pop.showModal()
+        });
 }
 
 window.df = function (date, format) {

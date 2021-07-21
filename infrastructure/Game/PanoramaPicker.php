@@ -90,6 +90,8 @@ class PanoramaPicker {
 
 
     private function selectMapBox(string|null $extended_country_code): int {
+        //TODO: increase user delay to 30 days
+        //TODO: allow repeats when a year has passed
         $param = [$this->game->id, $this->game->id];
         $extra_where = "";
         if ($extended_country_code !== null) {
@@ -114,7 +116,9 @@ class PanoramaPicker {
             ) p3 ON p3.panorama_id = p.panorama_id
             WHERE 
                 p.jpg_name IS NOT NULL AND p.captured_date > '2011-01-01' AND p.extended_country_code IS NOT NULL
-                AND p3.panorama_id IS NULL AND c2.extended_country_code IS NULL $extra_where
+                AND p3.panorama_id IS NULL AND c2.extended_country_code IS NULL 
+                AND p.created_at > CURRENT_TIMESTAMP - INTERVAL '14 DAY',
+                $extra_where
             GROUP BY p.map_box
             ORDER BY random() LIMIT 1
         ", $param)?->map_box;
@@ -151,7 +155,9 @@ class PanoramaPicker {
             ) p3 ON p3.panorama_id = p.panorama_id
             WHERE 
                 p.jpg_name IS NOT NULL AND p.captured_date > '2011-01-01' AND p.extended_country_code IS NOT NULL
-                AND p3.panorama_id IS NULL AND c2.extended_country_code IS NULL $extra_where
+                AND p3.panorama_id IS NULL AND c2.extended_country_code IS NULL
+                AND p.created_at > CURRENT_TIMESTAMP - INTERVAL '14 DAY',
+                $extra_where
             ORDER BY random() LIMIT 1
         ",  $param);
 

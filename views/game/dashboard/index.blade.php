@@ -3,16 +3,14 @@
         <x-content-raw title="{{t('Active games')}}" icon="users">
             <x-slot name="header">
                 @if(\App\Tools\Auth::user()?->can_create_games)
-                    <button onclick="dialog('/game/create/form')" class="outline-button-lightTeal">{{t('Create')}}</button>
+                    <button onclick="dialog('/game/create/form', '{{t('Create game')}}')" class="outline-button-lightTeal">{{t('Create')}}</button>
                 @endif
             </x-slot>
             <div id="active-games"></div>
         </x-content-raw>
-
         <x-content-raw title="{{t('Recent games')}}" icon="users">
             <div id="recent-games"></div>
         </x-content-raw>
-        <div></div>
     </div>
 
     <div class="w-80 grid gap-4">
