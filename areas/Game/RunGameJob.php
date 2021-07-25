@@ -67,5 +67,11 @@ class RunGameJob implements ShouldQueue {
         $game->ended_at = Carbon::now();
         $game->is_queued = false;
         $game->save();
+
+        DB::update("
+            UPDATE users u SET
+            achievement_refresh_needed = true
+            WHERE EXISTS(SELECT * FROM game_user gu WHERE gu.user_id = u.id AND gu.game_id = ?)
+        ", [$this->game_id]);
     }
 }

@@ -9,6 +9,7 @@ class AchievementUtility {
     public static function updateAllUserAchievements(User $user): void {
         PlayerOfGames::updateAchievementStatus($user);
         Rounder::updateAchievementStatus($user);
+        $user->achievement_refresh_needed = false;
     }
 
     public static function getAchievementUser(User $user, int $achievement_id): AchievementUser {

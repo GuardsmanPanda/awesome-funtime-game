@@ -27,6 +27,7 @@ use Carbon\Carbon;
  * @property int map_marker_id
  * @property bool is_admin
  * @property bool can_create_games
+ * @property bool achievement_refresh_needed
  * @property string email
  * @property string work_email
  * @property string display_name

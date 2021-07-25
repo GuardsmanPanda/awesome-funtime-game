@@ -22,12 +22,6 @@ window.dialog = function (url, title) {
         });
 }
 
-htmx.on('htmx:afterRequest', function (event) {
-    if (event.detail.xhr.status === 200) {
-        document.getElementById('general-dialog').close()
-    }
-});
-
 window.df = function (date, format) {
     return luxon.DateTime.fromISO(date).toFormat(format);
 }

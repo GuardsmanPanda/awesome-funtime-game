@@ -14,7 +14,7 @@
         <div id="player-table" class="w-96"></div>
     </x-content-raw>
     <div class="flex flex-col gap-4">
-        <button id="map-selector" onclick="dialog('/game/lobby/map-selector')" class="transform hover:shadow-xl duration-50 hover:scale-105 rounded bg-orange-300 px-2 from-orange-200 bg-gradient-to-bl shadow flex gap-2 items-center py-1 justify-between" >
+        <button id="map-selector" onclick="dialog('/game/lobby/map-selector', 'Map selector')" class="transform hover:shadow-xl duration-50 hover:scale-105 rounded bg-orange-300 px-2 from-orange-200 bg-gradient-to-bl shadow flex gap-2 items-center py-1 justify-between" >
             <x-icon name="map" class="text-orange-500 {{\App\Tools\Auth::user()?->map_style_id ? '': 'animate-pulse'}}"></x-icon>
             <span class="font-bold text-xl leading-normal text-orange-600 capitalize truncate" style="font-family: 'Inkwell Sans',Verdana,sans-serif;">{{t('Click to select map')}}</span>
             <x-icon name="map" class="text-orange-500 {{\App\Tools\Auth::user()?->map_style_id ? '': 'animate-pulse'}}"></x-icon>
@@ -29,7 +29,7 @@
             <x-text-card class="bg-teal-600" top-text="{{$game->round_count}}" bot-text="{{t('Rounds')}}"></x-text-card>
             <x-text-card class="bg-teal-600" top-text="{{$game->round_time}}" bot-text="{{t('Seconds')}}"></x-text-card>
         </div>
-        <button id="country-selector" class="transform hover:shadow-xl duration-50 hover:scale-105 rounded bg-orange-300 px-2 from-orange-200 bg-gradient-to-bl shadow flex gap-2 items-center py-1 justify-between {{$user_data->recent_pick ? '': 'animate-pulse'}}">
+        <button id="country-selector" onclick="dialog('/game/lobby/country-selector/{{$game->id}}', 'Map selector')" class="transform hover:shadow-xl duration-50 hover:scale-105 rounded bg-orange-300 px-2 from-orange-200 bg-gradient-to-bl shadow flex gap-2 items-center py-1 justify-between {{$user_data->recent_pick ? '': 'animate-pulse'}}">
             <x-icon name="globe" class="text-orange-500"></x-icon>
             <span class="font-bold text-xl leading-normal text-orange-600 capitalize truncate" style="font-family: 'Inkwell Sans',Verdana,sans-serif;">{{t('Click to select countries')}}</span>
             <x-icon name="globe" class="text-orange-500"></x-icon>
@@ -56,11 +56,6 @@
 </div>
 
 <script>
-    document.getElementById('country-selector').onclick = function () {
-        htmx.ajax('GET','/game/lobby/country-selector/48', htmx.find('#pop'))
-            .then(res => pop.showModal());
-    }
-
     const table = new Tabulator('#player-table', {
         ajaxURL: "/game/{{$game->id}}/player",
         minHeight: "100%",
