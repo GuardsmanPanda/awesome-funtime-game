@@ -60,9 +60,9 @@ class RunGameJob implements ShouldQueue {
             $game->save();
 
             ScoreCalculator::scoreRound($round);
-            $game->next_round_at = Carbon::now()->addSeconds(25);
+            $game->next_round_at = Carbon::now()->addSeconds(23);
             $game->save();
-            sleep(23);
+            sleep(21);
         }
         $game->ended_at = Carbon::now();
         $game->is_queued = false;

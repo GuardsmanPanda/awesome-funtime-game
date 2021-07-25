@@ -18,6 +18,7 @@ class RouteServiceProvider extends ServiceProvider {
                 Route::prefix('game')->group(base_path('areas/Game/routes.php'));
                 Route::prefix('admin')->group(base_path('areas/_Admin/routes.php'));
                 Route::prefix('contribute')->group(base_path('areas/_Contribute/routes.php'));
+                Route::prefix('achievement')->group(base_path('areas/_Achievement/routes.php'));
 
                 Route::prefix('dev')->middleware('permission:dev')->group(base_path('areas/_Dev/routes.php'));
             });

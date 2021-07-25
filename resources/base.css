@@ -42,11 +42,6 @@ label input,select {
     display: block;
 }
 
-dialog {
-    padding: 0;
-    position: fixed;
-}
-
 legend {
     @apply px-1.5;
 }

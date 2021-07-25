@@ -9,6 +9,7 @@ use App\Commands\LocationFix;
 use App\Commands\GenerateModels;
 use App\Commands\LocationSearch;
 use App\Commands\ImportPanoramas;
+use App\Commands\UpdateAchievements;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel;
 use App\Commands\UpdateLocationInformation;
@@ -21,11 +22,12 @@ class ConsoleKernel extends Kernel {
      */
     protected $commands = [
         GenerateModels::class,
+        ImportPanoramas::class,
+        LocationSearch::class,
         Translate::class,
+        UpdateAchievements::class,
         UpdateLocationInformation::class,
         UpdateRanks::class,
-        LocationSearch::class,
-        ImportPanoramas::class,
     ];
 
     /**

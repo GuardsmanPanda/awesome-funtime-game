@@ -68,15 +68,17 @@
             <img src="/static/img/icons/top.png" class="ml-4" alt="Logo">
         </a>
         @if(\App\Tools\Auth::is_admin())
-            <a href="/admin/country" class="rounded text-orange-600 font-bold border-2 border-orange-600 px-2 text-2xl leading-6 hover:bg-orange-600 hover:text-gray-50">Admin</a>
+            <a href="/admin/country" class="rounded text-orange-500 font-bold border-2 border-orange-500 px-2 text-2xl leading-6 hover:bg-orange-500 hover:text-gray-50">Admin</a>
         @endif
-        <a href="/stat" class="rounded text-cyan-600 font-bold border-2 border-cyan-600 px-2 text-2xl leading-6 hover:bg-cyan-600 hover:text-gray-50">Stats</a>
-        <a href="/Achievement" class="hidden rounded text-cyan-600 font-bold border-2 border-cyan-600 px-2 text-2xl leading-6 hover:bg-cyan-600 hover:text-gray-50">Achievements</a>
+        <a href="/stat" class="rounded text-cyan-500 font-bold border-2 border-cyan-500 px-2 text-2xl leading-6 hover:bg-cyan-500 hover:text-gray-50">Stats</a>
+        @if(\App\Tools\Auth::$user_id !== -1)
+            <a href="/achievement" class="rounded text-yellow-500 font-bold border-2 border-yellow-500 px-2 text-2xl leading-6 hover:bg-yellow-500 hover:text-gray-50">Achievements</a>
+        @endif
         @if(\App\Tools\Auth::has_permission('contribute'))
-            <a href="/contribute" class="rounded text-sky-600 font-bold border-2 border-sky-600 px-2 text-2xl leading-6 hover:bg-sky-600 hover:text-gray-50">Contribute</a>
+            <a href="/contribute" class="rounded text-sky-500 font-bold border-2 border-sky-500 px-2 text-2xl leading-6 hover:bg-sky-500 hover:text-gray-50">Contribute</a>
         @endif
         @if(\App\Tools\Auth::has_permission('dev'))
-            <a href="/dev" class="rounded text-red-600 font-bold border-2 border-red-600 px-2 text-2xl leading-6 hover:bg-red-600 hover:text-gray-50">Dev</a>
+            <a href="/dev" class="rounded text-red-500 font-bold border-2 border-red-500 px-2 text-2xl leading-6 hover:bg-red-500 hover:text-gray-50">Dev</a>
         @endif
     </div>
     <div class="flex gap-2">
@@ -123,7 +125,7 @@
         @endif
     </div>
 </nav>
-<dialog class="dialog" id="general-dialog">
+<dialog id="general-dialog" class="p-0">
     <div class="flex bg-blueGray-600 text-gray-100 justify-between h-8 items-center font-medium pl-4 gap-4">
         <div id="pop-title" class="capitalize">{{t('Dialog')}}</div>
         <form method="dialog">
@@ -156,6 +158,12 @@
         </div>
         <div id="primary" {!!$primary_hx!!} hx-trigger="load" class="px-4"></div>
     </div>
+@elseif($area === 'achievement')
+    <div class="w-full min-w-0  min-h-screen text-gray-800 bg-gray-100 ">
+        <div class="pt-10 bg-gray-100 flex justify-center">
+        </div>
+        <div id="primary" {!!$primary_hx!!} hx-trigger="load" class="px-4"></div>
+    </div>
 @elseif($area === 'contribute')
     <div class="w-full min-w-0  min-h-screen text-gray-800 bg-gray-100 ">
         <div class="pt-10 bg-gray-100 flex justify-center pb-4">
@@ -180,8 +188,7 @@
 @endif
 
 <script>
-    window.pop = document.getElementById('general-dialog');
-    Dialog.registerDialog(window.pop);
+    Dialog.registerDialog(document.getElementById('general-dialog'));
     tippy('[data-tippy-content]');
 </script>
 </body>
