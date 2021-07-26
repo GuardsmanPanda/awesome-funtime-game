@@ -16,6 +16,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use Infrastructure\Language\LanguageUtility;
+use Infrastructure\Achievement\AchievementUtility;
 
 class AuthenticationController extends Controller {
     private string $client_id = 'q8q6jjiuc7f2ef04wmb7m653jd5ra8';
@@ -56,6 +57,7 @@ class AuthenticationController extends Controller {
         if ($user === null) {
             $user = new User();
             $user->language_id = LanguageUtility::getAcceptedLanguage();
+            $user->achievement_refresh_needed = true;
         }
         $user->twitch_id = $twitch_user['id'];
         $user->display_name = $twitch_user['display_name'];
@@ -82,6 +84,7 @@ class AuthenticationController extends Controller {
             $user->email = $content->email;
             $user->work_email = $content->email;
             $user->language_id = LanguageUtility::getAcceptedLanguage();
+            $user->achievement_refresh_needed = true;
         }
         $user->display_name = $content->display_name;
         $this->updateUserAndAddRealm($user, 2);
@@ -91,6 +94,10 @@ class AuthenticationController extends Controller {
     private function updateUserAndAddRealm(User $user, int $realm_id):void {
         $user->country_code = Req::header('CF-IPCountry') ?? 'XX';
         $user->last_login_at = Carbon::now();
+        if ($user->achievement_refresh_needed) {
+            AchievementUtility::updateAllUserAchievements($user);
+            $user->achievement_refresh_needed = false;
+        }
         $user->save();
         DB::insert("
             INSERT INTO realm_user (realm_id, user_id) VALUES (?, ?)

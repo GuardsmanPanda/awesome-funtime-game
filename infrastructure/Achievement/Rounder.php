@@ -26,6 +26,21 @@ class Rounder {
         $au->save();
     }
 
+    public static function updateAllRanks(): void {
+        DB::update("
+            UPDATE achievement_user
+            SET user_rank = data.rank
+            FROM (
+                SELECT
+                ru.user_id, COUNT(*) as count, rank() OVER( ORDER BY count(*) DESC) as rank
+                FROM round_user ru
+                GROUP BY ru.user_id
+                ORDER BY count DESC
+            ) AS data
+            WHERE data.user_id = achievement_user.user_id AND achievement_user.achievement_id = ?
+        ", [self::ACHIEVEMENT_ID]);
+    }
+
     private static function getScore(User $user): int {
         return DB::selectOne("SELECT COUNT(*) FROM round_user WHERE user_id = ?", [$user->id])->count;
     }

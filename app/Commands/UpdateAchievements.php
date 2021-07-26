@@ -14,6 +14,7 @@ class UpdateAchievements extends Command {
         $this->withProgressBar(User::all(), function ($user) {
             AchievementUtility::updateAllUserAchievements($user);
         });
+        AchievementUtility::updateAllAchievementRanks();
         $this->newLine();
     }
 }
