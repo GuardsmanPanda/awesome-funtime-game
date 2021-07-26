@@ -94,11 +94,12 @@ class AuthenticationController extends Controller {
     private function updateUserAndAddRealm(User $user, int $realm_id):void {
         $user->country_code = Req::header('CF-IPCountry') ?? 'XX';
         $user->last_login_at = Carbon::now();
+        $user->save();
         if ($user->achievement_refresh_needed) {
             AchievementUtility::updateAllUserAchievements($user);
             $user->achievement_refresh_needed = false;
+            $user->save();
         }
-        $user->save();
         DB::insert("
             INSERT INTO realm_user (realm_id, user_id) VALUES (?, ?)
             ON CONFLICT (realm_id, user_id) DO NOTHING
