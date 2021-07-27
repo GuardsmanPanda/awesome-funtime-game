@@ -22,6 +22,7 @@ use Carbon\Carbon;
  *
  * @property int id
  * @property string achievement_name
+ * @property string achievement_type
  * @property string achievement_description
  * @property Carbon created_at
  *

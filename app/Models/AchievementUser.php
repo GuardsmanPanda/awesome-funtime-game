@@ -5,6 +5,8 @@ namespace App\Models;
 use  Illuminate\Database\Query\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\ArrayObject;
+use Illuminate\Database\Eloquent\Casts\AsArrayObject;
 
 /**
  * AUTO GENERATED FILE DO NOT MODIFY
@@ -22,10 +24,12 @@ use Carbon\Carbon;
  *
  * @property int id
  * @property int user_id
+ * @property int user_rank
  * @property int current_level
  * @property int current_score
  * @property int achievement_id
  * @property int next_level_score
+ * @property ArrayObject achievement_data
  * @property Carbon updated_at
  * @property Carbon created_at
  *
@@ -36,6 +40,7 @@ class AchievementUser extends Model {
     protected $dateFormat = 'Y-m-d H:i:s P';
 
     protected $casts = [
+        'achievement_data' => AsArrayObject::class,
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
