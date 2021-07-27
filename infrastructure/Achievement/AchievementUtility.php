@@ -8,6 +8,7 @@ use App\Models\AchievementUser;
 class AchievementUtility {
     public static function updateAllUserAchievements(User $user): void {
         PlayerOfGames::updateAchievementStatus($user);
+        CountryExpert::updateAchievementStatus($user);
         Reviewer::updateAchievementStatus($user);
         Rounder::updateAchievementStatus($user);
         $user->achievement_refresh_needed = false;
@@ -15,6 +16,7 @@ class AchievementUtility {
 
     public static function updateAllAchievementRanks(): void {
         PlayerOfGames::updateAllRanks();
+        CountryExpert::updateAllRanks();
         Reviewer::updateAllRanks();
         Rounder::updateAllRanks();
     }

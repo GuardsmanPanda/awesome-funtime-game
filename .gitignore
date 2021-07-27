@@ -1,6 +1,5 @@
 /.idea
 /node_modules
-/bootstrap/cache
 /public/hot
 /public/mix-manifest.json
 /public/static/dist
