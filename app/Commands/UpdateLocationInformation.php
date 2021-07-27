@@ -55,7 +55,8 @@ class UpdateLocationInformation extends Command {
         $rus = DB::select("
             SELECT ru.round_id, ru.user_id, ST_X(ru.location::geometry), ST_Y(ru.location::geometry)
             FROM round_user ru
-            WHERE ru.location_lookup_at IS NULL
+            LEFT JOIN round r on ru.round_id = r.id
+            WHERE ru.location_lookup_at IS NULL AND r.round_end_at < CURRENT_TIMESTAMP
             LIMIT ?
         ", [$this->argument('limit')]);
         if (count($rus) === 0) {
