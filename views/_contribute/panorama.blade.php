@@ -53,6 +53,7 @@
 
     L.tileLayer('/static/files/tile/{{\App\Tools\Auth::user()?->map_style_id ?? 1}}/{z}/{x}/{y}.png', {
         maxNativeZoom: 17,
+        minZoom: 1,
         @if((\App\Tools\Auth::user()?->map_style_id ?? 1) !== 1)
         tileSize: 512,
         zoomOffset: -1

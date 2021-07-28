@@ -6,6 +6,7 @@ use App\Tools\Auth;
 use Illuminate\View\View;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
+use Infrastructure\Achievement\CountryUnlock;
 use Infrastructure\Achievement\AchievementUtility;
 
 class AchievementController extends Controller {
@@ -16,6 +17,7 @@ class AchievementController extends Controller {
             $user->achievement_refresh_needed = false;
             $user->save();
         }
+        $stats = CountryUnlock::getUserStat($user->id);
         return view('_achievement.index', [
             'achievements' => DB::select("
                 SELECT
@@ -26,6 +28,8 @@ class AchievementController extends Controller {
                 WHERE au.user_id = ? AND a.achievement_type = 'leveling'
                 ORDER BY a.achievement_name
             ", [$user->id]),
+            'countries' => $stats['countries'],
+            'country_count' => $stats['count'],
         ]);
     }
 }
