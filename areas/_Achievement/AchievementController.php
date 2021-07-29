@@ -19,6 +19,7 @@ class AchievementController extends Controller {
         }
         $stats = CountryUnlock::getUserStat($user->id);
         return view('_achievement.index', [
+            'user' =>$user,
             'achievements' => DB::select("
                 SELECT
                     a.achievement_name, a.achievement_description,

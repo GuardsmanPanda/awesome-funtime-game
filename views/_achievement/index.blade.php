@@ -6,27 +6,27 @@
         </div>
         <div class="flex flex-row flex-wrap gap-x-4 gap-y-6 pt-2 px-2">
             @foreach($countries as $country)
-                <div data-tippy-content="{{t($country['country_name']) . ', guessed correctly: ' . $country['count']}}" @class(['opacity-10' => $country['count']=== 0]) data-tilt data-tilt-scale="1.05" data-tilt-reverse="true" data-tilt-max="12">
+                <div data-tippy-content="{{t($country['country_name']) . ', guessed correctly: ' . $country['count']}}" @class( ['opacity-10' => $country['count']=== 0] ) data-tilt data-tilt-scale="1.06" data-tilt-reverse="true" data-tilt-max="12">
                     <img src="/static/img/flags/wavy/{{strtolower($country['country_code'])}}.png" width="100" alt="Wavy flag">
                 </div>
             @endforeach
         </div>
     </div>
-    <div class="grid gap-4">
-        <div class="hidden">
+    <div class="flex flex-col gap-4">
+        <div class="">
             <div class="border-b-2 border-dashed font-bold text-xl">Medals</div>
             <div class="flex justify-center gap-4">
                 <div class="flex flex-row items-center">
                     <div class="text-center font-medium text-blueGray-500 text-3xl w-10">&#x1f947</div>
-                    <div class="font-bold text-3xl">1</div>
+                    <div class="font-bold text-3xl">{{$user->game_rank_1}}</div>
                 </div>
                 <div class="flex flex-row items-center">
                     <div class="text-center font-medium text-blueGray-500 text-3xl w-10">&#x1f948</div>
-                    <div class="font-bold text-3xl">1</div>
+                    <div class="font-bold text-3xl">{{$user->game_rank_2}}</div>
                 </div>
                 <div class="flex flex-row items-center">
                     <div class="text-center font-medium text-blueGray-500 text-3xl w-10">&#x1f949</div>
-                    <div class="font-bold text-3xl">1</div>
+                    <div class="font-bold text-3xl">{{$user->game_rank_3}}</div>
                 </div>
             </div>
         </div>
