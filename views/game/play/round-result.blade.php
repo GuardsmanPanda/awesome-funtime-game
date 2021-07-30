@@ -137,7 +137,7 @@
                         <div class="font-medium text-blueGray-400 flex items-center">
                             <div>{{round($player->distance/1000,2)}} <span class="text-blueGray-500">km</span>,&nbsp;</div>
                             @if($player->is_correct_country)
-                                <img src="/static/img/flags/iso-small/{{$game->extended_country_code}}.png" class="mx-1 h-5 shadow-md" alt="Country flag">
+                                <img src="/static/img/flags/iso-small/{{$game->extended_country_code}}.png" alt="Country flag"  @class(['mx-1 h-5 shadow-md','animate-pulse' => $player->country_count === null])>
                             @endif
                             <div class="text-yellow-400 font-bold">{{round($player->points/$game->round_count,2)}} <span class="text-blueGray-500">{{t('points')}}</span></div>
                         </div>

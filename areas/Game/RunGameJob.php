@@ -76,7 +76,8 @@ class RunGameJob implements ShouldQueue {
             WHERE EXISTS(SELECT * FROM game_user gu WHERE gu.user_id = u.id AND gu.game_id = ?)
         ", [$this->game_id]);
 
-        $players = DB::select("
+        if ($game->round_count >= 5) {
+            $players = DB::select("
             SELECT
                 gu.user_id,
                 RANK() OVER (ORDER BY gu.points_total DESC) AS rank
@@ -84,18 +85,19 @@ class RunGameJob implements ShouldQueue {
             WHERE gu.game_id = ?
             ORDER BY rank
         ", [$game->id]);
-        foreach ($players as $player) {
-            if ($player->rank > 3) {
-                break;
-            }
-            if ($player->rank === 1) {
-                DB::update("UPDATE users SET game_rank_1 = game_rank_1+1 WHERE id = ?", [$player->user_id]);
-            }
-            if ($player->rank === 2) {
-                DB::update("UPDATE users SET game_rank_2 = game_rank_2+1 WHERE id = ?", [$player->user_id]);
-            }
-            if ($player->rank === 3) {
-                DB::update("UPDATE users SET game_rank_3 = game_rank_3+1 WHERE id = ?", [$player->user_id]);
+            foreach ($players as $player) {
+                if ($player->rank > 3) {
+                    break;
+                }
+                if ($player->rank === 1) {
+                    DB::update("UPDATE users SET game_rank_1 = game_rank_1+1 WHERE id = ?", [$player->user_id]);
+                }
+                if ($player->rank === 2) {
+                    DB::update("UPDATE users SET game_rank_2 = game_rank_2+1 WHERE id = ?", [$player->user_id]);
+                }
+                if ($player->rank === 3) {
+                    DB::update("UPDATE users SET game_rank_3 = game_rank_3+1 WHERE id = ?", [$player->user_id]);
+                }
             }
         }
     }

@@ -62,11 +62,15 @@ class PlayController {
                     SELECT
                         u.display_name, u.country_code,
                         m.file_name,
+                        (au.achievement_data->>p.extended_country_code)::int as country_count,
                         ru.points, ru.is_correct_country, ru.distance,
                         RANK() OVER (ORDER BY ru.points DESC) AS rank,
                         ST_X(ru.location::geometry) as x, ST_Y(ru.location::geometry) as y
                     FROM round_user ru
                     LEFT JOIN users u ON u.id = ru.user_id
+                    LEFT JOIN achievement_user au ON u.id = au.user_id AND au.achievement_id = 5
+                    LEFT JOIN round r ON ru.round_id = r.id
+                    LEFT JOIN panorama p ON r.panorama_id = p.panorama_id
                     LEFT JOIN marker m ON m.id = u.map_marker_id
                     WHERE ru.round_id = ?
                     ORDER BY rank
