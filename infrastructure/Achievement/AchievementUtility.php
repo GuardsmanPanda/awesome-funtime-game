@@ -4,6 +4,7 @@ namespace Infrastructure\Achievement;
 
 use App\Models\User;
 use App\Models\AchievementUser;
+use Illuminate\Support\Facades\DB;
 
 class AchievementUtility {
     public static function updateAllUserAchievements(User $user): void {
@@ -12,6 +13,13 @@ class AchievementUtility {
         CountryExpert::updateAchievementStatus($user);
         Reviewer::updateAchievementStatus($user);
         Rounder::updateAchievementStatus($user);
+
+        $contrib = DB::selectOne("
+            SELECT p.panorama_id FROM panorama p WHERE p.added_by_user_id  = ? LIMIT 1 
+        ", [$user->id]);
+        if ($contrib !== null) {
+            ContributePanorama::updateAchievementStatus($user);
+        }
         $user->achievement_refresh_needed = false;
     }
 
@@ -20,6 +28,8 @@ class AchievementUtility {
         CountryExpert::updateAllRanks();
         Reviewer::updateAllRanks();
         Rounder::updateAllRanks();
+
+        ContributePanorama::updateAllRanks();
     }
 
     public static function getAchievementUser(User $user, int $achievement_id): AchievementUser {

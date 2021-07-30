@@ -9,7 +9,9 @@ use App\Commands\LocationFix;
 use App\Commands\GenerateModels;
 use App\Commands\LocationSearch;
 use App\Commands\ImportPanoramas;
+use Illuminate\Support\Facades\DB;
 use App\Commands\UpdateAchievements;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel;
 use App\Commands\UpdateLocationInformation;
@@ -47,5 +49,6 @@ class ConsoleKernel extends Kernel {
      * @return void
      */
     protected function commands():void {
+
     }
 }

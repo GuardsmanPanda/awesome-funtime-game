@@ -3,6 +3,7 @@
 namespace Areas\Game;
 
 use App\Tools\Auth;
+use App\Tools\Resp;
 use App\Models\Game;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
@@ -23,6 +24,7 @@ class DashboardController extends Controller {
         $game->realm_id = $r->get('realm_id');
         $game->created_by_user_id = Auth::$user_id;
         $game->save();
+
         return $this->index();
     }
 }

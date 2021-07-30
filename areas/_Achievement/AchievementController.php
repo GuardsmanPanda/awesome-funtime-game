@@ -22,12 +22,12 @@ class AchievementController extends Controller {
             'user' =>$user,
             'achievements' => DB::select("
                 SELECT
-                    a.achievement_name, a.achievement_description,
+                    a.achievement_name, a.achievement_description, a.achievement_type,
                     au.current_level, au.current_score, au.next_level_score, au.user_rank
                 FROM achievement_user au
                 LEFT JOIN achievement a on au.achievement_id = a.id
-                WHERE au.user_id = ? AND a.achievement_type = 'leveling'
-                ORDER BY a.achievement_name
+                WHERE au.user_id = ?
+                ORDER BY a.sort_order
             ", [$user->id]),
             'countries' => $stats['countries'],
             'country_count' => $stats['count'],

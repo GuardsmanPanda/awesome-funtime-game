@@ -24,6 +24,7 @@ Route::get('/country/list', function () { return Resp::SQLJson("
                     AND NOT EXISTS(SELECT * FROM round r WHERE r.panorama_id = p.panorama_id)
                     ) as missing_count
         FROM country c
+        WHERE c.country_code != 'GB'
     ");
 });
 

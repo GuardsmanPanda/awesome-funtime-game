@@ -1,4 +1,4 @@
-<form method="dialog" id="round-create-form" class="grid gap-2" autocomplete="off" hx-post="/game/create">
+<form method="dialog" id="round-create-form" class="grid gap-2" autocomplete="off" hx-post="/game/create" hx-headers='{"dialog-close":true}'>
     <label>
         Realm
         <select name="realm_id">

@@ -34,6 +34,9 @@
             <div class="border-b-2 border-dashed font-bold text-xl">Achievements</div>
             <div class="flex flex-col gap-4 px-2 py-2">
                 @foreach($achievements as $a)
+                    @if ($a->achievement_type !== 'leveling')
+                        @continue
+                    @endif
                     <div class="bg-gray-200 border-2 flex pb-3 pt-1 rounded shadow-md w-72" data-tippy-content="{{$a->achievement_description}}">
                         <div class="text-3xl font-bold w-14 flex flex-col justify-center items-center text-emerald-700"><span>{{$a->current_level}}</span></div>
                         <div class="flex-grow">
@@ -48,6 +51,30 @@
                 @endforeach
             </div>
         </div>
+
+        @foreach(array_filter($achievements, static function ($aa) {return $aa->achievement_type === 'contribute';}) as $a)
+            @if($loop->first)
+                    <div>
+                        <div class="border-b-2 border-dashed font-bold text-xl">Contributions</div>
+                        <div class="flex flex-col gap-4 px-2 py-2">
+             @endif
+                            <div class="bg-gray-200 border-2 flex pb-3 pt-1 rounded shadow-md w-72" data-tippy-content="{{$a->achievement_description}}">
+                                <div class="text-3xl font-bold w-14 flex flex-col justify-center items-center text-emerald-700"><span>{{$a->current_level}}</span></div>
+                                <div class="flex-grow">
+                                    <div class="font-bold text-center capitalize text-xl" style="font-family: 'Inkwell Sans',Verdana,sans-serif;">{{$a->achievement_name}}</div>
+                                    @include('_achievement.progress-bar', ['percent' => $a->current_score/$a->next_level_score, 'label' => $a->current_score . ' / ' . $a->next_level_score])
+                                </div>
+                                <div class="text-xs w-14 text-center flex flex-col justify-center">
+                                    <div>Rank</div>
+                                    <div>{{$a->user_rank}}</div>
+                                </div>
+                            </div>
+           @if($loop->first)
+                  </div>
+                   </div>
+           @endif
+        @endforeach
+
     </div>
 </div>
 
