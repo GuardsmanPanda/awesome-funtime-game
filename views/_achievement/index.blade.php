@@ -69,7 +69,7 @@
                                     <div>{{$a->user_rank}}</div>
                                 </div>
                             </div>
-           @if($loop->first)
+           @if($loop->last)
                   </div>
                    </div>
            @endif

@@ -18,4 +18,9 @@ class Req {
     public static function content(): string {
         return self::$r->getContent();
     }
+
+    public static function isWriteRequest(): bool {
+        $m = self::$r->method();
+        return $m !== 'GET' && $m !== 'HEAD';
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Commands;
 
+use App\Models\User;
 use App\Models\Panorama;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
@@ -63,7 +64,11 @@ class UpdateLocationInformation extends Command {
             return 0;
         }
         $this->info("Reverse Round User Lookup:");
-        $this->withProgressBar($rus, function ($ru) {
+
+        $updated_users = [];
+
+        $this->withProgressBar($rus, function ($ru, &$updated_users) {
+            $updated_users[] = $ru->user_id;
             $j = Nominatim::getLocationInformation($ru->st_y, $ru->st_x);
             DB::update("
                 UPDATE round_user 
@@ -83,6 +88,9 @@ class UpdateLocationInformation extends Command {
             sleep(1);
         });
         $this->newLine();
+        $updated_users = array_unique($updated_users);
+        $this->info(User::whereIn('user_id', $updated_users)->toSql());
+        User::whereIn('user_id', $updated_users)->update(['achievement_refresh_needed' => true]);
         return count($rus);
     }
 

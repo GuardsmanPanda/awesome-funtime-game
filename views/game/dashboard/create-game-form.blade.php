@@ -1,4 +1,5 @@
 <form method="dialog" id="round-create-form" class="grid gap-2" autocomplete="off" hx-post="/game/create" hx-headers='{"dialog-close":true}'>
+    <input hidden name="_idempotency" value="{{\Illuminate\Support\Str::random()}}">
     <label>
         Realm
         <select name="realm_id">

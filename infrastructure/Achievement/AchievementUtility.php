@@ -5,6 +5,7 @@ namespace Infrastructure\Achievement;
 use App\Models\User;
 use App\Models\AchievementUser;
 use Illuminate\Support\Facades\DB;
+use App\Models\AchievementNotification;
 
 class AchievementUtility {
     public static function updateAllUserAchievements(User $user): void {
@@ -19,6 +20,10 @@ class AchievementUtility {
         ", [$user->id]);
         if ($contrib !== null) {
             ContributePanorama::updateAchievementStatus($user);
+            ContributeRounds::updateAchievementStatus($user);
+            ContributeWow::updateAchievementStatus($user);
+            ContributeGreat::updateAchievementStatus($user);
+            ContributeGood::updateAchievementStatus($user);
         }
         $user->achievement_refresh_needed = false;
     }
@@ -30,6 +35,10 @@ class AchievementUtility {
         Rounder::updateAllRanks();
 
         ContributePanorama::updateAllRanks();
+        ContributeRounds::updateAllRanks();
+        ContributeWow::updateAllRanks();
+        ContributeGreat::updateAllRanks();
+        ContributeGood::updateAllRanks();
     }
 
     public static function getAchievementUser(User $user, int $achievement_id): AchievementUser {
@@ -45,5 +54,14 @@ class AchievementUtility {
         $au->current_level = 0;
         $au->next_level_score = 1;
         return $au;
+    }
+
+
+    public static function createAnnouncement(int $user_id, string $message, int $achievement_id): void {
+        $an = new AchievementNotification();
+        $an->achievement_id = $achievement_id;
+        $an->notification_message = $message;
+        $an->user_id = $user_id;
+        $an->save();
     }
 }

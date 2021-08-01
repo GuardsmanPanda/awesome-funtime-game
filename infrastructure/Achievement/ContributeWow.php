@@ -5,9 +5,9 @@ namespace Infrastructure\Achievement;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
-class ContributePanorama {
+class ContributeWow {
     public const REQUIREMENTS = [0, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096];
-    public const ACHIEVEMENT_ID = 6;
+    public const ACHIEVEMENT_ID = 8;
 
     public static function updateAchievementStatus(User $user): void {
         $au = AchievementUtility::getAchievementUser($user, self::ACHIEVEMENT_ID);
@@ -16,7 +16,7 @@ class ContributePanorama {
         while ($au->current_score >= $au->next_level_score) {
             $au->current_level++;
             $au->next_level_score = self::REQUIREMENTS[$au->current_level + 1];
-            AchievementUtility::createAnnouncement($user->id, "Contribution level: " . $au->current_level, self::ACHIEVEMENT_ID);
+            AchievementUtility::createAnnouncement($user->id, "Contributed panoramas voted WoW level: " . $au->current_level, self::ACHIEVEMENT_ID);
         }
         $au->save();
     }
@@ -28,8 +28,9 @@ class ContributePanorama {
             FROM (
                 SELECT
                 p.added_by_user_id, COUNT(*) as count, rank() OVER( ORDER BY count(*) DESC) as rank
-                FROM panorama p
-                WHERE p.added_by_user_id IS NOT NULL
+                FROM panorama_rating pr
+                LEFT JOIN panorama p on pr.panorama_id = p.panorama_id
+                WHERE p.added_by_user_id IS NOT NULL AND pr.rating = 7
                 GROUP BY p.added_by_user_id
                 ORDER BY count DESC
             ) AS data
@@ -38,6 +39,10 @@ class ContributePanorama {
     }
 
     private static function getScore(User $user): int {
-        return DB::selectOne("SELECT COUNT(*) FROM panorama WHERE added_by_user_id = ?", [$user->id])->count;
+        return DB::selectOne("
+            SELECT COUNT(*) FROM panorama_rating pr
+            LEFT JOIN panorama p on pr.panorama_id = p.panorama_id
+            WHERE p.added_by_user_id = ? AND pr.rating = 7
+        ", [$user->id])->count;
     }
 }

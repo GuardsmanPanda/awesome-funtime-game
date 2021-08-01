@@ -3,6 +3,7 @@
         <x-slot name="header">
             @if(\App\Tools\Auth::$user_id === $game->created_by_user_id && !$game->is_queued)
                 <form hx-post="/game/{{$game->id}}/start" hx-target="this" class="flex">
+                    <input hidden name="_idempotency" value="_game_start_form[{{$game->id}}]">
                     <label>
                         Min
                         <input name="countdown" type="number" value="1" class="inline w-16" min="1" max="9">

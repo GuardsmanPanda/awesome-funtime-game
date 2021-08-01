@@ -29,9 +29,9 @@ class RouteServiceProvider extends ServiceProvider {
 
             Route::middleware('web')->group(function() {
                 Route::get('test', function () {
-                    $picker = new PanoramaPicker(Game::find(48));
-                    return $picker->pickPanorama();
-                })->middleware('permission:contribute');
+                    abort(500, '22');
+                    return 'ok';
+                });
             });
         });
     }

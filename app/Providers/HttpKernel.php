@@ -49,9 +49,9 @@ class HttpKernel extends Kernel {
     protected $middlewarePriority = [
         TrimStrings::class,
         ConvertEmptyStringsToNull::class,
-        Initiate::class,
         AddQueuedCookiesToResponse::class,
         StartSession::class,
+        Initiate::class,
         CheckAuth::class,
         Permission::class,
         HtmxBuster::class,

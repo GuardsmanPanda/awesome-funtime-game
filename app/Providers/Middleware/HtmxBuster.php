@@ -11,7 +11,7 @@ class HtmxBuster {
             return redirect('/game');
         }
         $a = $request->header('accept');
-        if (str_contains($a, 'html') && !$request->header('HX-request') && $request->method() === 'GET') {
+        if ($request->header('hx-history-restore-request') || (str_contains($a, 'html') && !$request->header('hx-request') && $request->method() === 'GET')) {
             $layout = str_ends_with($request->path(), '/play') ? 'layout-play' : 'layout';
             return response()->view($layout, [
                 'primary_hx' => 'hx-get="'. $request->getRequestUri() . '"',

@@ -117,7 +117,6 @@ class PanoramaPicker {
             WHERE 
                 p.jpg_name IS NOT NULL AND p.captured_date > '2011-01-01' AND p.extended_country_code IS NOT NULL
                 AND p3.panorama_id IS NULL AND c2.extended_country_code IS NULL 
-                AND p.created_at < CURRENT_TIMESTAMP - INTERVAL '14 DAY'
                 $extra_where
             GROUP BY p.map_box
             ORDER BY random() LIMIT 1
@@ -156,7 +155,6 @@ class PanoramaPicker {
             WHERE 
                 p.jpg_name IS NOT NULL AND p.captured_date > '2011-01-01' AND p.extended_country_code IS NOT NULL
                 AND p3.panorama_id IS NULL AND c2.extended_country_code IS NULL
-                AND p.created_at < CURRENT_TIMESTAMP - INTERVAL '14 DAY'
                 $extra_where
             ORDER BY random() LIMIT 1
         ",  $param);
