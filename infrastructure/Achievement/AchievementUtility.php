@@ -26,6 +26,7 @@ class AchievementUtility {
             ContributeGood::updateAchievementStatus($user);
         }
         $user->achievement_refresh_needed = false;
+        $user->save();
     }
 
     public static function updateAllAchievementRanks(): void {

@@ -97,8 +97,6 @@ class AuthenticationController extends Controller {
         $user->save();
         if ($user->achievement_refresh_needed) {
             AchievementUtility::updateAllUserAchievements($user);
-            $user->achievement_refresh_needed = false;
-            $user->save();
         }
         DB::insert("
             INSERT INTO realm_user (realm_id, user_id) VALUES (?, ?)

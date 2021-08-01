@@ -67,7 +67,7 @@ class UpdateLocationInformation extends Command {
 
         $updated_users = [];
 
-        $this->withProgressBar($rus, function ($ru, &$updated_users) {
+        $this->withProgressBar($rus, function ($ru) use (&$updated_users) {
             $updated_users[] = $ru->user_id;
             $j = Nominatim::getLocationInformation($ru->st_y, $ru->st_x);
             DB::update("
@@ -89,8 +89,8 @@ class UpdateLocationInformation extends Command {
         });
         $this->newLine();
         $updated_users = array_unique($updated_users);
-        $this->info(User::whereIn('user_id', $updated_users)->toSql());
-        User::whereIn('user_id', $updated_users)->update(['achievement_refresh_needed' => true]);
+        $this->info(User::whereIn('id', $updated_users)->toSql());
+        User::whereIn('id', $updated_users)->update(['achievement_refresh_needed' => true]);
         return count($rus);
     }
 

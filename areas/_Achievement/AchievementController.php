@@ -14,8 +14,6 @@ class AchievementController extends Controller {
         $user = Auth::user();
         if ($user->achievement_refresh_needed) {
             AchievementUtility::updateAllUserAchievements($user);
-            $user->achievement_refresh_needed = false;
-            $user->save();
         }
         $stats = CountryUnlock::getUserStat($user->id);
         return view('_achievement.index', [
