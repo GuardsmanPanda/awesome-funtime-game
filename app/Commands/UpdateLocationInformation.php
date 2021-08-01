@@ -88,9 +88,7 @@ class UpdateLocationInformation extends Command {
             sleep(1);
         });
         $this->newLine();
-        $updated_users = array_unique($updated_users);
-        $this->info(User::whereIn('id', $updated_users)->toSql());
-        User::whereIn('id', $updated_users)->update(['achievement_refresh_needed' => true]);
+        User::whereIn('id', array_unique($updated_users))->update(['achievement_refresh_needed' => true]);
         return count($rus);
     }
 

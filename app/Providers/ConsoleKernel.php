@@ -39,7 +39,7 @@ class ConsoleKernel extends Kernel {
      * @return void
      */
     protected function schedule(Schedule $schedule):void {
-        $schedule->command('location:update')->hourly();
+        $schedule->command('location:update')->everyTwoMinutes();
         $schedule->command('zz:achievements')->dailyAt('0:35');
     }
 
