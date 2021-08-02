@@ -13,33 +13,32 @@ class PanoramaPicker {
     private array $countries_used = ['XX'];
     private array $user_countries;
     private array $all_countries;
+    private array $eligible_users;
     private float $user_country_chance = 0;
 
     public function __construct(private Game $game) {
         $this->all_countries = Country::pluck('country_code')->toArray();
+        $this->eligible_users = $this->getEligibleUsers();
         $tmp = DB::select("
             SELECT
-                u.country_code_1, u.country_code_2, u.country_code_3, u.country_code_4,
-                u.country_pick_at > current_timestamp - Interval '7 day' as recent_pick
+                u.country_code_1, u.country_code_2, u.country_code_3, u.country_code_4
             FROM game_user gu
             LEFT JOIN users u ON u.id = gu.user_id
-            WHERE gu.game_id = ?
+            WHERE gu.game_id = ? AND  u.country_pick_at > current_timestamp - Interval '7 day'
         ", [$this->game->id]);
         foreach ($tmp as $t) {
-            if (!$t->recent_pick) {
-                continue;
-            }
-            $this->user_country_chance += 4;
+            $this->user_country_chance += 3.5;
             $this->user_countries[] = $t->country_code_1 ?? 'XX';
             $this->user_countries[] = $t->country_code_2 ?? 'XX';
             $this->user_countries[] = $t->country_code_3 ?? 'XX';
             $this->user_countries[] = $t->country_code_4 ?? 'XX';
         }
-        $this->user_country_chance = min($this->user_country_chance, 50);
+        $this->user_country_chance = min($this->user_country_chance, 40);
         shuffle($this->user_countries);
         shuffle($this->tier_one);
         shuffle($this->tier_two);
         shuffle($this->all_countries);
+        shuffle($this->eligible_users);
     }
 
     public function pickPanorama(int $attempts = 0): array {
@@ -49,6 +48,7 @@ class PanoramaPicker {
         $pick_strategy = 'None';
         $panorama = null;
         $country = null;
+        $user_id = null;
         try {
             if ($country === null && random_int(0, 100) < $this->user_country_chance) {
                 $country = $this->pickCountry($this->user_countries);
@@ -62,15 +62,20 @@ class PanoramaPicker {
                 $country = $this->pickCountry($this->tier_two);
                 $pick_strategy = 'Tier 2';
             }
-            if ($country === null && random_int(0, 100) < 40) {
+            if ($country === null && random_int(0, 100) < 30) {
+                $user_id = array_pop($this->eligible_users);
+                $pick_strategy = 'Random Contributor';
+            }
+
+            if ($country === null && $user_id === null && random_int(0, 100) < 40) {
                 $country = $this->pickCountry($this->all_countries);
                 $pick_strategy = 'Random Country';
             }
-            if ($country === null) {
+            if ($country === null && $user_id === null) {
                 $pick_strategy = 'Random Location';
             }
-            $map_box = $this->selectMapBox($country);
-            $panorama = $this->selectPanorama(extended_country_code: $country, map_box: $map_box);
+            $map_box = $this->selectMapBox($country, $user_id);
+            $panorama = $this->selectPanorama(extended_country_code: $country, map_box: $map_box, user_id: $user_id);
         } catch (Throwable $t) {
             report($t);
         }
@@ -88,15 +93,18 @@ class PanoramaPicker {
         return $country;
     }
 
-
-    private function selectMapBox(string|null $extended_country_code): int {
-        //TODO: increase user delay to 30 days
-        //TODO: allow repeats when a year has passed
+    //TODO: increase user delay to 30 days
+    //TODO: allow repeats when a year has passed
+    private function selectMapBox(string|null $extended_country_code, int|null $user_id = null): int {
         $param = [$this->game->id, $this->game->id];
         $extra_where = "";
         if ($extended_country_code !== null) {
             $extra_where .= " AND p.extended_country_code = ? ";
             $param[] = $extended_country_code;
+        }
+        if ($user_id !== null) {
+            $extra_where .= " AND p.added_by_user_id = ? ";
+            $param[] = $user_id;
         }
         return DB::selectOne("
             SELECT p.map_box FROM panorama p
@@ -124,7 +132,7 @@ class PanoramaPicker {
     }
 
 
-    private function selectPanorama(string $extended_country_code = null, int $map_box = -1): string {
+    private function selectPanorama(string $extended_country_code = null, int $map_box = -1, int|null $user_id = null): string {
         $param = [$this->game->id, $this->game->id];
         $extra_where = "";
         if ($extended_country_code !== null) {
@@ -134,6 +142,10 @@ class PanoramaPicker {
         if ($map_box !== -1) {
             $extra_where .= " AND p.map_box = ?";
             $param[] = $map_box;
+        }
+        if ($user_id !== null) {
+            $extra_where .= " AND p.added_by_user_id = ? ";
+            $param[] = $user_id;
         }
         $res = DB::selectOne("
             SELECT p.panorama_id, p.extended_country_code
@@ -163,5 +175,24 @@ class PanoramaPicker {
             $this->countries_used[] = $res->extended_country_code;
         }
         return $res?->panorama_id;
+    }
+
+    private function getEligibleUsers(): array {
+        $tmp = DB::select("
+            SELECT DISTINCT
+                p.added_by_user_id
+            FROM panorama p
+            LEFT JOIN (
+                SELECT r.id, r.panorama_id
+                FROM game_user gu
+                LEFT JOIN round_user ru ON ru.user_id = gu.user_id
+                LEFT JOIN round r ON r.id = ru.round_id
+                WHERE gu.game_id = ?
+                GROUP BY r.id
+            ) p3 ON p3.panorama_id = p.panorama_id
+            WHERE p.added_by_user_id IS NOT NULL AND p3.panorama_id IS NULL
+            GROUP BY p.added_by_user_id
+        ", [$this->game->id]);
+        return array_map(static function ($t) { return $t->added_by_user_id;}, $tmp);
     }
 }

@@ -26,7 +26,6 @@ class RouteServiceProvider extends ServiceProvider {
 
             Route::middleware('web')->group(function() {
                 Route::get('test', function () {
-                    abort(500, '22');
                     return 'ok';
                 });
             });
