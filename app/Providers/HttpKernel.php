@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Providers\Middleware\Idempotency;
 use App\Providers\Middleware\Initiate;
 use App\Providers\Middleware\CheckAuth;
 use App\Providers\Middleware\HtmxBuster;
@@ -25,6 +26,7 @@ class HttpKernel extends Kernel {
         TrimStrings::class,
         ConvertEmptyStringsToNull::class,
         Initiate::class,
+        Idempotency::class,
     ];
 
     /**
@@ -54,6 +56,7 @@ class HttpKernel extends Kernel {
         Initiate::class,
         CheckAuth::class,
         Permission::class,
+        Idempotency::class,
         HtmxBuster::class,
         SubstituteBindings::class,
     ];
