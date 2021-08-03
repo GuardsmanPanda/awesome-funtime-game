@@ -4,10 +4,15 @@
             <div class=" font-bold text-xl">Countries</div>
             @include('_achievement.progress-bar', ['percent' => $country_count/240, 'label' => $country_count . ' / ' . 240])
         </div>
-        <div class="flex flex-row flex-wrap gap-x-4 gap-y-6 pt-2 px-2">
+        <div class="flex flex-row flex-wrap gap-x-4 gap-y-4 pt-2 px-2">
             @foreach($countries as $country)
-                <div data-tippy-content="{{t($country['country_name']) . ', guessed correctly: ' . $country['count']}}" @class( ['opacity-10' => $country['count']=== 0] ) data-tilt data-tilt-scale="1.06" data-tilt-reverse="true" data-tilt-max="12">
-                    <img src="/static/img/flags/wavy/{{strtolower($country['country_code'])}}.png" width="100" alt="Wavy flag">
+                <div data-tippy-content="{{t($country['country_name']) . ', guessed correctly: ' . $country['count']}}" @class( ['opacity-10' => $country['count']=== 0] )>
+                    <img src="/static/img/flags/wavy/{{strtolower($country['country_code'])}}.png" width="100" alt="Wavy flag" data-tilt data-tilt-scale="1.06" data-tilt-reverse="true" data-tilt-max="12">
+                    <div class="relative" style="height: 20px">
+                        @for($i = 0; $i < min($country['count'], 9); $i++)
+                            <img class="absolute" src="/static/img/icons/gold-star.png" alt="gold star" width="20" style="left: {{10*$i}}px">
+                        @endfor
+                    </div>
                 </div>
             @endforeach
         </div>
