@@ -58,7 +58,7 @@ class ConsoleKernel extends Kernel {
 
             foreach ($pano2 as $p) {
                 $res = File::delete(storage_path('app/public/sv-jpg/') . $p->jpg_name . '.jpg');
-            //    $this->info($res);
+                $this->info($res);
                 if ($res)  {
                     DB::delete("DELETE FROM panorama WHERE panorama_id = ?", [$p->panorama_id]);
                 }
