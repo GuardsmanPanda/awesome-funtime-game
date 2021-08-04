@@ -123,7 +123,7 @@ class PanoramaPicker {
                 GROUP BY r.id
             ) p3 ON p3.panorama_id = p.panorama_id
             WHERE 
-                p.jpg_name IS NOT NULL AND p.captured_date > '2011-01-01' AND p.extended_country_code IS NOT NULL
+                p.jpg_name IS NOT NULL AND p.extended_country_code IS NOT NULL
                 AND p3.panorama_id IS NULL AND c2.extended_country_code IS NULL 
                 $extra_where
             GROUP BY p.map_box
@@ -165,7 +165,7 @@ class PanoramaPicker {
                 GROUP BY r.id
             ) p3 ON p3.panorama_id = p.panorama_id
             WHERE 
-                p.jpg_name IS NOT NULL AND p.captured_date > '2011-01-01' AND p.extended_country_code IS NOT NULL
+                p.jpg_name IS NOT NULL AND p.extended_country_code IS NOT NULL
                 AND p3.panorama_id IS NULL AND c2.extended_country_code IS NULL
                 $extra_where
             ORDER BY random() LIMIT 1
