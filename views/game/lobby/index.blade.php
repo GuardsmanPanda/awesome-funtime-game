@@ -1,4 +1,4 @@
-<div class="flex gap-4 flex-row flex-wrap pt-12 px-4">
+<div class="flex gap-4 flex-row flex-wrap pt-12 px-3 h-screen pb-3">
     <x-content-raw title="{{t('Players')}}" icon="users">
         <x-slot name="header">
             @if(\App\Tools\Auth::$user_id === $game->created_by_user_id && !$game->is_queued)
@@ -14,28 +14,31 @@
         </x-slot>
         <div id="player-table" class="w-96"></div>
     </x-content-raw>
-    <div class="flex flex-col gap-4">
-        <button id="map-selector" onclick="dialog('/game/lobby/map-selector', 'Map selector')" class="transform hover:shadow-xl duration-50 hover:scale-105 rounded bg-orange-300 px-2 from-orange-200 bg-gradient-to-bl shadow flex gap-2 items-center py-1 justify-between" >
-            <x-icon name="map" class="text-orange-500 {{\App\Tools\Auth::user()?->map_style_id ? '': 'animate-pulse'}}"></x-icon>
-            <span class="font-bold text-xl leading-normal text-orange-600 capitalize truncate" style="font-family: 'Inkwell Sans',Verdana,sans-serif;">{{t('Click to select map')}}</span>
-            <x-icon name="map" class="text-orange-500 {{\App\Tools\Auth::user()?->map_style_id ? '': 'animate-pulse'}}"></x-icon>
-        </button>
-        <div id="map-marker" style="width: 22rem;" class="rounded flex-col bg-teal-300 p-0.5 from-teal-200 bg-gradient-to-bl shadow" hx-target="this">
+
+    <div class="w-96 flex-grow flex flex-col gap-4">
+        <div class="flex gap-4 flex-wrap">
+            <x-text-card class="w-40 bg-cyan-600 h-18" top-text="{{$game->round_count}}" bot-text="{{t('Rounds')}}"></x-text-card>
+            <x-text-card class="w-40 bg-cyan-600 h-18" top-text="{{$game->round_time}}" bot-text="{{t('Seconds')}}"></x-text-card>
+            <button id="map-selector" onclick="dialog('/game/lobby/map-selector', 'Map selector')"
+                    class="w-40 h-18 transform hover:shadow-xl duration-50 hover:scale-105 rounded bg-emerald-400 px-2 shadow-md gap-2 py-1 {{\App\Tools\Auth::user()?->map_style_id ? '': 'animate-pulse'}}" >
+                <span class="leading-3 font-bold text-2xl text-emerald-900 capitalize truncate" style="font-family: 'Inkwell Sans',Verdana,sans-serif;">{{t('Select')}}<br>{{t('Map')}}</span>
+            </button>
+            <button id="country-selector" onclick="dialog('/game/lobby/country-selector/{{$game->id}}', 'Map selector')"
+                    class="w-40 h-18 transform hover:shadow-xl duration-50 hover:scale-105 rounded bg-emerald-400 px-2 shadow-md gap-2 py-1 {{$user_data->recent_pick ? '': 'animate-pulse'}}">
+                <span class="leading-3 font-bold text-2xl text-emerald-900 capitalize truncate" style="font-family: 'Inkwell Sans',Verdana,sans-serif;">{{t('Select')}}<br>{{t('Countries')}}</span>
+            </button>
+            <button id="country-selector" hx-post="/game/{{$game->id}}/leave"
+                    class="w-40 h-18 transform hover:shadow-xl duration-50 hover:scale-105 rounded bg-red-400 px-2 shadow-md gap-2 py-1 {{$user_data->recent_pick ? '': 'animate-pulse'}}">
+                <span class="leading-3 font-bold text-2xl text-red-900 capitalize truncate" style="font-family: 'Inkwell Sans',Verdana,sans-serif;">{{t('Leave')}}<br>{{t('Game')}}</span>
+            </button>
+        </div>
+        <div id="map-marker" class="rounded bg-teal-300 p-0.5 from-teal-200 bg-gradient-to-bl shadow" hx-target="this">
             @include('game.lobby.map-marker')
         </div>
+        <div class="flex-grow"></div>
     </div>
 
-    <div class="flex flex-col gap-4 w-96 flex-grow">
-        <div class="grid grid-cols-2 gap-4">
-            <x-text-card class="bg-teal-600" top-text="{{$game->round_count}}" bot-text="{{t('Rounds')}}"></x-text-card>
-            <x-text-card class="bg-teal-600" top-text="{{$game->round_time}}" bot-text="{{t('Seconds')}}"></x-text-card>
-        </div>
-        <button id="country-selector" onclick="dialog('/game/lobby/country-selector/{{$game->id}}', 'Map selector')" class="transform hover:shadow-xl duration-50 hover:scale-105 rounded bg-orange-300 px-2 from-orange-200 bg-gradient-to-bl shadow flex gap-2 items-center py-1 justify-between {{$user_data->recent_pick ? '': 'animate-pulse'}}">
-            <x-icon name="globe" class="text-orange-500"></x-icon>
-            <span class="font-bold text-xl leading-normal text-orange-600 capitalize truncate" style="font-family: 'Inkwell Sans',Verdana,sans-serif;">{{t('Click to select countries')}}</span>
-            <x-icon name="globe" class="text-orange-500"></x-icon>
-        </button>
-    </div>
+
     <x-content-raw title="{{t('Information')}}" icon="information-circle">
         <div class="px-4 py-1 grid gap-4 prose">
             <div>

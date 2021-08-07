@@ -93,7 +93,7 @@ class PanoramaPicker {
         return $country;
     }
 
-    //TODO: increase user delay to 30 days
+    //TODO: increase bobs user delay to 30 days
     //TODO: allow repeats when a year has passed
     private function selectMapBox(string|null $extended_country_code, int|null $user_id = null): int {
         $param = [$this->game->id, $this->game->id];

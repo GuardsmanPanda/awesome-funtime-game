@@ -34,6 +34,8 @@ Route::get('recent', function () { return Resp::SQLJson("
 Route::view('create/form', 'game.dashboard.create-game-form');
 Route::post('create', [DashboardController::class, 'create']);
 
+
+Route::post('{game}/leave', [LobbyController::class, 'leave']);
 Route::post('{game}/start', [LobbyController::class, 'start']);
 Route::get('{game}/lobby', [LobbyController::class, 'index']);
 Route::get('{game}/lobby-status', [LobbyController::class, 'lobbyStatus']);

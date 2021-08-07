@@ -1,9 +1,9 @@
 <div class="flex justify-between items-center">
     <img class="h-9" src="/static/img/markers/{{\App\Models\Marker::find(\App\Tools\Auth::user()?->map_marker_id)?->file_name ?? 'standard.png'}}" alt="Marker">
-    <div class="font-bold text-xl leading-normal text-teal-600 capitalize" style="font-family: 'Inkwell Sans',Verdana,sans-serif;">{{t('Choose icon')}}</div>
+    <div class="font-bold text-xl leading-normal text-teal-600 capitalize" style="font-family: 'Inkwell Sans',Verdana,sans-serif;">{{t('Select a custom map marker - created by')}} Qirex</div>
     <img class="h-9" src="/static/img/markers/{{\App\Models\Marker::find(\App\Tools\Auth::user()?->map_marker_id)?->file_name ?? 'standard.png'}}" alt="Marker">
 </div>
-<div class="flex flex-wrap bg-gray-50 py-2 justify-around">
+<div class="flex flex-wrap bg-gray-50 py-2 justify-around gap-1">
     @foreach(\App\Models\Marker::all() as $marker)
         <a href="#" hx-post="/game/marker/{{$marker->id}}">
             <div style="width: 64px; height: 64px">

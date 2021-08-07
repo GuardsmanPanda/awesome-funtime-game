@@ -77,6 +77,13 @@ class LobbyController extends Controller {
         return 'Error';
     }
 
+    public function leave(Game $game): string {
+        abort_if($game->current_round > 0, 409, 'Cannot leave a game after it is started');
+        DB::delete("DELETE FROM game_user WHERE game_id = ? AND user_id = ?", [$game->id, Auth::$user_id]);
+        Resp::header('hx-redirect', '/game');
+        return 'ok';
+    }
+
     public function patchCountrySelection(int $game_id): view {
         $user = Auth::user();
         $user->country_code_1 = Req::input('country_1') ?? $user->country_code_1;

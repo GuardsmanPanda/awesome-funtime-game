@@ -58,6 +58,14 @@ class Streetview {
         }
     }
 
+    public static function lookupById(string $pano_id): string {
+        $resp = self::query('/metadata', ['pano' =>$pano_id]);
+        if ($resp['status'] === 'ZERO_RESULTS' || $resp['status'] === 'NOT_FOUND') {
+            return 'fail';
+        }
+        return $resp['pano_id'];
+    }
+
     private static function query(string $path, array $query): array {
         $resp = Http::get(self::$base_url . $path, ['key' => config('settings.streetview_key')] + $query);
         if ($resp->failed()) {

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use App\Commands\UpdateAchievements;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Artisan;
+use Integrations\Streetview\Streetview;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel;
 use App\Commands\UpdateLocationInformation;
@@ -50,18 +51,17 @@ class ConsoleKernel extends Kernel {
     protected function commands(): void {
         Artisan::command('zz:test', function () {
             $pano2  = DB::select("
-                select p.panorama_id,  p.jpg_name FROM panorama p WHERE 
-                                               NOT EXISTS(SELECT * FROM round r WHERE r.panorama_id = p.panorama_id) AND 
-                                               p.captured_date < '2011-01-01' AND p.added_by_user_id IS NULL
+                select p.panorama_id FROM panorama p WHERE jpg_name IS NULL
             ");
                $this->info(count($pano2));
 
             foreach ($pano2 as $p) {
-                $res = File::delete(storage_path('app/public/sv-jpg/') . $p->jpg_name . '.jpg');
+                $res = Streetview::lookupById($p->panorama_id);
                 $this->info($res);
-                if ($res)  {
+                if ($res === 'fail') {
                     DB::delete("DELETE FROM panorama WHERE panorama_id = ?", [$p->panorama_id]);
                 }
+                usleep(100000);
             }
         });
     }
