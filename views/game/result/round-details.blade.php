@@ -38,7 +38,7 @@
             </div>
         </div>
         <button class="bg-opacity-70 z-40 absolute bg-gray-900 font-bold px-2 text-sm py-0.5 bottom-0 right-0 rounded-tl-md shadow-md text-lime-400 capitalize {{$round->rated ? '' : 'hidden'}}" style="z-index: 5;" _="on click hide me then toggle .hidden on #panorama-rating">{{t(('click to rate'))}}</button>
- @endif
+    @endif
 
     <div class="absolute bg-black bg-opacity-70 font-bold left-9 px-2 rounded-b-md text-gray-400 text-xl z-20 shadow-lg"
          style="font-family: 'Inkwell Sans',Verdana,sans-serif;"><span class="text-gray-300"  _="on load put df('{{$round->captured_date}}', 'LLLL y') into me"></span></div>
