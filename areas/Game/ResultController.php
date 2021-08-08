@@ -2,6 +2,7 @@
 
 namespace Areas\Game;
 
+use App\Tools\Auth;
 use App\Models\Game;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
@@ -39,12 +40,13 @@ class ResultController {
         return view('game.result.round-details', [
             'round' => DB::selectOne("
                 SELECT 
-                       ST_X(p.panorama_location::geometry) as x, ST_Y(p.panorama_location::geometry) as y,
-                       p.jpg_name, p.captured_date, r.panorama_pick_strategy
+                    ST_X(p.panorama_location::geometry) as x, ST_Y(p.panorama_location::geometry) as y,
+                    p.jpg_name, p.captured_date, r.panorama_pick_strategy, p.panorama_id,
+                    EXISTS((SELECT FROM panorama_rating pr WHERE pr.panorama_id = p.panorama_id AND pr.user_id = ?)) as rated
                 FROM round r
                 LEFT JOIN panorama p on r.panorama_id = p.panorama_id
                 WHERE r.id = ?
-            ", [$round_id]),
+            ", [Auth::$user_id, $round_id]),
 
             'players' => DB::select("
                 SELECT

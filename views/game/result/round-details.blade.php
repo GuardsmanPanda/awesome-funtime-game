@@ -5,11 +5,42 @@
             <div id="map" class="h-full w-full"></div>
         </div>
     </div>
-    <div class="bg-opacity-70 z-40 absolute bg-gray-800 font-bold px-2 text-sm py-0.5 bottom-0 rounded-tr-md shadow-md text-gray-100 capitalize" style="z-index: 50000;">{{$round->panorama_pick_strategy}}</div>
-@if(\App\Tools\Auth::$user_id !== -1)
+    <div class="bg-opacity-70 z-40 absolute bg-gray-800 font-bold px-2 text-sm py-0.5 bottom-0 rounded-tr-md shadow-md text-gray-100 capitalize" style="z-index: 5;">{{$round->panorama_pick_strategy}}</div>
+
+    @if(\App\Tools\Auth::$user_id !== -1)
         <button id="map-selector" onclick="dialog('/game/lobby/map-selector')" class="bg-opacity-70 z-40 absolute bg-gray-800 font-bold px-2 text-sm py-0.5 right-0 rounded-bl-md shadow-md text-gray-100 transform hover:scale-110 duration-50 capitalize origin-top-right">{{t('Map style')}}</button>
-    @endif
-    <div class="absolute bg-black bg-opacity-70 font-bold left-9 px-4 py-0.5 rounded-b-md text-gray-400 text-2xl z-20 shadow-lg"
+        <div id="panorama-rating" hx-target="#panorama-rating" class="bottom-16 absolute w-full flex justify-center {{$round->rated ? 'hidden' : ''}}" style="font-family: 'Inkwell Sans',Verdana,sans-serif;z-index: 5;">
+            <div class="bg-gray-800 font-medium px-4 text-lime-300 text-3xl pt-2 pb-4 rounded-md shadow-md">
+                <div class="text-center capitalize">{{t('Rate this panorama')}}</div>
+                <div class="flex gap-3 text-white font-bold pt-1 text-xl leading-5">
+                    <button hx-post="/contribute/rate/{{$round->panorama_id}}/1" class="font-bold py-2 px-3 bg-rose-700 rounded transform hover:scale-105 w-24 shadow-md hover:rotate-3 duration-50">
+                        <span>{{t('Terrible')}}</span><br><span class="opacity-70">{{t('Broken')}}</span>
+                    </button>
+                    <button hx-post="/contribute/rate/{{$round->panorama_id}}/2" class="font-bold py-2 px-3 bg-red-700 rounded transform hover:scale-105 w-24 shadow-md hover:-rotate-3 duration-50">
+                        <span>{{t('Bad')}}</span><br><span class="opacity-70">{{t('Remove')}}</span>
+                    </button>
+                    <button hx-post="/contribute/rate/{{$round->panorama_id}}/3" class="font-bold py-2 px-3 bg-orange-700 rounded transform hover:scale-105 w-24 shadow-md hover:rotate-3 duration-50">
+                        <span>{{t('Poor')}}</span><br><span class="opacity-70">{{t('Lacking')}}</span>
+                    </button>
+                    <button hx-post="/contribute/rate/{{$round->panorama_id}}/4" class="font-bold py-2 px-3 bg-amber-700 rounded transform hover:scale-105 w-24 shadow-md duration-50">
+                        <span>{{t('Decent')}}</span><br><span class="opacity-70">{{t('Unsure')}}</span>
+                    </button>
+                    <button hx-post="/contribute/rate/{{$round->panorama_id}}/5" class="font-bold py-2 px-3 bg-yellow-700 rounded transform hover:scale-105 w-24 shadow-md hover:-rotate-3 duration-50">
+                        <span>{{t('Good')}}</span><br><span class="opacity-70">{{t('Keep')}}</span>
+                    </button>
+                    <button hx-post="/contribute/rate/{{$round->panorama_id}}/6" class="font-bold py-2 px-3 bg-lime-700 rounded transform hover:scale-105 w-24 shadow-md hover:rotate-3 duration-50">
+                        <span>{{t('Great')}}</span><br><span class="opacity-70">{{t('Amazing')}}</span>
+                    </button>
+                    <button hx-post="/contribute/rate/{{$round->panorama_id}}/7" class="font-bold py-2 px-3 bg-green-700 rounded transform hover:scale-105 w-24 shadow-md hover:-rotate-3 duration-50">
+                        <span>{{t('Perfect')}}</span><br><span class="opacity-70">{{t('Wow')}}</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <button class="bg-opacity-70 z-40 absolute bg-gray-900 font-bold px-2 text-sm py-0.5 bottom-0 right-0 rounded-tl-md shadow-md text-lime-400 capitalize {{$round->rated ? '' : 'hidden'}}" style="z-index: 5;" _="on click hide me then toggle .hidden on #panorama-rating">{{t(('click to rate'))}}</button>
+ @endif
+
+    <div class="absolute bg-black bg-opacity-70 font-bold left-9 px-2 rounded-b-md text-gray-400 text-xl z-20 shadow-lg"
          style="font-family: 'Inkwell Sans',Verdana,sans-serif;"><span class="text-gray-300"  _="on load put df('{{$round->captured_date}}', 'LLLL y') into me"></span></div>
 </div>
 
