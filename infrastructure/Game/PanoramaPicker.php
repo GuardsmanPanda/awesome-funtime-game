@@ -76,7 +76,7 @@ class PanoramaPicker {
                 $pick_strategy = 'Random Location';
             }
 
-            if ($country === null && random_int(0, 100) < 80) {
+            if (random_int(0, 100) < 80) {
                 $map_box = $this->selectMapBox($country, $user_id);
             }
             $panorama = $this->selectPanorama(extended_country_code: $country, map_box: $map_box, user_id: $user_id);
