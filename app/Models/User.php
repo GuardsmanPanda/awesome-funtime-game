@@ -28,6 +28,7 @@ use Carbon\Carbon;
  * @property int game_rank_3
  * @property int map_style_id
  * @property int map_marker_id
+ * @property int game_rank_rank
  * @property bool is_admin
  * @property bool can_create_games
  * @property bool achievement_refresh_needed

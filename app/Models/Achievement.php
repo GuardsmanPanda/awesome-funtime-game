@@ -21,6 +21,7 @@ use Carbon\Carbon;
  * @method static Builder with(array|string  $relations)
  *
  * @property int id
+ * @property int sort_order
  * @property string achievement_name
  * @property string achievement_type
  * @property string achievement_description

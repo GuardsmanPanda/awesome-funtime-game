@@ -25,6 +25,15 @@ class AchievementUtility {
             ContributeGreat::updateAchievementStatus($user);
             ContributeGood::updateAchievementStatus($user);
         }
+
+        $user->game_rank_rank = DB::selectOne("
+            SELECT COUNT(*)+1 as count FROM users 
+            WHERE 
+                game_rank_1 > ?
+                OR (game_rank_1 = ? AND game_rank_2 > ?)
+                OR (game_rank_1 = ? AND game_rank_2 = ? AND game_rank_3 > ?)
+        ", [$user->game_rank_1, $user->game_rank_1, $user->game_rank_2, $user->game_rank_1, $user->game_rank_2, $user->game_rank_3])->count;
+
         $user->achievement_refresh_needed = false;
         $user->save();
     }

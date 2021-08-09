@@ -17,9 +17,12 @@
             @endforeach
         </div>
     </div>
-    <div class="flex flex-col gap-4">
+    <div class="flex flex-col gap-2">
         <div class="">
-            <div class="border-b-2 border-dashed font-bold text-xl">Medals</div>
+            <div class="flex justify-between border-b-2 border-dashed font-bold text-xl">
+                <div>Medals</div>
+                <div class="text-gray-500">{{t('Rank')}}<span class="text-gray-300">&nbsp;-&nbsp;</span>{{$user->game_rank_rank}}</div>
+            </div>
             <div class="flex justify-center gap-4">
                 <div class="flex flex-row items-center">
                     <div class="text-center font-medium text-blueGray-500 text-3xl w-10">&#x1f947</div>
@@ -35,6 +38,7 @@
                 </div>
             </div>
         </div>
+
         <div>
             <div class="border-b-2 border-dashed font-bold text-xl">Achievements</div>
             <div class="flex flex-col gap-4 px-2 py-2">
