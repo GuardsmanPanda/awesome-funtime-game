@@ -38,13 +38,13 @@ class AchievementController extends Controller {
                 SELECT json_agg(x.row) as row, json_agg(x.dist) as distance, json_agg(x.cc) as cc
                 FROM (
                     SELECT
-                        ROW_NUMBER() over () as row,
-                        ROUND(AVG(ru.distance/1000) OVER (ROWS 500 PRECEDING)) as dist,
-                        ROUND(AVG(CASE WHEN ru.extended_country_code = p.extended_country_code THEN 100 ELSE 0 END) OVER (ROWS 500 PRECEDING), 2) as cc
+                        ROW_NUMBER() over (ORDER BY r.id) as row,
+                        ROUND(AVG(ru.distance/1000) OVER (ORDER BY r.id ROWS 500 PRECEDING)) as dist,
+                        ROUND(AVG(CASE WHEN ru.extended_country_code = p.extended_country_code THEN 100 ELSE 0 END) OVER (ORDER BY r.id ROWS 500 PRECEDING), 2) as cc
                     FROM round_user ru
                     LEFT JOIN round r on ru.round_id = r.id
                     LEFT JOIN panorama p on r.panorama_id = p.panorama_id
-                    WHERE user_id = ?
+                    WHERE user_id = ? ORDER BY r.id
                 ) x WHERE x.row >= 20  AND x.row % ceil((SELECT count(*) FROM round_user r2 WHERE r2.user_id = ?)/400)::integer = 0
             ", [Auth::$user_id, Auth::$user_id]),
         ]);
