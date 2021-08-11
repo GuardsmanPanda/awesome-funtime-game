@@ -1,5 +1,6 @@
 import Tabulator from 'tabulator-tables';
 import dialogPolyfill from 'dialog-polyfill';
+import Chart from 'chart.js/auto';
 import 'tippy.js/dist/tippy.css';
 import tippy from 'tippy.js';
 
@@ -9,9 +10,10 @@ window.htmx = require('htmx.org');
 htmx.config.historyCacheSize = 0;
 
 window.VanillaTilt = require('vanilla-tilt')
-window.Tabulator = Tabulator;
 window.luxon  = require('luxon')
+window.Tabulator = Tabulator;
 window.Dialog = dialogPolyfill;
+window.Chart = Chart
 window.tippy = tippy
 
 window.dialog = function (url, title) {
