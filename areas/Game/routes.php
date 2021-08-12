@@ -36,9 +36,10 @@ Route::post('create', [DashboardController::class, 'create']);
 
 
 Route::post('{game}/leave', [LobbyController::class, 'leave']);
+Route::delete('{game}', [LobbyController::class, 'delete']);
 Route::post('{game}/start', [LobbyController::class, 'start']);
 Route::get('{game}/lobby', [LobbyController::class, 'index']);
-Route::get('{game}/lobby-status', [LobbyController::class, 'lobbyStatus']);
+Route::get('{game_id}/lobby-status', [LobbyController::class, 'lobbyStatus']);
 Route::view('lobby/map-selector', 'game.lobby.map-selector');
 Route::get('lobby/country-selector/{game_id}', [LobbyController::class, 'getCountrySelector']);
 Route::patch('lobby/country-selector/{game_id}', [LobbyController::class, 'patchCountrySelection']);

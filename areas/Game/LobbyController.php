@@ -52,7 +52,11 @@ class LobbyController extends Controller {
         return view('game.lobby.map-marker');
     }
 
-    public function lobbyStatus(Game $game): view  {
+    public function lobbyStatus(int $game_id): view  {
+        $game = Game::find($game_id);
+        if ($game === null) {
+            Resp::hxRedirectAbort('/game', 'Game deleted');
+        }
         if ($game->current_round > 0) {
             Resp::hxRedirectAbort('/game/' .$game->id . '/play');
         }
@@ -78,8 +82,17 @@ class LobbyController extends Controller {
     }
 
     public function leave(Game $game): string {
-        abort_if($game->current_round > 0, 409, 'Cannot leave a game after it is started');
+        abort_if($game->current_round > 0, 409, 'Cannot leave a game after it is started.');
         DB::delete("DELETE FROM game_user WHERE game_id = ? AND user_id = ?", [$game->id, Auth::$user_id]);
+        Resp::header('hx-redirect', '/game');
+        return 'ok';
+    }
+
+    public function delete(Game $game): string {
+        abort_if($game->current_round > 0, 409, 'Cannot delete a game after it is started.');
+        abort_if($game->created_by_user_id !== Auth::$user_id, 409, 'Cannot delete a game that is not started by you.');
+        DB::delete("DELETE FROM game_user WHERE game_id = ?", [$game->id]);
+        DB::delete("DELETE FROM game WHERE id = ?", [$game->id]);
         Resp::header('hx-redirect', '/game');
         return 'ok';
     }

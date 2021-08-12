@@ -45,7 +45,7 @@ class AchievementController extends Controller {
                     LEFT JOIN round r on ru.round_id = r.id
                     LEFT JOIN panorama p on r.panorama_id = p.panorama_id
                     WHERE user_id = ? ORDER BY r.id
-                ) x WHERE x.row >= 20  AND x.row % ceil((SELECT count(*) FROM round_user r2 WHERE r2.user_id = ?)/400)::integer = 0
+                ) x WHERE x.row >= 20  AND x.row % ceil((SELECT count(*) FROM round_user r2 WHERE r2.user_id = ?)/500.0)::integer = 0
             ", [Auth::$user_id, Auth::$user_id]),
         ]);
     }

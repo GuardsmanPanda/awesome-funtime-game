@@ -27,10 +27,17 @@
                     class="w-40 h-18 transform hover:shadow-xl duration-50 hover:scale-105 rounded bg-emerald-400 px-2 shadow-md gap-2 py-1 {{$user_data->recent_pick ? '': 'animate-pulse'}}">
                 <span class="leading-3 font-bold text-2xl text-emerald-900 capitalize truncate" style="font-family: 'Inkwell Sans',Verdana,sans-serif;">{{t('Select')}}<br>{{t('Countries')}}</span>
             </button>
-            <button id="country-selector" hx-post="/game/{{$game->id}}/leave"
-                    class="w-40 h-18 transform hover:shadow-xl duration-50 hover:scale-105 rounded bg-red-400 px-2 shadow-md gap-2 py-1 {{$user_data->recent_pick ? '': 'animate-pulse'}}">
-                <span class="leading-3 font-bold text-2xl text-red-900 capitalize truncate" style="font-family: 'Inkwell Sans',Verdana,sans-serif;">{{t('Leave')}}<br>{{t('Game')}}</span>
-            </button>
+            @if(\App\Tools\Auth::$user_id === $game->created_by_user_id && !$game->is_queued)
+                <button id="country-selector" hx-delete="/game/{{$game->id}}"
+                        class="w-40 h-18 transform hover:shadow-xl duration-50 hover:scale-105 rounded bg-red-400 px-2 shadow-md gap-2 py-1">
+                    <span class="leading-3 font-bold text-2xl text-red-900 capitalize truncate" style="font-family: 'Inkwell Sans',Verdana,sans-serif;">{{t('Delete')}}<br>{{t('Game')}}</span>
+                </button>
+            @else
+                <button id="country-selector" hx-post="/game/{{$game->id}}/leave"
+                        class="w-40 h-18 transform hover:shadow-xl duration-50 hover:scale-105 rounded bg-red-400 px-2 shadow-md gap-2 py-1">
+                    <span class="leading-3 font-bold text-2xl text-red-900 capitalize truncate" style="font-family: 'Inkwell Sans',Verdana,sans-serif;">{{t('Leave')}}<br>{{t('Game')}}</span>
+                </button>
+            @endif
         </div>
         <div id="map-marker" class="rounded bg-teal-300 p-0.5 from-teal-200 bg-gradient-to-bl shadow" hx-target="this">
             @include('game.lobby.map-marker')
