@@ -93,6 +93,7 @@ class AuthenticationController extends Controller {
 
     private function updateUserAndAddRealm(User $user, int $realm_id):void {
         $user->country_code = Req::header('CF-IPCountry') ?? 'XX';
+        $user->logged_into_realm_id = $realm_id;
         $user->last_login_at = Carbon::now();
         $user->save();
         if ($user->achievement_refresh_needed) {

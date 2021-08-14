@@ -8,7 +8,7 @@
                 FROM realm_user ru
                 LEFT JOIN realm r ON r.id = ru.realm_id
                 WHERE ru.user_id = ?", [\App\Tools\Auth::$user_id]) as $realm)
-                <option value="{{$realm->id}}">{{$realm->realm_name}}</option>
+                <option value="{{$realm->id}}" {{$realm->id === \App\Tools\Auth::user()->logged_into_realm_id ? 'selected' : '' }}>{{$realm->realm_name}}</option>
             @endforeach
         </select>
     </label>

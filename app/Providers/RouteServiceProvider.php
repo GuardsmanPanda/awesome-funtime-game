@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Game;
+use Infrastructure\Game\PanoramaPicker;
 use Areas\System\AuthenticationController;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
@@ -26,7 +28,8 @@ class RouteServiceProvider extends ServiceProvider {
 
             Route::middleware('web')->group(function() {
                 Route::get('test', function () {
-                    return 'ok';
+                    $pciker = new PanoramaPicker(Game::find(66));
+                    return $pciker->pickPanorama();
                 });
             });
         });

@@ -172,7 +172,7 @@ class PanoramaPicker {
                 p.jpg_name IS NOT NULL AND p.extended_country_code IS NOT NULL
                 AND p3.panorama_id IS NULL AND c2.extended_country_code IS NULL
                 $extra_where
-            ORDER BY random() LIMIT 1
+            ORDER BY random() + CASE WHEN p.added_by_user_id IS NOT NULL THEN 0.015 ELSE 0 END  LIMIT 1
         ",  $param);
 
         if ($res !== null) {

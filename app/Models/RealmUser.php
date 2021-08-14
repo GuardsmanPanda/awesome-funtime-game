@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\AsArrayObject;
+use Illuminate\Database\Eloquent\Casts\ArrayObject;
 
 /**
  * AUTO GENERATED FILE DO NOT MODIFY
@@ -21,6 +23,8 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int user_id
  * @property int realm_id
+ * @property float elo_rating
+ * @property ArrayObject elo_rating_history
  *
  * AUTO GENERATED FILE DO NOT MODIFY
  */
@@ -31,6 +35,10 @@ class RealmUser extends Model {
     protected $keyType = 'string';
     public $incrementing = false;
     public $timestamps = false;
+
+    protected $casts = [
+        'elo_rating_history' => AsArrayObject::class,
+    ];
 
     protected $guarded = ['id','updated_at','created_at','deleted_at'];
 }

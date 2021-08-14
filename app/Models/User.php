@@ -22,13 +22,14 @@ use Carbon\Carbon;
  *
  * @property int id
  * @property int twitch_id
- * @property int language_id
  * @property int game_rank_1
  * @property int game_rank_2
  * @property int game_rank_3
+ * @property int language_id
  * @property int map_style_id
  * @property int map_marker_id
  * @property int game_rank_rank
+ * @property int logged_into_realm_id
  * @property bool is_admin
  * @property bool can_create_games
  * @property bool achievement_refresh_needed

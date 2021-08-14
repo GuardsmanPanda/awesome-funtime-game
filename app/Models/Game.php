@@ -28,6 +28,7 @@ use Carbon\Carbon;
  * @property int current_round_id
  * @property int created_by_user_id
  * @property bool is_queued
+ * @property bool elo_calculated
  * @property bool is_round_active
  * @property bool should_override_user_ready
  * @property Carbon ended_at
