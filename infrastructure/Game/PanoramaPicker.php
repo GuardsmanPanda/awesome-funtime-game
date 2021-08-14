@@ -55,11 +55,11 @@ class PanoramaPicker {
                 $country = $this->pickCountry($this->user_countries);
                 $pick_strategy = 'Player choice';
             }
-            if ($country === null && random_int(0, 100) < 35) {
+            if ($country === null && random_int(0, 100) < 30) {
                 $country = $this->pickCountry($this->tier_one);
                 $pick_strategy = 'Tier 1';
             }
-            if ($country === null && random_int(0, 100) < 22) {
+            if ($country === null && random_int(0, 100) < 20) {
                 $country = $this->pickCountry($this->tier_two);
                 $pick_strategy = 'Tier 2';
             }
@@ -127,7 +127,7 @@ class PanoramaPicker {
                 GROUP BY r.id
             ) p3 ON p3.panorama_id = p.panorama_id
             WHERE 
-                p.jpg_name IS NOT NULL AND p.extended_country_code IS NOT NULL
+                p.jpg_name IS NOT NULL AND p.extended_country_code IS NOT NULL AND p.extended_country_code != 'XX'
                 AND p3.panorama_id IS NULL AND c2.extended_country_code IS NULL 
                 $extra_where
             GROUP BY p.map_box
@@ -169,7 +169,7 @@ class PanoramaPicker {
                 GROUP BY r.id
             ) p3 ON p3.panorama_id = p.panorama_id
             WHERE 
-                p.jpg_name IS NOT NULL AND p.extended_country_code IS NOT NULL
+                p.jpg_name IS NOT NULL AND p.extended_country_code IS NOT NULL AND p.extended_country_code != 'XX'
                 AND p3.panorama_id IS NULL AND c2.extended_country_code IS NULL
                 $extra_where
             ORDER BY random() + CASE WHEN p.added_by_user_id IS NOT NULL THEN 0.015 ELSE 0 END  LIMIT 1
