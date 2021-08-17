@@ -10,6 +10,15 @@ use Illuminate\Support\Facades\DB;
 class PanoramaPicker {
     private array $tier_one = ['AT', 'BE', 'CH', 'DE', 'DK', 'EE', 'ES', 'FI', 'FR', 'GB-ENG', 'GB-SCT', 'GB-WLS', 'GR', 'IE', 'IT', 'LT', 'LV', 'NL', 'NO', 'PL', 'PT', 'SE', 'US'];
     private array $tier_two = ['AL', 'AU', 'BA', 'BG', 'BY', 'CA', 'CN', 'CZ', 'GB-NIR', 'GE', 'HR', 'JP', 'KR', 'LU', 'NZ', 'RS', 'RU', 'SI', 'SK', 'UA', 'VA', 'XK'];
+    private array $tier_filler = [
+        'CA', 'US', 'MX', 'CU',
+        'AR', 'CL', 'UY', 'BR', 'PY', 'PE', 'BO', 'EC', 'CO', 'VE',
+        'AU', 'NZ', 'ID', 'MY', 'BN', 'SG', 'PH',
+        'ZA', 'BW', 'KE', 'UG', 'NG', 'GH', 'SN', 'MA', 'TN', 'EG', 'ZM', 'ZW',
+        'RU', 'IN', 'MN', 'CN', 'JP', 'KR', 'TW', 'VN', 'LA', 'NP', 'BT', 'KH', 'TH', 'MM', 'BD', 'MO', 'HK',
+        'PK', 'KZ', 'IR', 'IQ', 'AE', 'KW', 'BH', 'QA', 'SA', 'JO', 'PS', 'IL', 'LB', 'TR', 'GE', 'AZ', 'AM',
+        'GL', 'IS', 'NO', 'SE', 'FI', 'FO', 'AX', 'ET', 'LV', 'EE', 'DK', 'GB-NIR', 'GB-ENG', 'GB-SCT', 'GB-WLS', 'IE', 'PT', 'ES', 'FR', 'LU', 'BE', 'NL', 'AD', 'MC', 'DE', 'CH', 'AT', 'CZ', 'SK', 'PL', 'LI', 'VA', 'BY', 'UA', 'MD', 'HU', 'RO', 'SI', 'HR', 'BA', 'ME', 'RS', 'BG', 'GR', 'AL', 'XK', 'MK',
+    ];
     private array $countries_used = ['XX'];
     private array $user_countries;
     private array $all_countries;
@@ -34,9 +43,24 @@ class PanoramaPicker {
             $this->user_countries[] = $t->country_code_4 ?? 'XX';
         }
         $this->user_country_chance = min($this->user_country_chance, 40);
+
+        $tmp = DB::select("
+            SELECT p.extended_country_code
+            FROM round r
+            LEFT JOIN game g on r.game_id = g.id
+            LEFT JOIN panorama p on r.panorama_id = p.panorama_id
+            WHERE g.realm_id = ?
+            ORDER BY r.created_at DESC LIMIT 70
+        ", [$this->game->realm_id]);
+        $tmp_delete = [];
+        foreach ($tmp as $tt) {
+            $tmp_delete[] = $tt->extended_country_code;
+        }
+        $this->tier_filler = array_filter($this->tier_filler, static function ($ele) use ($tmp_delete) {return !in_array($ele, $tmp_delete, true);});
         shuffle($this->user_countries);
         shuffle($this->tier_one);
         shuffle($this->tier_two);
+        shuffle($this->tier_filler);
         shuffle($this->all_countries);
         shuffle($this->eligible_users);
     }
@@ -55,13 +79,17 @@ class PanoramaPicker {
                 $country = $this->pickCountry($this->user_countries);
                 $pick_strategy = 'Player choice';
             }
-            if ($country === null && random_int(0, 100) < 30) {
+            if ($country === null && random_int(0, 100) < 20) {
                 $country = $this->pickCountry($this->tier_one);
                 $pick_strategy = 'Tier 1';
             }
-            if ($country === null && random_int(0, 100) < 20) {
+            if ($country === null && random_int(0, 100) < 15) {
                 $country = $this->pickCountry($this->tier_two);
                 $pick_strategy = 'Tier 2';
+            }
+            if ($country === null && random_int(0, 100) < 35) {
+                $country = $this->pickCountry($this->tier_filler);
+                $pick_strategy = 'Filler';
             }
             if ($country === null && random_int(0, 100) < 30) {
                 $user_id = array_pop($this->eligible_users);
