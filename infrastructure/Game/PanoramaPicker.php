@@ -24,6 +24,8 @@ class PanoramaPicker {
     private array $all_countries;
     private array $eligible_users;
     private float $user_country_chance = 0;
+    private int $tier_one_chance = 20;
+    private int $tier_two_chance = 15;
 
     public function __construct(private Game $game) {
         $this->all_countries = Country::pluck('country_code')->toArray();
@@ -50,12 +52,17 @@ class PanoramaPicker {
             LEFT JOIN game g on r.game_id = g.id
             LEFT JOIN panorama p on r.panorama_id = p.panorama_id
             WHERE g.realm_id = ?
-            ORDER BY r.created_at DESC LIMIT 70
+            ORDER BY r.created_at DESC LIMIT 80
         ", [$this->game->realm_id]);
         $tmp_delete = [];
         foreach ($tmp as $tt) {
             $tmp_delete[] = $tt->extended_country_code;
         }
+        if ($this->game->realm_id === 2) {
+            $this->tier_one_chance = 30;
+            $this->tier_two_chance = 25;
+        }
+
         $this->tier_filler = array_filter($this->tier_filler, static function ($ele) use ($tmp_delete) {return !in_array($ele, $tmp_delete, true);});
         shuffle($this->user_countries);
         shuffle($this->tier_one);
@@ -79,11 +86,11 @@ class PanoramaPicker {
                 $country = $this->pickCountry($this->user_countries);
                 $pick_strategy = 'Player choice';
             }
-            if ($country === null && random_int(0, 100) < 20) {
+            if ($country === null && random_int(0, 100) < $this->tier_one_chance) {
                 $country = $this->pickCountry($this->tier_one);
                 $pick_strategy = 'Tier 1';
             }
-            if ($country === null && random_int(0, 100) < 15) {
+            if ($country === null && random_int(0, 100) < $this->tier_two_chance) {
                 $country = $this->pickCountry($this->tier_two);
                 $pick_strategy = 'Tier 2';
             }
@@ -125,7 +132,6 @@ class PanoramaPicker {
         return $country;
     }
 
-    //TODO: increase bobs user delay to 30 days
     //TODO: allow repeats when a year has passed
     private function selectMapBox(string|null $extended_country_code, int|null $user_id = null): int {
         $param = [$this->game->id, $this->game->id];
