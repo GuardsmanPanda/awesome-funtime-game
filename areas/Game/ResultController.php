@@ -3,12 +3,16 @@
 namespace Areas\Game;
 
 use App\Tools\Auth;
+use App\Tools\Resp;
 use App\Models\Game;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
 
 class ResultController {
     public function index(Game $game): view {
+        if ($game->realm_id !== Auth::user()->logged_into_realm_id) {
+            Resp::hxRedirectAbort('/game', code: 403);
+        }
         return view('game.result.index', [
             'game' => $game,
 
@@ -37,6 +41,9 @@ class ResultController {
     }
 
     public function roundResult(int $game_id, int $round_id): view {
+        if ($game->realm_id !== Auth::user()->logged_into_realm_id) {
+            Resp::hxRedirectAbort('/game', code: 403);
+        }
         return view('game.result.round-details', [
             'round' => DB::selectOne("
                 SELECT 

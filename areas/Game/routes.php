@@ -20,7 +20,8 @@ Route::get('active', function () { return Resp::SQLJson("
         WHERE g.round_count != g.current_round AND (ru.user_id IS NOT NULL OR r.id = 1)
         ORDER BY u.display_name", [Auth::$user_id]);
 });
-Route::get('recent', function () { return Resp::SQLJson("
+Route::get('recent', function () {
+    return Resp::SQLJson("
         SELECT g.id, g.round_count, u.display_name, g.ended_at,
                (SELECT COUNT(*) FROM game_user WHERE game_id = g.id) as player_count
         FROM game g
