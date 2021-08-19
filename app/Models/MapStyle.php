@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use  Illuminate\Database\Query\Builder;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -10,14 +10,16 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @method static MapStyle find(int $id, array $columns = ['*'])
  * @method static MapStyle findOrFail(int $id, array $columns = ['*'])
- * @method static MapStyle firstOrCreate(array $filter, array $values)
+ * @method static MapStyle findOrNew(int $id, array $columns = ['*'])
  * @method static MapStyle create(array $values)
+ * @method static MapStyle firstOrCreate(array $filter, array $values)
  * @method static MapStyle firstWhere(string $column, string $operator = null, string $value = null, string $boolean = 'and')
- * @method static Builder where(string $column, string $operator = null, string $value = null, string $boolean = 'and')
- * @method static Builder whereIn(string $column, $values, $boolean = 'and', $not = false)
- * @method static Builder whereNotNull(string|array $columns, bool $boolean = 'and')
- * @method static Builder orderBy(string $column, string $direction = 'asc')
- * @method static Builder with(array|string  $relations)
+ * @method static Builder|MapStyle lockForUpdate()
+ * @method static Builder|MapStyle where(string $column, string $operator = null, string $value = null, string $boolean = 'and')
+ * @method static Builder|MapStyle whereIn(string $column, $values, $boolean = 'and', $not = false)
+ * @method static Builder|MapStyle whereNotNull(string|array $columns, bool $boolean = 'and')
+ * @method static Builder|MapStyle orderBy(string $column, string $direction = 'asc')
+ * @method static Builder|MapStyle with(array|string  $relations)
  *
  * @property int id
  * @property string preview_img
@@ -28,7 +30,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class MapStyle extends Model {
     protected $table = 'map_style';
-    protected $dateFormat = 'Y-m-d H:i:s P';
+    protected $dateFormat = 'Y-m-d H:i:sO';
     public $timestamps = false;
 
     protected $guarded = ['id','updated_at','created_at','deleted_at'];

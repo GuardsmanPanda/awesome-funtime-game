@@ -124,23 +124,6 @@ class Translate extends Command {
         }
     }
 
-    #[ArrayShape(['currency' => "array", 'language' => "array", 'country' => "array"])]
-    private function getDBTranslations(): array {
-        $res = [
-            'currency' => [],
-            'language' => [],
-            'country' => [],
-        ];
-        foreach (Language::all('language_name') as $lang) {
-            $res['language'][] = $lang->language_name;
-        }
-        foreach (Country::all(['country_name', 'currency_name']) as $country) {
-            $res['currency'][] = $country->currency_name;
-            $res['country'][] = $country->country_name;
-        }
-        return $res;
-    }
-
     private function getExtraWordsToTranslate(): array {
         $res = [];
         foreach (DB::select("SELECT map_style_name FROM map_style") as $map) {

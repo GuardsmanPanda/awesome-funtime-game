@@ -5,7 +5,6 @@ use App\Tools\Resp;
 use Areas\Game\PlayController;
 use Areas\Game\LobbyController;
 use Areas\Game\ResultController;
-use Illuminate\Support\Facades\DB;
 use Areas\Game\DashboardController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,10 +14,8 @@ Route::get('active', function () { return Resp::SQLJson("
                (SELECT COUNT(*) FROM game_user WHERE game_id = g.id) as player_count
         FROM game g
         LEFT JOIN users u ON u.id = g.created_by_user_id
-        LEFT JOIN realm r ON r.id = g.realm_id
-        LEFT JOIN realm_user ru ON ru.realm_id = r.id AND ru.user_id = ?
-        WHERE g.round_count != g.current_round AND (ru.user_id IS NOT NULL OR r.id = 1)
-        ORDER BY u.display_name", [Auth::$user_id]);
+        WHERE g.round_count != g.current_round AND g.realm_id = ?
+        ORDER BY u.display_name", [Auth::user()->logged_into_realm_id]);
 });
 Route::get('recent', function () {
     return Resp::SQLJson("
@@ -26,10 +23,8 @@ Route::get('recent', function () {
                (SELECT COUNT(*) FROM game_user WHERE game_id = g.id) as player_count
         FROM game g
         LEFT JOIN users u ON u.id = g.created_by_user_id
-        LEFT JOIN realm r ON r.id = g.realm_id
-        LEFT JOIN realm_user ru ON ru.realm_id = r.id AND ru.user_id = ?
-        WHERE g.ended_at IS NOT NULL AND (ru.user_id IS NOT NULL OR r.id = 1)
-        ORDER BY g.ended_at DESC LIMIT 6", [Auth::$user_id]);
+        WHERE g.ended_at IS NOT NULL AND g.realm_id = ?
+        ORDER BY g.ended_at DESC LIMIT 6", [Auth::user()->logged_into_realm_id]);
 });
 
 Route::view('create/form', 'game.dashboard.create-game-form');
