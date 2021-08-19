@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class ResultController {
     public function index(Game $game): view {
-        if ($game->realm_id !== Auth::user()->logged_into_realm_id) {
+        if ($game->realm_id !== (Auth::user()?->logged_into_realm_id ?? 1)) {
             Resp::hxRedirectAbort('/game', code: 403);
         }
         return view('game.result.index', [
@@ -41,7 +41,8 @@ class ResultController {
     }
 
     public function roundResult(int $game_id, int $round_id): view {
-        if ($game->realm_id !== Auth::user()->logged_into_realm_id) {
+        $game = Game::find($game_id);
+        if ($game->realm_id !==  (Auth::user()?->logged_into_realm_id ?? 1)) {
             Resp::hxRedirectAbort('/game', code: 403);
         }
         return view('game.result.round-details', [

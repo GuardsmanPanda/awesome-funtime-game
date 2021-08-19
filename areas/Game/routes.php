@@ -15,7 +15,7 @@ Route::get('active', function () { return Resp::SQLJson("
         FROM game g
         LEFT JOIN users u ON u.id = g.created_by_user_id
         WHERE g.round_count != g.current_round AND g.realm_id = ?
-        ORDER BY u.display_name", [Auth::user()->logged_into_realm_id]);
+        ORDER BY u.display_name", [Auth::user()?->logged_into_realm_id ?? 1]);
 });
 Route::get('recent', function () {
     return Resp::SQLJson("
@@ -24,7 +24,7 @@ Route::get('recent', function () {
         FROM game g
         LEFT JOIN users u ON u.id = g.created_by_user_id
         WHERE g.ended_at IS NOT NULL AND g.realm_id = ?
-        ORDER BY g.ended_at DESC LIMIT 6", [Auth::user()->logged_into_realm_id]);
+        ORDER BY g.ended_at DESC LIMIT 6", [Auth::user()?->logged_into_realm_id ?? 1]);
 });
 
 Route::view('create/form', 'game.dashboard.create-game-form');
