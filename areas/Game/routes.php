@@ -9,23 +9,8 @@ use Areas\Game\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('', [DashboardController::class, 'index']);
-Route::get('active', function () { return Resp::SQLJson("
-        SELECT g.id, g.round_count, g.round_time, g.current_round, u.display_name,
-               (SELECT COUNT(*) FROM game_user WHERE game_id = g.id) as player_count
-        FROM game g
-        LEFT JOIN users u ON u.id = g.created_by_user_id
-        WHERE g.round_count != g.current_round AND g.realm_id = ?
-        ORDER BY u.display_name", [Auth::user()?->logged_into_realm_id ?? 1]);
-});
-Route::get('recent', function () {
-    return Resp::SQLJson("
-        SELECT g.id, g.round_count, u.display_name, g.ended_at,
-               (SELECT COUNT(*) FROM game_user WHERE game_id = g.id) as player_count
-        FROM game g
-        LEFT JOIN users u ON u.id = g.created_by_user_id
-        WHERE g.ended_at IS NOT NULL AND g.realm_id = ?
-        ORDER BY g.ended_at DESC LIMIT 6", [Auth::user()?->logged_into_realm_id ?? 1]);
-});
+Route::get('active', [DashboardController::class, 'active']);
+Route::get('recent', [DashboardController::class, 'recent']);
 
 Route::view('create/form', 'game.dashboard.create-game-form');
 Route::post('create', [DashboardController::class, 'create']);
