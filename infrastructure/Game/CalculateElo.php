@@ -38,7 +38,7 @@ class CalculateElo {
         foreach ($this->players as $i => $iValue) {
             $curPlace = $iValue->place;
             $curELO = $iValue->eloPre;
-
+            $change = 0.0;
             foreach ($this->players as $j => $jValue) {
                 if ($i !== $j) {
                     $opponentPlace = $jValue->place;
@@ -60,10 +60,11 @@ class CalculateElo {
 
                     //calculate ELO change vs this one opponent, add it to our change bucket
                     //I currently round at this point, this keeps rounding changes symetrical between EA and EB, but changes K more than it should
-                    $iValue->eloChange += round($K * ($S - $EA));
+                    $change += $K * ($S - $EA);
                 }
             }
             //add accumulated change to initial ELO for final ELO
+            $iValue->eloChange = (int)round($change);
             $iValue->eloPost = $iValue->eloPre + $iValue->eloChange;
         }
     }
