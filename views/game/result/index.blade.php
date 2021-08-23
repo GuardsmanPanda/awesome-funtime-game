@@ -26,7 +26,7 @@
                 @endforeach
             </div>
         </x-content-raw>
-        <x-content-raw title="{{t('Active Games')}}" icon="users">
+        <x-content-raw title="{{t('Active games')}}" icon="users">
             <div id="active-games"></div>
         </x-content-raw>
     </div>

@@ -11,6 +11,7 @@ use Illuminate\Console\Command;
 use RecursiveDirectoryIterator;
 use Illuminate\Support\Facades\DB;
 use JetBrains\PhpStorm\ArrayShape;
+use Integrations\Translate\GoogleCloudTranslation;
 
 class GenerateTranslations extends Command {
     protected $signature = 'zz:translations';
@@ -65,6 +66,19 @@ class GenerateTranslations extends Command {
         $languages = Language::where('has_translation', '=', true)->get();
         foreach ($languages as $lang) {
             $this->info('Processing ' . $lang->language_name);
+            $phrases = Translation::where('in_use', '=', true)->get();
+            foreach ($phrases as $phrase) {
+                $test = DB::selectOne("SELECT tl.translation_id FROM translation_language tl WHERE tl.translation_id = ? AND tl.language_id = ?", [$phrase->id, $lang->id]);
+                if ($test === null) {
+                    $translated = GoogleCloudTranslation::translate($phrase->translation_phrase, $lang->translation_code);
+                    $group_info = $phrase->translation_group !== null ? '['. $phrase->translation_group .'] ' : '';
+                    $this->info($group_info . $phrase->translation_phrase . ' -> ' . $translated);
+                    DB::insert("
+                        INSERT INTO translation_language (translation_id, language_id, translated_phrase )
+                        VALUES (?, ?, ?)
+                    ", [$phrase->id, $lang->id, $translated]);
+                }
+            }
         }
     }
 

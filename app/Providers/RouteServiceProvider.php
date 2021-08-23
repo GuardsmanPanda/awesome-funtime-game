@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Game;
 use Infrastructure\Game\PanoramaPicker;
+use Infrastructure\Game\RatingCalculator;
 use Areas\System\AuthenticationController;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
@@ -28,6 +29,7 @@ class RouteServiceProvider extends ServiceProvider {
 
             Route::middleware('web')->group(function() {
                 Route::get('test', function () {
+                    RatingCalculator::calculate(2);
                     $pciker = new PanoramaPicker(Game::find(66));
                     $arr = [];
                     for ($i = 0; $i < 20; $i++) $arr[] = $pciker->pickPanorama();

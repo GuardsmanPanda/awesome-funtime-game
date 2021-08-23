@@ -12,10 +12,13 @@ class GoogleCloudTranslation {
         return self::query('/languages');
     }
 
-    public static function translate(string $text, string $target): string {
+    public static function translate(string $text, string $target, string $source = 'en'): string {
+        if ($target === $source) {
+            return $text;
+        }
         $resp = self::post('',  [
             'format' => 'text',
-            'source' => 'en',
+            'source' => $source,
             'target' =>$target,
             'q' => $text,
         ]);

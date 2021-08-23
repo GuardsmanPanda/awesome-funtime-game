@@ -7,6 +7,7 @@ use App\Models\Game;
 use App\Models\Round;
 use Illuminate\Support\Facades\DB;
 use Infrastructure\Game\ScoreCalculator;
+use Infrastructure\Game\RatingCalculator;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Bus\Queueable;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -68,6 +69,8 @@ class RunGameJob implements ShouldQueue {
         $game->is_queued = false;
         $game->save();
 
+        //REALM RATING UPDATE
+        RatingCalculator::calculate($game->realm_id);
 
         // ACHIEVEMENT UPDATES
         DB::update("

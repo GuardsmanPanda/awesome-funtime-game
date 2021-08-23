@@ -9,6 +9,7 @@ use App\Commands\LocationSearch;
 use App\Commands\ImportPanoramas;
 use Illuminate\Support\Facades\DB;
 use App\Commands\UpdateAchievements;
+use App\Commands\DeployTranslations;
 use App\Commands\GenerateTranslations;
 use Illuminate\Support\Facades\Artisan;
 use Integrations\Streetview\Streetview;
@@ -23,6 +24,7 @@ class ConsoleKernel extends Kernel {
      * @var array
      */
     protected $commands = [
+        DeployTranslations::class,
         GenerateModels::class,
         GenerateTranslations::class,
         ImportPanoramas::class,

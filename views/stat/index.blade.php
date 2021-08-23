@@ -34,11 +34,11 @@
             {
                 title:"{{t('Votes')}}", columns: [
                     {title: "{{t('Wow')}}", field: "wow", sorter:"number", hozAlign:"right"},
-                    {title: "{{t('%')}}", field: "wow_percent", sorter:"number", hozAlign:"right"},
+                    {title: "%", field: "wow_percent", sorter:"number", hozAlign:"right"},
                     {title: "{{t('Great')}}", field: "great", sorter:"number", hozAlign:"right"},
-                    {title: "{{t('%')}}", field: "great_percent", sorter:"number", hozAlign:"right"},
+                    {title: "%", field: "great_percent", sorter:"number", hozAlign:"right"},
                     {title: "{{t('Good')}}", field: "good", sorter:"number", hozAlign:"right"},
-                    {title: "{{t('%')}}", field: "good_percent", sorter:"number", hozAlign:"right"},
+                    {title: "%", field: "good_percent", sorter:"number", hozAlign:"right"},
                     {title: "{{t('Total')}}", field: "total", sorter:"number", hozAlign:"right"},
                     {title: "{{t('Good or better')}}", field: "good_or_better_percent", sorter:"number", hozAlign:"right", formatter:"progress"},
                 ]
