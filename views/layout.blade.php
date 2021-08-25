@@ -172,6 +172,9 @@
         <div class="pt-10 bg-gray-100 flex justify-center pb-4">
             <div class="bg-gray-800 flex gap-4 px-4 py-2 rounded-b-md shadow-lg" hx-boost="true" hx-target="#primary">
                 <a href="/contribute/panorama" class="small-button-blue">Panoramas</a>
+                @if(\App\Tools\Auth::has_permission('contribute'))
+                    <a href="/contribute/translation" class="small-button-blue">Translation</a>
+                @endif
             </div>
         </div>
         <div id="primary" {!!$primary_hx!!} hx-trigger="load" class="px-4"></div>

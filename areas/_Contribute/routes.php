@@ -6,21 +6,26 @@ use App\Tools\Resp;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Integrations\Streetview\Streetview;
+use Areas\_Contribute\TranslationController;
 
 Route::middleware('permission:contribute')->group(function () {
     Route::view('', '_contribute.index');
 
-    Route::middleware('permission:contribute-panorama')->group(function () {
-        Route::view('panorama', '_contribute.panorama');
-        Route::post('panorama', function () {
+    Route::prefix('panorama')->middleware('permission:contribute-panorama')->group(function () {
+        Route::view('', '_contribute.panorama');
+        Route::post('', function () {
             return Streetview::findNearbyPanorama(Req::input('lat'), Req::input('lng'),Req::input('curated') ?? false, 15);
         });
-        Route::get('panorama/list', function () {
+        Route::get('list', function () {
             return Resp::SQLJson("
             SELECT ST_Y(p.panorama_location::geometry) as lat, ST_X(p.panorama_location::geometry) as lng
             FROM panorama p WHERE added_by_user_id IS NOT NULL
         ");
         });
+    });
+
+    Route::prefix('translation')->middleware('permission:contribute-translation')->group(function () {
+        Route::get('', [TranslationController::class, 'index']);
     });
 });
 
