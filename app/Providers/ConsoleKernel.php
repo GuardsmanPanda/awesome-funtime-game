@@ -29,7 +29,6 @@ class ConsoleKernel extends Kernel {
         GenerateTranslations::class,
         ImportPanoramas::class,
         LocationSearch::class,
-        Translate::class,
         UpdateAchievements::class,
         UpdateLocationInformation::class,
         UpdateRanks::class,

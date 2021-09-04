@@ -25,6 +25,8 @@ class GenerateTranslations extends Command {
     }
 
     public function handle(): void {
+        DB::update("UPDATE translation SET in_use = false WHERE in_use");
+
         $this->info('Finding phrases');
         $need_translate = $this->getExtraWordsToTranslate();
         foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->view_dir, FilesystemIterator::SKIP_DOTS | FilesystemIterator::CURRENT_AS_PATHNAME)) as $x) {

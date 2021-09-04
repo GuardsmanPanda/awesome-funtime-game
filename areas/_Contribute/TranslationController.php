@@ -2,16 +2,37 @@
 
 namespace Areas\_Contribute;
 
+use App\Tools\Resp;
+use App\Models\Language;
 use Illuminate\View\View;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class TranslationController extends Controller {
     public function index(): View {
         return view('_contribute.translation.index', [
             'languages' => DB::select("
-                SELECT la.id, la.language_name FROM language la WHERE la.has_translation AND la.language_name != 'English'            
+                SELECT la.id, la.language_name FROM language la WHERE la.has_translation AND la.language_name != 'English'
             "),
         ]);
+    }
+
+    public function language(Language $language): View {
+        return view('_contribute.translation.language', [
+            'lang' => $language,
+        ]);
+    }
+
+    public function languageList(Language $language): JsonResponse {
+        return Resp::SQLJson("
+            SELECT
+                t.id, t.translation_phrase, COALESCE(t.translation_hint, t.translation_group) as translation_hint,
+                t.translation_group,
+                tl.translated_phrase, tl.translation_status
+            FROM translation t
+            LEFT JOIN translation_language tl on tl.translation_id = t.id AND tl.language_id = ?
+            WHERE in_use
+        ", [$language->id]);
     }
 }

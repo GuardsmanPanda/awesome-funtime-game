@@ -8,7 +8,7 @@
         height: "600px",
         layout:"fitDataStretch",
         cellVertAlign: "middle",
-        cellEdited:function(cell){
+        cellEdited:function(cell) {
             fetch('/admin/language', {
                 method:'PATCH',
                 headers: {

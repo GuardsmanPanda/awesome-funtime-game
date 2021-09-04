@@ -20,7 +20,7 @@ class PanoramaPicker {
         'GL', 'IS', 'NO', 'SE', 'FI', 'FO', 'AX', 'ET', 'LV', 'EE', 'DK', 'GB-NIR', 'GB-ENG', 'GB-SCT', 'GB-WLS', 'IE', 'PT', 'ES', 'FR', 'LU', 'BE', 'NL', 'AD', 'MC', 'DE', 'CH', 'AT', 'CZ', 'SK', 'PL', 'LI', 'VA', 'BY', 'UA', 'MD', 'HU', 'RO', 'SI', 'HR', 'BA', 'ME', 'RS', 'BG', 'GR', 'AL', 'XK', 'MK',
     ];
     private array $countries_used = ['XX'];
-    private array $user_countries;
+    private array $user_countries = ['XX'];
     private array $all_countries;
     private array $eligible_users;
     private float $user_country_chance = 0;

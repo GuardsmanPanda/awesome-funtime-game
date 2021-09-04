@@ -26,6 +26,8 @@ Route::middleware('permission:contribute')->group(function () {
 
     Route::prefix('translation')->middleware('permission:contribute-translation')->group(function () {
         Route::get('', [TranslationController::class, 'index']);
+        Route::get('language/{language}', [TranslationController::class, 'language']);
+        Route::get('language/{language}/list', [TranslationController::class, 'languageList']);
     });
 });
 
