@@ -2,9 +2,11 @@
 
 namespace Areas\_Contribute;
 
+use App\Tools\Req;
 use App\Tools\Resp;
 use App\Models\Language;
 use Illuminate\View\View;
+use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -34,5 +36,13 @@ class TranslationController extends Controller {
             LEFT JOIN translation_language tl on tl.translation_id = t.id AND tl.language_id = ?
             WHERE in_use
         ", [$language->id]);
+    }
+
+    public function patchTranslation(int $language_id, int $translation_id): Response {
+        DB::update("
+            UPDATE translation_language SET translated_phrase = ?, translation_status = 'VERIFIED'
+            WHERE language_id = ? AND translation_id = ?
+        ", [Req::input('translated_phrase'), $language_id, $translation_id]);
+        return new Response(status: 204);
     }
 }

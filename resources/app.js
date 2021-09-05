@@ -33,3 +33,31 @@ htmx.on('htmx:afterRequest', function (event) {
 window.df = function (date, format) {
     return luxon.DateTime.fromISO(date).toFormat(format);
 }
+
+
+window.editFn = function(cell, url) {
+    fetch(url + cell.getRow().getData()[cell.getTable().options.index], {
+        method:'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({[cell.getColumn().getField()]: cell.getValue()}),
+    }).then(response => response.status === 204 ? response.text() : response.json())
+        .then(data => {
+            if (data) {
+                cell.getTable().replaceData(data).then(function () {
+                    //TODO: report successful change
+                })
+            } else {
+                cell.getTable().replaceData().then(function () {
+                    //TODO: report successful change
+                })
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            cell.getTable().replaceData().then(function () {
+                //TODO: report error
+            });
+        });
+}

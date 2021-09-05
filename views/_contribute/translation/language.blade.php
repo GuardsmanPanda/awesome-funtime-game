@@ -2,39 +2,22 @@
 <div id="translation-table"></div>
 
 <script>
-    let editFn = function(cell, url) {
-        console.dir(cell);
-        //fetch(url, {
-        //    method:'PATCH',
-        //    headers: {
-        //        'Content-Type': 'application/json',
-        //    },
-        //    body: JSON.stringify(cell.getData()),
-        //}).then(response => response.json())
-        //    .then(data => {
-        //        table.replaceData(data);
-        //    })
-        //    .catch((error) => {
-        //        console.error('Error:', error);
-        //        table.replaceData(data);
-        //    });
-    }
-
     const table = new Tabulator('#translation-table', {
         ajaxURL: "/contribute/translation/language/{{$lang->id}}/list",
         height: "800px",
         layout:"fitDataStretch",
+        responsiveLayout:true,
         cellVertAlign: "middle",
-        cellEdited: (cell) => editFn(cell, '/test7'),
+        cellEdited: (cell) => editFn(cell, '/contribute/translation/language/{{$lang->id}}/'),
         initialSort:[
             {column:"translation_phrase", dir:"asc"},
         ],
         groupBy:"translation_group",
         columns: [
-            {title: "ID", field: "id"},
+            {title: "ID", field: "id", width: 30},
             {title: "Translation Phrase", field: "translation_phrase"},
             {title: "Hint", field: "translation_hint"},
-            {title: "Translated Phrase", field: "translated_phrase"},
+            {title: "Translated Phrase", field: "translated_phrase", editor:"input"},
         ]
     })
 </script>

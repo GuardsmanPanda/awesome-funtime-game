@@ -5,5 +5,5 @@
             <button hx-get="/contribute/translation/language/{{$lang->id}}" class="hover:scale-105 transform duration-50">{{$lang->language_name}}</button>
         @endforeach
     </div>
-    <div id="translation-editor" class="flex-grow">Select a language</div>
+    <div id="translation-editor" class="flex-grow flex-shrink">Select a language</div>
 </div>
