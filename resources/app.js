@@ -35,29 +35,42 @@ window.df = function (date, format) {
 }
 
 
-window.editFn = function(cell, url) {
-    fetch(url + cell.getRow().getData()[cell.getTable().options.index], {
+
+const patchAndReplace = function (url, content, table) {
+    fetch(url, {
         method:'PATCH',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({[cell.getColumn().getField()]: cell.getValue()}),
+        body:  JSON.stringify(content),
     }).then(response => response.status === 204 ? response.text() : response.json())
         .then(data => {
             if (data) {
-                cell.getTable().replaceData(data).then(function () {
+                table.replaceData(data).then(function () {
                     //TODO: report successful change
                 })
             } else {
-                cell.getTable().replaceData().then(function () {
+                table.replaceData().then(function () {
                     //TODO: report successful change
                 })
             }
         })
         .catch((error) => {
             console.error('Error:', error);
-            cell.getTable().replaceData().then(function () {
+            table.replaceData().then(function () {
                 //TODO: report error
             });
         });
+}
+
+window.editFn = function(cell, url) {
+    patchAndReplace(url + cell.getRow().getData()[cell.getTable().options.index],{[cell.getColumn().getField()]: cell.getValue()}, cell.getTable())
+}
+
+window.updateButton = function (cell, url, key, value, bgColor) {
+    const ele = document.createElement("button");
+    ele.innerText = cell.getColumn().getDefinition().title;
+    ele.classList.add(bgColor, "small-scale-button");
+    ele.onclick = () => patchAndReplace(url + cell.getRow().getData()[cell.getTable().options.index], {[key]: value}, cell.getTable())
+    return ele;
 }

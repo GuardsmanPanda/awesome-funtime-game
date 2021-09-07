@@ -39,10 +39,18 @@ class TranslationController extends Controller {
     }
 
     public function patchTranslation(int $language_id, int $translation_id): Response {
-        DB::update("
+        if (Req::input('translated_phrase') !== null) {
+            DB::update("
             UPDATE translation_language SET translated_phrase = ?, translation_status = 'VERIFIED'
             WHERE language_id = ? AND translation_id = ?
         ", [Req::input('translated_phrase'), $language_id, $translation_id]);
+        }
+       if (Req::input('translation_status') !== null) {
+            DB::update("
+            UPDATE translation_language SET translation_status = ?
+            WHERE language_id = ? AND translation_id = ?
+        ", [Req::input('translation_status'), $language_id, $translation_id]);
+        }
         return new Response(status: 204);
     }
 }

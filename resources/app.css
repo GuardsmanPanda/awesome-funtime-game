@@ -16,6 +16,9 @@
     @apply bg-red-600 px-1.5 rounded shadow py-0.5 text-sm text-gray-100 duration-50 hover:scale-105 hover:shadow-xl transform;
 }
 
+.small-scale-button {
+    @apply px-1.5 rounded shadow py-0.5 text-sm text-gray-50 duration-50 hover:scale-105 hover:shadow-xl transform;
+}
 
 .small-button-orange {
     @apply bg-orange-200 hover:bg-orange-400 px-2 rounded shadow py-0.5 text-sm;

@@ -14,9 +14,12 @@
         ],
         groupBy:"translation_group",
         columns: [
-            {title: "ID", field: "id", width: 30},
-            {title: "Translation Phrase", field: "translation_phrase"},
+            {title: "Translation Phrase", field: "translation_phrase", width: 400},
             {title: "Hint", field: "translation_hint"},
+            {title: "Status", field: "translation_status"},
+            {title: "Verify", field: "translation_status", headerSort:false, formatter: c => c.getValue() === 'VERIFIED' ?   '' : updateButton(c, '/contribute/translation/language/{{$lang->id}}/', 'translation_status', 'VERIFIED', 'bg-green-700') },
+            {title: "Unverify", field: "translation_status", headerSort:false, formatter: c => c.getValue() === 'UNVERIFIED' ?   '' : updateButton(c, '/contribute/translation/language/{{$lang->id}}/', 'translation_status', 'UNVERIFIED',  'bg-gray-500') },
+            {title: "Ambiguous", field: "translation_status", headerSort:false, formatter: c => c.getValue() === 'AMBIGUOUS' ?   '' : updateButton(c, '/contribute/translation/language/{{$lang->id}}/', 'translation_status', 'AMBIGUOUS',  'bg-blue-700') },
             {title: "Translated Phrase", field: "translated_phrase", editor:"input"},
         ]
     })
