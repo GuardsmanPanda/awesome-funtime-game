@@ -19,13 +19,14 @@ use Illuminate\Database\Eloquent\Casts\ArrayObject;
  * @method static Builder|RealmUser lockForUpdate()
  * @method static Builder|RealmUser where(string $column, string $operator = null, string $value = null, string $boolean = 'and')
  * @method static Builder|RealmUser whereIn(string $column, $values, $boolean = 'and', $not = false)
+ * @method static Builder|RealmUser whereNull(string|array $columns, bool $boolean = 'and')
  * @method static Builder|RealmUser whereNotNull(string|array $columns, bool $boolean = 'and')
  * @method static Builder|RealmUser orderBy(string $column, string $direction = 'asc')
  * @method static Builder|RealmUser with(array|string  $relations)
  *
  * @property int user_id
  * @property int realm_id
- * @property float elo_rating
+ * @property int elo_rating
  * @property ArrayObject elo_rating_history
  *
  * AUTO GENERATED FILE DO NOT MODIFY

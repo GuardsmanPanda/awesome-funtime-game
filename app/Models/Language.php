@@ -18,6 +18,7 @@ use Carbon\CarbonInterface;
  * @method static Builder|Language lockForUpdate()
  * @method static Builder|Language where(string $column, string $operator = null, string $value = null, string $boolean = 'and')
  * @method static Builder|Language whereIn(string $column, $values, $boolean = 'and', $not = false)
+ * @method static Builder|Language whereNull(string|array $columns, bool $boolean = 'and')
  * @method static Builder|Language whereNotNull(string|array $columns, bool $boolean = 'and')
  * @method static Builder|Language orderBy(string $column, string $direction = 'asc')
  * @method static Builder|Language with(array|string  $relations)

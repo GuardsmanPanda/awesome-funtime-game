@@ -18,6 +18,7 @@ use Carbon\CarbonInterface;
  * @method static Builder|PanoramaRating lockForUpdate()
  * @method static Builder|PanoramaRating where(string $column, string $operator = null, string $value = null, string $boolean = 'and')
  * @method static Builder|PanoramaRating whereIn(string $column, $values, $boolean = 'and', $not = false)
+ * @method static Builder|PanoramaRating whereNull(string|array $columns, bool $boolean = 'and')
  * @method static Builder|PanoramaRating whereNotNull(string|array $columns, bool $boolean = 'and')
  * @method static Builder|PanoramaRating orderBy(string $column, string $direction = 'asc')
  * @method static Builder|PanoramaRating with(array|string  $relations)

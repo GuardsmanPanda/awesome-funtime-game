@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static Builder|Marker lockForUpdate()
  * @method static Builder|Marker where(string $column, string $operator = null, string $value = null, string $boolean = 'and')
  * @method static Builder|Marker whereIn(string $column, $values, $boolean = 'and', $not = false)
+ * @method static Builder|Marker whereNull(string|array $columns, bool $boolean = 'and')
  * @method static Builder|Marker whereNotNull(string|array $columns, bool $boolean = 'and')
  * @method static Builder|Marker orderBy(string $column, string $direction = 'asc')
  * @method static Builder|Marker with(array|string  $relations)

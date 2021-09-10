@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Casts\ArrayObject;
  * @method static Builder|AchievementUser lockForUpdate()
  * @method static Builder|AchievementUser where(string $column, string $operator = null, string $value = null, string $boolean = 'and')
  * @method static Builder|AchievementUser whereIn(string $column, $values, $boolean = 'and', $not = false)
+ * @method static Builder|AchievementUser whereNull(string|array $columns, bool $boolean = 'and')
  * @method static Builder|AchievementUser whereNotNull(string|array $columns, bool $boolean = 'and')
  * @method static Builder|AchievementUser orderBy(string $column, string $direction = 'asc')
  * @method static Builder|AchievementUser with(array|string  $relations)

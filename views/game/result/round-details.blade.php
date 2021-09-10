@@ -20,10 +20,10 @@
                         <span>{{t('Bad')}}</span><br><span class="opacity-70">{{t('Remove')}}</span>
                     </button>
                     <button hx-post="/contribute/rate/{{$round->panorama_id}}/3" class="font-bold py-2 px-3 bg-orange-700 rounded transform hover:scale-105 w-24 shadow-md hover:rotate-3 duration-50">
-                        <span>{{t('Poor')}}</span><br><span class="opacity-70">{{t('Lacking')}}</span>
+                        <span>{{t('Poor#quality')}}</span><br><span class="opacity-70">{{t('Lacking')}}</span>
                     </button>
                     <button hx-post="/contribute/rate/{{$round->panorama_id}}/4" class="font-bold py-2 px-3 bg-amber-700 rounded transform hover:scale-105 w-24 shadow-md duration-50">
-                        <span>{{t('Decent')}}</span><br><span class="opacity-70">{{t('Unsure')}}</span>
+                        <span>{{t('Average')}}</span><br><span class="opacity-70">{{t('Unsure')}}</span>
                     </button>
                     <button hx-post="/contribute/rate/{{$round->panorama_id}}/5" class="font-bold py-2 px-3 bg-yellow-700 rounded transform hover:scale-105 w-24 shadow-md hover:-rotate-3 duration-50">
                         <span>{{t('Good')}}</span><br><span class="opacity-70">{{t('Keep')}}</span>

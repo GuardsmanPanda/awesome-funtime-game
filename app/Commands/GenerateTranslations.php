@@ -37,11 +37,22 @@ class GenerateTranslations extends Command {
         }
         $need_translate = array_unique($need_translate);
         $this->info('Adding phrases');
-        foreach ($need_translate as $word) {
-            $tr = Translation::firstWhere('translation_phrase', '=', $word);
+        foreach ($need_translate as $words) {
+            $arr = explode('#', $words);
+            $word = $arr[0];
+            if (count($arr) === 2) {
+                $tr = Translation::where('translation_hint', '=', $arr[1])->firstWhere('translation_phrase', '=', $word);
+            } else {
+                $tr = Translation::firstWhere('translation_phrase', '=', $word);
+                $trnn = Translation::whereNotNull('translation_hint')->firstWhere('translation_phrase', '=', $word);
+                if ($trnn !== null) {
+                    $this->warn("Using translation [$word] without hint");
+                }
+            }
             if ($tr === null) {
                 $tr = new Translation();
                 $tr->translation_phrase = $word;
+                $tr->translation_hint = $arr[1] ?? null;
             }
             $tr->in_use = true;
             $tr->save();

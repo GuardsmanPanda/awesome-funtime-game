@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static Builder|LocationCities500 lockForUpdate()
  * @method static Builder|LocationCities500 where(string $column, string $operator = null, string $value = null, string $boolean = 'and')
  * @method static Builder|LocationCities500 whereIn(string $column, $values, $boolean = 'and', $not = false)
+ * @method static Builder|LocationCities500 whereNull(string|array $columns, bool $boolean = 'and')
  * @method static Builder|LocationCities500 whereNotNull(string|array $columns, bool $boolean = 'and')
  * @method static Builder|LocationCities500 orderBy(string $column, string $direction = 'asc')
  * @method static Builder|LocationCities500 with(array|string  $relations)

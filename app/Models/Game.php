@@ -18,6 +18,7 @@ use Carbon\CarbonInterface;
  * @method static Builder|Game lockForUpdate()
  * @method static Builder|Game where(string $column, string $operator = null, string $value = null, string $boolean = 'and')
  * @method static Builder|Game whereIn(string $column, $values, $boolean = 'and', $not = false)
+ * @method static Builder|Game whereNull(string|array $columns, bool $boolean = 'and')
  * @method static Builder|Game whereNotNull(string|array $columns, bool $boolean = 'and')
  * @method static Builder|Game orderBy(string $column, string $direction = 'asc')
  * @method static Builder|Game with(array|string  $relations)

@@ -117,6 +117,7 @@ class GenerateModels extends Command {
             $content .= " * @method static Builder|$class_name lockForUpdate()" . PHP_EOL;
             $content .= " * @method static Builder|$class_name where(string \$column, string \$operator = null, string \$value = null, string \$boolean = 'and')" . PHP_EOL;
             $content .= " * @method static Builder|$class_name whereIn(string \$column, \$values, \$boolean = 'and', \$not = false)" . PHP_EOL;
+            $content .= " * @method static Builder|$class_name whereNull(string|array \$columns, bool \$boolean = 'and')" . PHP_EOL;
             $content .= " * @method static Builder|$class_name whereNotNull(string|array \$columns, bool \$boolean = 'and')" . PHP_EOL;
             $content .= " * @method static Builder|$class_name orderBy(string \$column, string \$direction = 'asc')" . PHP_EOL;
             $content .= " * @method static Builder|$class_name with(array|string  \$relations)" . PHP_EOL;
