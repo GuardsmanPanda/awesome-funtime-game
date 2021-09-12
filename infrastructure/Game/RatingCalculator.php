@@ -5,6 +5,7 @@ namespace Infrastructure\Game;
 use Carbon\Carbon;
 use App\Models\Game;
 use Illuminate\Support\Facades\DB;
+use App\Models\RealmUserRatingHistory;
 
 class RatingCalculator {
     public static function calculate(int $realm_id): void {
@@ -41,21 +42,18 @@ class RatingCalculator {
         }
     }
 
-
     private static function updateRating(int $user_id, int $change, Game $game): void {
-        $tmp = [[
-            'rating' => $change + DB::selectOne("SELECT elo_rating FROM realm_user WHERE realm_id = ? AND user_id = ?", [$game->realm_id, $user_id])->elo_rating,
-            'change' => $change,
-            'timestamp' => $game->ended_at->toIso8601ZuluString(),
-            'game_id' => $game->id,
-        ]];
-        $changed = DB::update("
+        $changed = DB::selectOne("
             UPDATE realm_user 
-            SET elo_rating = elo_rating + ?, elo_rating_history = elo_rating_history || ?
+            SET elo_rating = elo_rating + ?
             WHERE user_id = ? AND realm_id = ?
-        ", [$change, json_encode($tmp, JSON_THROW_ON_ERROR), $user_id, $game->realm_id]);
-        if ($changed !== 1) {
-            dd($user_id, $game);
-        }
+            RETURNING elo_rating
+        ", [$change, $user_id, $game->realm_id]);
+        $history = new RealmUserRatingHistory();
+        $history->user_id = $user_id;
+        $history->game_id = $game->id;
+        $history->rating_change = $change;
+        $history->rating_after = $changed->elo_rating;
+        $history->save();
     }
 }

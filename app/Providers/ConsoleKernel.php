@@ -24,9 +24,7 @@ class ConsoleKernel extends Kernel {
      * @var array
      */
     protected $commands = [
-        DeployTranslations::class,
         GenerateModels::class,
-        GenerateTranslations::class,
         ImportPanoramas::class,
         LocationSearch::class,
         UpdateAchievements::class,
