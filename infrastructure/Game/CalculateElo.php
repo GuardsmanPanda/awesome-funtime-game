@@ -33,7 +33,7 @@ class CalculateElo {
 
     public function calculateELOs(): void {
         $n = count($this->players);
-        $K = 42.0 / ($n - 1);
+        $K = 60.0 / ($n - 1);
 
         foreach ($this->players as $i => $iValue) {
             $curPlace = $iValue->place;
