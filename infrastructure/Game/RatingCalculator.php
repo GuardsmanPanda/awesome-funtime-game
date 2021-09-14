@@ -20,7 +20,9 @@ class RatingCalculator {
                 SELECT gu.user_id, ru.elo_rating, RANK() OVER (ORDER BY gu.points_total DESC) as rank 
                 FROM game_user gu
                 LEFT JOIN realm_user ru ON ru.user_id = gu.user_id AND ru.realm_id = ?
-                WHERE gu.game_id = ?
+                LEFT JOIN round r ON r.game_id = gu.game_id AND r.round_number = 1
+                LEFT JOIN round_user rru ON rru.round_id = r.id AND rru.user_id = gu.user_id
+                WHERE gu.game_id = ? AND ru.user_id IS NOT NULL
                 ORDER BY gu.points_total DESC, random()
             ", [$realm_id, $game->id]);
 
@@ -32,7 +34,6 @@ class RatingCalculator {
                 foreach ($players as $player) {
                     self::updateRating($player->user_id, $elo_calc->getELOChange($player->user_id), $game);
                 }
-
                 $game->elo_calculated = true;
                 $game->save();
             }

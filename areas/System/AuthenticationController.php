@@ -56,7 +56,7 @@ class AuthenticationController extends Controller {
         }
         if ($user === null) {
             $user = new User();
-            $user->language_id = LanguageUtility::getAcceptedLanguage();
+            $user->language_id = 1;
             $user->achievement_refresh_needed = true;
         }
         $user->twitch_id = $twitch_user['id'];
@@ -83,7 +83,7 @@ class AuthenticationController extends Controller {
             $user = new User();
             $user->email = $content->email;
             $user->work_email = $content->email;
-            $user->language_id = LanguageUtility::getAcceptedLanguage();
+            $user->language_id = 1;
             $user->achievement_refresh_needed = true;
         }
         $user->display_name = $content->display_name;
