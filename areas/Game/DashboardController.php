@@ -8,11 +8,24 @@ use App\Models\Game;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DashboardController extends Controller {
     public function index(): view {
-        return view('game.dashboard.index');
+        return view('game.dashboard.index', [
+            'players' => DB::select("
+                SELECT 
+                    u.display_name, u.country_code,
+                    RANK() OVER (ORDER BY ru.elo_rating DESC),
+                    ru.elo_rating,
+                    m.file_name
+                FROM users u
+                LEFT JOIN realm_user ru on ru.user_id = u.id AND ru.realm_id = ?
+                LEFT JOIN marker m ON u.map_marker_id = m.id
+                LIMIT 10
+            ", [Auth::user()?->logged_into_realm_id ?? 1]),
+        ]);
     }
 
     public function create(Request $r): view {

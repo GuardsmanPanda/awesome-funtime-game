@@ -1,6 +1,6 @@
 <div class="flex gap-4 pt-12 px-4">
     <div class="flex-grow grid gap-4">
-        <x-content-raw title="{{t('Active games')}}" icon="users">
+        <x-content-raw title="Active games" icon="users">
             <x-slot name="header">
                 @if(\App\Tools\Auth::user()?->can_create_games)
                     <button onclick="dialog('/game/create/form', '{{t('Create game')}}')" class="outline-button-lightTeal">{{t('Create')}}</button>
@@ -8,10 +8,40 @@
             </x-slot>
             <div id="active-games"></div>
         </x-content-raw>
-        <x-content-raw title="{{t('Recent games')}}" icon="users">
+        <x-content-raw title="Recent Games" icon="users">
             <div id="recent-games"></div>
         </x-content-raw>
     </div>
+
+    <x-content-raw title="Ladder" icon="users" class="w-96">
+        <div class="h-full overflow-y-auto">
+            <div class="grid gap-2 py-1 px-2">
+                @foreach($players as $player)
+                    <div class="bg-gradient-to-r flex items-center px-2 py-2 rounded-md to-gray-800">
+                        @if($player->rank === 1)
+                            <div class="text-center font-medium text-blueGray-500 text-4xl w-10">&#x1f947</div>
+                        @elseif($player->rank === 2)
+                            <div class="text-center font-medium text-blueGray-500 text-4xl w-10">&#x1f948</div>
+                        @elseif($player->rank === 3)
+                            <div class="text-center font-medium text-blueGray-500 text-4xl w-10">&#x1f949</div>
+                        @else
+                            <div class="text-center font-medium text-blueGray-500 text-2xl w-10">{{$player->rank}}</div>
+                        @endif
+                        <img class="h-12 ml-2" src="/static/img/markers/{{$player->file_name}}" alt="Map Marker">
+                        <img class="w-12 shadow-md mx-1" src="/static/img/flags/iso-small/{{$player->country_code}}.png" alt="Country Flag">
+                        <div class="ml-2 flex-grow">
+                            <div class="font-bold text-lg truncate">
+                                {{$player->display_name}}
+                            </div>
+                            <div class="font-medium text-blueGray-400 flex items-center">
+                                <div class="text-teal-600 font-bold"> {{$player->elo_rating}} <span class="text-teal-500">Rating</span></div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </x-content-raw>
 
     <div class="w-80 grid gap-4">
         <div class="h-80 overflow-hidden ">
@@ -44,15 +74,15 @@
         ajaxURL: '/game/active',
         columns: [
             {title:"ID", field: "id", headerSort:false},
-            {title:"{{t('Created by')}}", field: "display_name", headerSort:false},
-            {title:"{{t('Rounds')}}", field: "round_count", headerSort:false},
-            {title:"{{t('Players')}}", field: "player_count", headerSort:false},
-            {title:"{{t('Round time')}}", field: "round_time", headerSort:false},
-            {title:"{{t('Started')}}", field: "current_round", headerSort:false, formatter: function (cell, formatterParams, onRendered ) {
+            {title:"Created by", field: "display_name", headerSort:false},
+            {title:"Rounds", field: "round_count", headerSort:false},
+            {title:"Players", field: "player_count", headerSort:false},
+            {title:"Round time", field: "round_time", headerSort:false},
+            {title:"Started", field: "current_round", headerSort:false, formatter: function (cell, formatterParams, onRendered ) {
                     return cell.getValue() === 0 ? '-' : 'Yes';
                 }
             },
-            {title:"{{t('Play')}}", field: "id", headerSort:false, formatter: function (cell, formatterParams, onRendered ) {
+            {title:"Play", field: "id", headerSort:false, formatter: function (cell, formatterParams, onRendered ) {
                     const elem = document.createElement('a');
                     elem.setAttribute('href', '/game/' + cell.getValue() + '/lobby');
                     elem.setAttribute('class', 'small-button-blue');
