@@ -21,8 +21,10 @@ class DashboardController extends Controller {
                     ru.elo_rating,
                     m.file_name
                 FROM users u
-                LEFT JOIN realm_user ru on ru.user_id = u.id AND ru.realm_id = ?
+                LEFT JOIN realm_user ru on ru.user_id = u.id
                 LEFT JOIN marker m ON u.map_marker_id = m.id
+                WHERE  ru.realm_id = ?
+                ORDER BY ru.elo_rating DESC 
                 LIMIT 10
             ", [Auth::user()?->logged_into_realm_id ?? 1]),
         ]);
