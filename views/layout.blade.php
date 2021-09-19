@@ -142,6 +142,7 @@
         <div class="pt-10 bg-gray-100 flex justify-center">
             <div class="bg-gray-800 flex gap-4 px-4 py-2 rounded-b-md shadow-lg" hx-boost="true" hx-target="#primary">
                 <a href="/achievement/accuracy" class="small-button-blue">Accuracy</a>
+                <a href="/achievement/ladder" class="small-button-blue">Ladder</a>
             </div>
         </div>
         <div id="primary" {!!$primary_hx!!} hx-trigger="load" class="px-4"></div>
