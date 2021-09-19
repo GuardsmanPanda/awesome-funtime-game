@@ -46,7 +46,7 @@ class RatingCalculator {
     private static function updateRating(int $user_id, int $change, Game $game): void {
         $changed = DB::selectOne("
             UPDATE realm_user 
-            SET elo_rating = elo_rating + ?
+            SET elo_rating = elo_rating + ?, games_played = games_played +1
             WHERE user_id = ? AND realm_id = ?
             RETURNING elo_rating
         ", [$change, $user_id, $game->realm_id]);
