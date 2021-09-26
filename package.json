@@ -21,7 +21,7 @@
     "postcss": "^8.3",
     "postcss-import": "^14.0.2",
     "tabulator-tables": "^4.9.3",
-    "tailwindcss": "2.2.15",
+    "tailwindcss": "2.2.16",
     "tippy.js": "^6.3.1",
     "vanilla-tilt": "^1.7.2"
   }
