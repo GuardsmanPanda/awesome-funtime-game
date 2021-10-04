@@ -38,7 +38,7 @@ class PanoramaPicker {
             WHERE gu.game_id = ? AND  u.country_pick_at > current_timestamp - Interval '7 day'
         ", [$this->game->id]);
         foreach ($tmp as $t) {
-            $this->user_country_chance += 3.5;
+            $this->user_country_chance += 3.3;
             $this->user_countries[] = $t->country_code_1 ?? 'XX';
             $this->user_countries[] = $t->country_code_2 ?? 'XX';
             $this->user_countries[] = $t->country_code_3 ?? 'XX';
@@ -94,7 +94,7 @@ class PanoramaPicker {
                 $country = $this->pickCountry($this->tier_two);
                 $pick_strategy = 'Tier 2';
             }
-            if ($country === null && random_int(0, 100) < 39) {
+            if ($country === null && random_int(0, 100) < 47) {
                 $country = $this->pickCountry($this->tier_filler);
                 $pick_strategy = 'Filler';
             }
@@ -103,7 +103,7 @@ class PanoramaPicker {
                 $pick_strategy = 'Random Contributor';
             }
 
-            if ($country === null && $user_id === null && random_int(0, 100) < 40) {
+            if ($country === null && $user_id === null && random_int(0, 100) < 30) {
                 $country = $this->pickCountry($this->all_countries);
                 $pick_strategy = 'Random Country';
             }
