@@ -42,16 +42,15 @@ return [
             'visibility' => 'public',
         ],
 
-        's3' => [
+        'wasabi-panoramas' => [
             'driver' => 's3',
-            'key' => env('AWS_ACCESS_KEY_ID'),
-            'secret' => env('AWS_SECRET_ACCESS_KEY'),
-            'region' => env('AWS_DEFAULT_REGION'),
-            'bucket' => env('AWS_BUCKET'),
-            'url' => env('AWS_URL'),
-            'endpoint' => env('AWS_ENDPOINT'),
+            'key' => config('settings.WAS_ACCESS_KEY_ID'),
+            'secret' => config('settings.WAS_SECRET_ACCESS_KEY'),
+            'region' => 'eu-central-1',
+            'bucket' => 'panoramas',
+            'url' => 's3.wasabisys.com',
+            'endpoint' => 'https://s3.wasabisys.com',
         ],
-
     ],
 
     /*
