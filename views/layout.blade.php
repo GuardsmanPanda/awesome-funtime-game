@@ -18,13 +18,11 @@
 
     <script>
         let targetTime = null;
-        let countdownSeconds = 0;
         let countdownInterval;
 
         function countdownStart(seconds) {
             clearInterval(countdownInterval);
             targetTime = new Date(new Date().getTime() + seconds*1000);
-            countdownSeconds = seconds;
             let ele = document.getElementById("countdown");
             ele.style.opacity = "100";
             writeCounter();
@@ -32,7 +30,6 @@
         }
 
         function countdownUpdate() {
-            countdownSeconds--;
             let value = Math.round((targetTime - new Date())/1000);
             writeCounter(value);
             if (value <= 0) {
