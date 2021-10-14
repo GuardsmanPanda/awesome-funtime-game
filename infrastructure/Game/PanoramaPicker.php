@@ -24,8 +24,8 @@ class PanoramaPicker {
     private array $all_countries;
     private array $eligible_users;
     private float $user_country_chance = 0;
-    private int $tier_one_chance = 20;
-    private int $tier_two_chance = 15;
+    private int $tier_one_chance = 15;
+    private int $tier_two_chance = 10;
 
     public function __construct(private Game $game) {
         $this->all_countries = Country::pluck('country_code')->toArray();
@@ -38,7 +38,7 @@ class PanoramaPicker {
             WHERE gu.game_id = ? AND  u.country_pick_at > current_timestamp - Interval '7 day'
         ", [$this->game->id]);
         foreach ($tmp as $t) {
-            $this->user_country_chance += 3.3;
+            $this->user_country_chance += 3.1;
             $this->user_countries[] = $t->country_code_1 ?? 'XX';
             $this->user_countries[] = $t->country_code_2 ?? 'XX';
             $this->user_countries[] = $t->country_code_3 ?? 'XX';
@@ -59,8 +59,8 @@ class PanoramaPicker {
             $tmp_delete[] = $tt->extended_country_code;
         }
         if ($this->game->realm_id === 2) {
-            $this->tier_one_chance = 30;
-            $this->tier_two_chance = 25;
+            $this->tier_one_chance = 25;
+            $this->tier_two_chance = 20;
         }
 
         $this->tier_filler = array_filter($this->tier_filler, static function ($ele) use ($tmp_delete) {return !in_array($ele, $tmp_delete, true);});
@@ -94,7 +94,7 @@ class PanoramaPicker {
                 $country = $this->pickCountry($this->tier_two);
                 $pick_strategy = 'Tier 2';
             }
-            if ($country === null && random_int(0, 100) < 47) {
+            if ($country === null && random_int(0, 100) < 54) {
                 $country = $this->pickCountry($this->tier_filler);
                 $pick_strategy = 'Filler';
             }
