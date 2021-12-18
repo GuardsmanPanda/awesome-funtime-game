@@ -66,7 +66,6 @@ class AchievementUtility {
         return $au;
     }
 
-
     public static function createAnnouncement(int $user_id, string $message, int $achievement_id): void {
         $an = new AchievementNotification();
         $an->achievement_id = $achievement_id;

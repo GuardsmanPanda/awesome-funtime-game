@@ -5,6 +5,7 @@
     <title>Awesome Funtime Game</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Super Awesome Funtime Game">
+    <meta name="author" content="Guardsman Bob">
 
     <link href="/static/fonts.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="/static/leaflet/leaflet.css" />
