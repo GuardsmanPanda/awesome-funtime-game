@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 class Reviewer {
-    public const REQUIREMENTS = [0, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096];
+    public const REQUIREMENTS = [0, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192];
     public const ACHIEVEMENT_ID = 3;
 
     public static function updateAchievementStatus(User $user): void {
