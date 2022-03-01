@@ -51,7 +51,7 @@ class AuthenticationController extends Controller {
         }
         $twitch_user = $resp->json()['data'][0];
         $user = User::firstWhere('twitch_id', '=', $twitch_user['id']);
-        if ($user === null) {
+        if ($user === null && isset($twitch_user['email'])) {
             $user = User::firstWhere('email', '=', $twitch_user['email']);
         }
         if ($user === null) {
@@ -61,7 +61,7 @@ class AuthenticationController extends Controller {
         }
         $user->twitch_id = $twitch_user['id'];
         $user->display_name = $twitch_user['display_name'];
-        $user->email = $twitch_user['email'];
+        $user->email = $twitch_user['email'] ?? null;
         $this->updateUserAndAddRealm($user, 1);
         return $this->logUserIn($user, $r->get('state') ?? '/game');
     }
