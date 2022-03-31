@@ -27,19 +27,18 @@ class PanoramaPicker {
     private int $tier_one_chance = 15;
     private int $tier_two_chance = 10;
     private array $sneaky = [
-      //  'CAoSLEFGMVFpcE1QbjQzVW04RHlMQmMxOHBhbmZqVFRNSWtDbkFrLW9HdGROSXZV',
-        'CAoSLEFGMVFpcE5IYldMdFhOWDVaanpweDU0MGkwWUNKaW02UndmZ0VhWmZ3T1Rj',
-        'CAoSLEFGMVFpcE5rSTVSU3czcUxPTFpfTEdzV0ZwckJ0Ym93MzNFMWp4NHFUYWZP',
-        'CAoSLEFGMVFpcE04LWQ3UFJDNlJQSVdiaGVkRERxYmM3dGZUN3l0aHI3VjJia0Js',
-        'CAoSLEFGMVFpcE5vMHdHcDBRNlFtMnk0dnMyRXVsTFRlUnlRcktYdjU1SlBVakRR',
-        'CAoSLEFGMVFpcE5xNk0tUHI3TlBJalZTWGdxRXRES0JOajRBR08zbnVCQ3FwSTJC',
-        'CAoSLEFGMVFpcE9CTjRCbmY3VXhBUjlpcUZ0bDBZWHh5Z19qQTczVl9DSUYwZTRF',
-        'CAoSLEFGMVFpcE5IdVZtY2Y5U013SE1UZjA0ajhSaUFZMUl4RzZXb240YmhQZWNn',
-        'CAoSLEFGMVFpcFBCekpIdlpQOVVsWlg5WUd2ekhtaXMyTzVEdmRtcU5uSDA5QTlv',
+        'CAoSLEFGMVFpcE93TF9QXzF6OW9uaVBvVUwzT0tDV0RhTlZ2anNqdWJhZ3dORzdk', // Germany
+        'CAoSLEFGMVFpcE9Ud2Z5MTRDODA4RHNMejh1N2RueS1ReTVnV1RxRUJXb2FPRGc3', // Falklands
+        'CAoSLEFGMVFpcFBacXRUemVfYUMtSnlsc0FNMFh1cTNYN3ZJb0s1c0k1NzUwUjFi', // Finland
+        'CAoSK0FGMVFpcFB0NWJHNmMwaDVSWjUtTW1pTU1aclBORlN6VHpYQUJvZkZJQTQ.', // KZ
+        'CAoSLEFGMVFpcE9RbnB0VkFpNjNVU3hyRW1YbnpqRDNwdkR0OVg3YlU3d1dEOGtv.', // ICELAND
+        'CAoSK0FGMVFpcE9tM2M1LV9BWXM5UTZJSlEwaWc5SUVnb3hTVmtyQjVra2RJek0.', // MACAU
+        'CAoSLEFGMVFpcE1pX2lvUnI5eWdYTmZzRjlmYlVRcTZscnh6Y2cteE1lcl84U25p', // UKRAINE
+        'CAoSLEFGMVFpcE1QbjQzVW04RHlMQmMxOHBhbmZqVFRNSWtDbkFrLW9HdGROSXZV', // UK
     ];
 
     public function __construct(private Game $game) {
-        if ($this->game->id !== 754) {
+        if ($this->game->id !== 758) {
             $this->sneaky = [];
         }
         $this->all_countries = Country::pluck('country_code')->toArray();

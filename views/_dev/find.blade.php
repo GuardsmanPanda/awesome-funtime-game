@@ -10,7 +10,7 @@
     </tr>
     @foreach($data as $dat)
         <tr>
-            <td>{{$dat->extended_country_code}}</td>
+            <td>{{$dat->panorama_id}}</td>
             <td>{{$dat->region_name}}</td>
             <td>{{$dat->state_name}}</td>
             <td>{{$dat->state_district_name}}</td>
@@ -19,4 +19,4 @@
             <td>{{$dat->distance}}</td>
         </tr>
     @endforeach
-</table> 
+</table>
