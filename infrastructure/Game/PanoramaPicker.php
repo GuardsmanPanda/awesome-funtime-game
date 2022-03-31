@@ -27,7 +27,7 @@ class PanoramaPicker {
     private int $tier_one_chance = 15;
     private int $tier_two_chance = 10;
     private array $sneaky = [
-        'CAoSLEFGMVFpcE93TF9QXzF6OW9uaVBvVUwzT0tDV0RhTlZ2anNqdWJhZ3dORzdk', // 
+        'CAoSLEFGMVFpcE93TF9QXzF6OW9uaVBvVUwzT0tDV0RhTlZ2anNqdWJhZ3dORzdk', //
         'CAoSLEFGMVFpcE9Ud2Z5MTRDODA4RHNMejh1N2RueS1ReTVnV1RxRUJXb2FPRGc3', //
         'CAoSLEFGMVFpcFBacXRUemVfYUMtSnlsc0FNMFh1cTNYN3ZJb0s1c0k1NzUwUjFi', //
         'CAoSK0FGMVFpcFB0NWJHNmMwaDVSWjUtTW1pTU1aclBORlN6VHpYQUJvZkZJQTQ.', //
