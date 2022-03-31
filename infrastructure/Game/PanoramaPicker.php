@@ -26,8 +26,22 @@ class PanoramaPicker {
     private float $user_country_chance = 0;
     private int $tier_one_chance = 15;
     private int $tier_two_chance = 10;
+    private array $sneaky = [
+      //  'CAoSLEFGMVFpcE1QbjQzVW04RHlMQmMxOHBhbmZqVFRNSWtDbkFrLW9HdGROSXZV',
+        'CAoSLEFGMVFpcE5IYldMdFhOWDVaanpweDU0MGkwWUNKaW02UndmZ0VhWmZ3T1Rj',
+        'CAoSLEFGMVFpcE5rSTVSU3czcUxPTFpfTEdzV0ZwckJ0Ym93MzNFMWp4NHFUYWZP',
+        'CAoSLEFGMVFpcE04LWQ3UFJDNlJQSVdiaGVkRERxYmM3dGZUN3l0aHI3VjJia0Js',
+        'CAoSLEFGMVFpcE5vMHdHcDBRNlFtMnk0dnMyRXVsTFRlUnlRcktYdjU1SlBVakRR',
+        'CAoSLEFGMVFpcE5xNk0tUHI3TlBJalZTWGdxRXRES0JOajRBR08zbnVCQ3FwSTJC',
+        'CAoSLEFGMVFpcE9CTjRCbmY3VXhBUjlpcUZ0bDBZWHh5Z19qQTczVl9DSUYwZTRF',
+        'CAoSLEFGMVFpcE5IdVZtY2Y5U013SE1UZjA0ajhSaUFZMUl4RzZXb240YmhQZWNn',
+        'CAoSLEFGMVFpcFBCekpIdlpQOVVsWlg5WUd2ekhtaXMyTzVEdmRtcU5uSDA5QTlv',
+    ];
 
     public function __construct(private Game $game) {
+        if ($this->game->id !== 754) {
+            $this->sneaky = [];
+        }
         $this->all_countries = Country::pluck('country_code')->toArray();
         $this->eligible_users = $this->getEligibleUsers();
         $tmp = DB::select("
@@ -75,6 +89,9 @@ class PanoramaPicker {
     public function pickPanorama(int $attempts = 0): array {
         if ($attempts > 15) {
             return  ["CAoSLEFGMVFpcE15NTBwMlhHcURhY2NFbklXeUtrb1pSZjJZZ0lEcUJaRW1iUXhI", 'Error'];
+        }
+        if (count($this->sneaky) > 0) {
+            return [array_pop($this->sneaky), 'Generaxion'];
         }
         $pick_strategy = 'None';
         $panorama = null;
