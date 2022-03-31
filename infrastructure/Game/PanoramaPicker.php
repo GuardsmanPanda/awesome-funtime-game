@@ -27,14 +27,14 @@ class PanoramaPicker {
     private int $tier_one_chance = 15;
     private int $tier_two_chance = 10;
     private array $sneaky = [
-        'CAoSLEFGMVFpcE93TF9QXzF6OW9uaVBvVUwzT0tDV0RhTlZ2anNqdWJhZ3dORzdk', // Germany
-        'CAoSLEFGMVFpcE9Ud2Z5MTRDODA4RHNMejh1N2RueS1ReTVnV1RxRUJXb2FPRGc3', // Falklands
-        'CAoSLEFGMVFpcFBacXRUemVfYUMtSnlsc0FNMFh1cTNYN3ZJb0s1c0k1NzUwUjFi', // Finland
-        'CAoSK0FGMVFpcFB0NWJHNmMwaDVSWjUtTW1pTU1aclBORlN6VHpYQUJvZkZJQTQ.', // KZ
-        'CAoSLEFGMVFpcE9RbnB0VkFpNjNVU3hyRW1YbnpqRDNwdkR0OVg3YlU3d1dEOGtv.', // ICELAND
-        'CAoSK0FGMVFpcE9tM2M1LV9BWXM5UTZJSlEwaWc5SUVnb3hTVmtyQjVra2RJek0.', // MACAU
-        'CAoSLEFGMVFpcE1pX2lvUnI5eWdYTmZzRjlmYlVRcTZscnh6Y2cteE1lcl84U25p', // UKRAINE
-        'CAoSLEFGMVFpcE1QbjQzVW04RHlMQmMxOHBhbmZqVFRNSWtDbkFrLW9HdGROSXZV', // UK
+        'CAoSLEFGMVFpcE93TF9QXzF6OW9uaVBvVUwzT0tDV0RhTlZ2anNqdWJhZ3dORzdk', // 
+        'CAoSLEFGMVFpcE9Ud2Z5MTRDODA4RHNMejh1N2RueS1ReTVnV1RxRUJXb2FPRGc3', //
+        'CAoSLEFGMVFpcFBacXRUemVfYUMtSnlsc0FNMFh1cTNYN3ZJb0s1c0k1NzUwUjFi', //
+        'CAoSK0FGMVFpcFB0NWJHNmMwaDVSWjUtTW1pTU1aclBORlN6VHpYQUJvZkZJQTQ.', //
+        'CAoSLEFGMVFpcE9RbnB0VkFpNjNVU3hyRW1YbnpqRDNwdkR0OVg3YlU3d1dEOGtv.', //
+        'CAoSK0FGMVFpcE9tM2M1LV9BWXM5UTZJSlEwaWc5SUVnb3hTVmtyQjVra2RJek0.', //
+        'CAoSLEFGMVFpcE1pX2lvUnI5eWdYTmZzRjlmYlVRcTZscnh6Y2cteE1lcl84U25p', //
+        'CAoSLEFGMVFpcE1QbjQzVW04RHlMQmMxOHBhbmZqVFRNSWtDbkFrLW9HdGROSXZV', //
     ];
 
     public function __construct(private Game $game) {
